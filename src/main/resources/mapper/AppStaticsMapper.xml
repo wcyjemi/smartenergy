@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xin.cymall.dao.AppStaticsDao">
+	<select id="appDayUpdCount" resultType="xin.cymall.common.utils.EnumBean">
+		select to_char(au.create_time, 'yyyy-MM-dd') as code, count(0) as value
+			from app_updrecord au
+		where au.app_id = #{appId}
+		and to_char(au.create_time, 'yyyy-MM-dd') &gt;= #{st}
+		and to_char(au.create_time, 'yyyy-MM-dd') &lt;= #{et}
+		group by to_char(au.create_time, 'yyyy-MM-dd')
+	</select>
+
+	<select id="appZbPie" resultType="xin.cymall.common.utils.EnumBean">
+		select app.app_name as code,
+		case
+		 when a.value is null then
+		  0
+		 else
+		  a.value
+		end as value
+		from app_baseinfo app
+		left join (select apd.app_id, count(0) as value
+			   from app_updrecord apd
+			  group by apd.app_id) a on app.id = a.app_id
+		where app.is_delete = 0
+	</select>
+</mapper>

@@ -1,0 +1,48 @@
+Manifest-Version: 1.0
+Class-Path: log4j-over-slf4j-1.7.25.jar spring-context-support-4.3.13.
+ RELEASE.jar spring-webmvc-4.3.13.RELEASE.jar aopalliance-1.0.jar spri
+ ng-tx-4.3.13.RELEASE.jar shiro-guice-1.2.4.jar mapstruct-1.0.0.CR1.ja
+ r mysql-connector-java-5.1.21.jar spring-jdbc-4.3.13.RELEASE.jar shir
+ o-all-1.2.4.jar tomcat-juli-8.5.23.jar classmate-1.3.4.jar commons-io
+ -2.5.jar validation-api-1.1.0.Final.jar spring-expression-4.3.13.RELE
+ ASE.jar aliyun-sdk-oss-2.5.0.jar spring-boot-autoconfigure-1.5.9.RELE
+ ASE.jar ehcache-2.10.4.jar springfox-schema-2.2.2.jar commons-digeste
+ r-2.1.jar javax.mail-1.5.6.jar pinyin4j-2.5.0.jar logback-classic-1.1
+ .11.jar logkit-1.0.1.jar slf4j-api-1.7.25.jar spring-messaging-4.3.13
+ .RELEASE.jar spring-boot-starter-freemarker-1.4.1.RELEASE.jar commons
+ -beanutils-1.9.3.jar druid-1.1.6.jar jul-to-slf4j-1.7.25.jar freemark
+ er-2.3.27-incubating.jar httpcore-4.4.8.jar java-image-scaling-0.8.6.
+ jar aspectjrt-1.8.13.jar fastjson-1.2.41.jar springfox-core-2.2.2.jar
+  velocity-1.7.jar shiro-spring-1.3.2.jar spring-integration-core-4.3.
+ 12.RELEASE.jar spring-boot-starter-web-1.5.9.RELEASE.jar commons-logg
+ ing-1.1.jar mybatis-spring-1.3.0.jar spring-boot-starter-jdbc-1.5.9.R
+ ELEASE.jar aspectjweaver-1.8.13.jar jdom-1.1.jar core-3.3.3.jar servl
+ et-api-2.3.jar spring-hateoas-0.23.0.RELEASE.jar spring-boot-1.5.9.RE
+ LEASE.jar kaptcha-2.3.2.jar springfox-swagger2-2.2.2.jar tomcat-jdbc-
+ 8.5.23.jar jackson-annotations-2.8.0.jar spring-plugin-core-1.2.0.REL
+ EASE.jar swagger-models-1.5.3.jar guice-3.0.jar filters-2.0.235-1.jar
+  commons-lang-2.6.jar json-lib-2.4-jdk15.jar mybatis-spring-boot-star
+ ter-1.1.1.jar ojdbc14-10.2.0.5.0.jar spring-beans-4.3.13.RELEASE.jar 
+ guava-18.0.jar spring-boot-starter-aop-1.5.9.RELEASE.jar springfox-sp
+ ring-web-2.2.2.jar jxl-2.6.12.jar mybatis-spring-boot-autoconfigure-1
+ .1.1.jar snakeyaml-1.17.jar shiro-core-1.3.2.jar httpclient-4.5.3.jar
+  spring-boot-starter-cache-1.5.9.RELEASE.jar tomcat-embed-core-8.5.23
+ .jar jcl-over-slf4j-1.7.25.jar logback-core-1.1.11.jar springfox-swag
+ ger-ui-2.2.2.jar quartz-2.2.1.jar log4j-1.2.17.jar spring-plugin-meta
+ data-1.2.0.RELEASE.jar tomcat-annotations-api-8.5.23.jar springfox-sw
+ agger-common-2.2.2.jar springfox-spi-2.2.2.jar spring-core-4.3.13.REL
+ EASE.jar ezmorph-1.0.6.jar shiro-freemarker-tags-0.1.jar spring-boot-
+ starter-logging-1.5.9.RELEASE.jar javase-3.1.0.jar jackson-databind-2
+ .8.10.jar javax.inject-1.jar guice-multibindings-3.0.jar commons-code
+ c-1.10.jar jsoup-1.9.2.jar swagger-annotations-1.5.3.jar activation-1
+ .1.jar mybatis-3.4.0.jar jboss-logging-3.3.1.Final.jar spring-boot-st
+ arter-1.5.9.RELEASE.jar javax.servlet-api-3.1.0.jar jackson-core-2.8.
+ 10.jar shiro-web-1.3.2.jar commons-collections-3.2.2.jar spring-conte
+ xt-4.3.13.RELEASE.jar avalon-framework-4.1.3.jar commons-beanutils-co
+ re-1.7.0.jar hibernate-validator-5.3.6.Final.jar spring-aop-4.3.13.RE
+ LEASE.jar c3p0-0.9.1.1.jar spring-retry-1.2.1.RELEASE.jar tomcat-embe
+ d-el-8.5.23.jar spring-integration-mail-4.3.12.RELEASE.jar spring-boo
+ t-starter-tomcat-1.5.9.RELEASE.jar commons-configuration-1.5.jar tomc
+ at-embed-websocket-8.5.23.jar spring-web-4.3.13.RELEASE.jar
+Main-Class: xin.cymall.CyFastApplication
+
