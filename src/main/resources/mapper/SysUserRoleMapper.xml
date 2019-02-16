@@ -12,21 +12,19 @@
 		</where>
 	</select>
  
-	<insert id="save" keyProperty="id" useGeneratedKeys="false">
+	<insert id="save">
 		insert into sys_user_role
 		(
-			id,
-			user_id, 
-			role_id
+			`user_id`, 
+			`role_id`
 		)
-		select seq_sys_user_role.NEXTVAL,A.* from(
-		<foreach collection="roleIdList" item="item" index="index" separator="union all">
-			select
-			#{userId},
+		values
+		<foreach collection="roleIdList" item="item" index="index" separator="," >
+		(
+			#{userId}, 
 			#{item}
-			from dual
+		)
 		</foreach>
-		) A
 	</insert>
 	
 	<delete id="delete">

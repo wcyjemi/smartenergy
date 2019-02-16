@@ -20,66 +20,52 @@
 		select * from sys_config where code = #{value}
 	</select>
 
-	<select id="queryByKey" resultType="java.lang.String">
-		select VALUE from SYS_CONFIG where code = #{paramKey}
-	</select>
-
 	<select id="queryList" resultType="xin.cymall.entity.SysConfig">
-		select scc.* from (
-			select ts.*,rownum as rn from (
-			select sc.* from sys_config sc where  1=1
-			<if test="code != null and code.trim() != ''">
-				and sc.code like concat(concat('%',#{code}),'%')
-			</if>
-			<choose>
-				<when test="sidx != null and sidx.trim() != ''">
-					order by ${sidx} ${order}
-				</when>
-				<otherwise>
-					order by sc.id desc
-				</otherwise>
-			</choose>
-		) ts ) scc
-		<where>
-			<if test="offset != null and limit != null">
-				and scc.rn between #{offset} and #{offend}
-			</if>
-		</where>
+		select * from sys_config where  1=1
+		<if test="code != null and code.trim() != ''">
+			and `code` like concat('%',#{code},'%')
+		</if>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by id desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 	</select>
 
 	<select id="queryTotal" resultType="int">
 		select count(*) from sys_config
 	</select>
 
-	<insert id="save" parameterType="xin.cymall.entity.SysConfig" keyProperty="id">
-		<selectKey resultType="long" order="BEFORE" keyProperty="id">  
-            SELECT seq_sys_config.NEXTVAL as id from DUAL
-        </selectKey>
+	<insert id="save" parameterType="xin.cymall.entity.SysConfig" useGeneratedKeys="true" keyProperty="id">
 		insert into sys_config
 		(
-			id,
-			code,
-			value,
-			status,
-			remark
+		`code`,
+		`value`,
+		`status`,
+		`remark`
 		)
 		values
 		(
-			#{id},
-			#{code},
-			#{value},
-			#{status},
-			#{remark}
+		#{code},
+		#{value},
+		#{status},
+		#{remark}
 		)
 	</insert>
 
 	<update id="update" parameterType="xin.cymall.entity.SysConfig">
 		update sys_config
 		<set>
-			<if test="code != null">code = #{code}, </if>
-			<if test="value != null">value = #{value}, </if>
-			<if test="status != null">status = #{status}, </if>
-			<if test="remark != null">remark = #{remark}</if>
+			<if test="code != null">`code` = #{code}, </if>
+			<if test="value != null">`value` = #{value}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="remark != null">`remark` = #{remark}</if>
 		</set>
 		where id = #{id}
 	</update>

@@ -32,8 +32,7 @@
 	</select>
 
 	<select id="getList" resultType="xin.cymall.entity.File">
-		select tt.* from (
-		select t.*,rownum as rn from sys_file t <include refid="where_clause" />
+		select * from sys_file t <include refid="where_clause" />
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -42,9 +41,8 @@
                 order by id desc
 			</otherwise>
         </choose>
-        ) tt
 		<if test="offset != null and limit != null">
-		where tt.rn between #{offset} and #{offend}
+			limit #{offset}, #{limit}
 		</if>
 	</select>
 	
@@ -73,23 +71,18 @@
         </where>
     </sql>
 	 
-	<insert id="save" parameterType="xin.cymall.entity.File" keyProperty="id">
-		<selectKey resultType="String" order="BEFORE" keyProperty="id">  
-            SELECT seq_sys_file.NEXTVAL as id from DUAL
-        </selectKey>
+	<insert id="save" parameterType="xin.cymall.entity.File" useGeneratedKeys="true" keyProperty="id">
 		insert into sys_file
-		(	
-			id,
-			upload_id, 
-			url, 
-			file_name, 
-			create_time, 
-			file_type, 
-			file_size
+		(
+			`upload_id`, 
+			`url`, 
+			`file_name`, 
+			`create_time`, 
+			`file_type`, 
+			`file_size`
 		)
 		values
 		(
-			#{id},
 			#{uploadId}, 
 			#{url}, 
 			#{fileName}, 
@@ -102,12 +95,12 @@
 	<update id="update" parameterType="xin.cymall.entity.File">
 		update sys_file 
 		<set>
-			<if test="uploadId != null">upload_id = #{uploadId}, </if>
-			<if test="url != null">url = #{url}, </if>
-			<if test="fileName != null">file_name = #{fileName}, </if>
-			<if test="createTime != null">create_time = #{createTime}, </if>
-			<if test="fileType != null">file_type = #{fileType}, </if>
-			<if test="fileSize != null">file_size = #{fileSize}</if>
+			<if test="uploadId != null">`upload_id` = #{uploadId}, </if>
+			<if test="url != null">`url` = #{url}, </if>
+			<if test="fileName != null">`file_name` = #{fileName}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="fileType != null">`file_type` = #{fileType}, </if>
+			<if test="fileSize != null">`file_size` = #{fileSize}</if>
 		</set>
 		where id = #{id}
 	</update>

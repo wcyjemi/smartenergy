@@ -30,12 +30,10 @@
 	</select>
 
 	<select id="queryList" resultType="xin.cymall.entity.Organize">
-		select tt.* from(
-			select ts.*, rownum as rn from (
-			select t.*,
-			(select b.org_name from t_organize b where b.org_id=t.parent_org_id) as  parent_org_name,
-			(select b.org_code from t_organize b where b.org_id=t.parent_org_id) as  parent_org_code
-			from t_organize t <include refid="where_clause" />
+		select *,
+		(select b.org_name from t_organize b where b.org_id=t.parent_org_id) as  parent_org_name,
+		(select b.org_code from t_organize b where b.org_id=t.parent_org_id) as  parent_org_code
+		from t_organize t <include refid="where_clause" />
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -44,12 +42,9 @@
                 order by org_id desc
 			</otherwise>
         </choose>
-        ) ts ) tt
-        <where>
-			<if test="offset != null and limit != null">
-				and	tt.rn between #{offset} and #{offend}
-			</if>
-        </where>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 	</select>
 	
  	<select id="queryTotal" resultType="int">
@@ -62,7 +57,7 @@
             1=1
             <if test="orgId != null and orgId.trim() != ''"> and t.org_id = #{orgId} </if>
             <if test="orgCode != null and orgCode.trim() != ''"> and t.org_code = #{orgCode} </if>
-            <if test="orgName != null and orgName.trim() != ''"> and t.org_name like concat(concat('%',#{orgName}),'%') </if>
+            <if test="orgName != null and orgName.trim() != ''"> and t.org_name = #{orgName} </if>
             <if test="parentOrgId != null and parentOrgId.trim() != ''"> and t.parent_org_id = #{parentOrgId} </if>
             <if test="sortNo != null and sortNo.trim() != ''"> and t.sort_no = #{sortNo} </if>
             <if test="state != null and state.trim() != ''"> and t.state = #{state} </if>
@@ -76,11 +71,11 @@
 	<insert id="save" parameterType="xin.cymall.entity.Organize">
 		insert into t_organize
 		(
-			org_id, 
-			org_code, 
-			org_name, 
-			parent_org_id,
-			in_date
+			`org_id`, 
+			`org_code`, 
+			`org_name`, 
+			`parent_org_id`,
+			`in_date`
 		)
 		values
 		(
@@ -95,11 +90,11 @@
 	<update id="update" parameterType="xin.cymall.entity.Organize">
 		update t_organize 
 		<set>
-			<if test="orgCode != null">org_code = #{orgCode}, </if>
-			<if test="orgName != null">org_name = #{orgName}, </if>
-			<if test="parentOrgId != null">parent_org_id = #{parentOrgId}, </if>
+			<if test="orgCode != null">`org_code` = #{orgCode}, </if>
+			<if test="orgName != null">`org_name` = #{orgName}, </if>
+			<if test="parentOrgId != null">`parent_org_id` = #{parentOrgId}, </if>
 
-			<if test="inDate != null">in_date = #{inDate}</if>
+			<if test="inDate != null">`in_date` = #{inDate}</if>
 		</set>
 		where org_id = #{orgId}
 	</update>
@@ -115,7 +110,7 @@
 		</foreach>
 	</delete>
 	<select id="getList" resultType="xin.cymall.entity.Organize">
-		select t.*,
+		select *,
 		(select b.org_name from t_organize b where b.org_id=t.parent_org_id) as  parent_org_name
 		from t_organize t
 

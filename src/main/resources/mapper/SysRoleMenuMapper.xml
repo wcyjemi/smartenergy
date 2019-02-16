@@ -3,21 +3,19 @@
 
 <mapper namespace="xin.cymall.dao.SysRoleMenuDao">
 
-	<insert id="save" keyProperty="id" useGeneratedKeys="false">
+	<insert id="save">
 		insert into sys_role_menu
 		(
-			id,
-			role_id, 
-			menu_id
+			`role_id`, 
+			`menu_id`
 		)
-		select seq_sys_role_menu.NEXTVAL,A.* from(
-		<foreach collection="menuIdList" item="item" index="index" separator="UNION ALL" >
-			SELECT
+		values
+		<foreach collection="menuIdList" item="item" index="index" separator="," >
+		(
 			#{roleId}, 
-			#{item}
-			FROM dual 
+			#{item} 
+		)
 		</foreach>
-		) A
 	</insert>
 	
 	<delete id="delete">

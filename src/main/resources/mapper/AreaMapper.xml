@@ -34,7 +34,7 @@
 		from t_area t
 		where 1=1
 		<if test="parentAreaId != null and parentAreaId.trim() != ''">
-			and t.parent_area_id like concat(concat('%',#{parentAreaId}),'%')
+			and t.parent_area_id like concat('%',#{parentAreaId},'%')
 		</if>
 		<if test="state != null and state.trim() != ''">
 			and t.state =#{state}
@@ -42,42 +42,38 @@
 	</select>
 
 	<select id="queryList" resultType="xin.cymall.entity.Area">
-		select tt.* from (
-		select ts.*,rownum as rn from(
 		select t.*,(select area_name from t_area  where area_id=t.parent_area_id) as parent_area_name
 		from t_area t
 		where 1=1
 		<if test="areaName != null and areaName.trim() != ''">
-			and t.area_name like concat(concat('%',#{areaName}),'%')
+			and t.area_name like concat('%',#{areaName},'%')
 		</if>
 		<if test="xzCode != null and xzCode.trim() != ''">
-			and t.xz_code like concat(concat('%',#{xzCode}),'%')
+			and t.xz_code like concat('%',#{xzCode},'%')
 		</if>
 		<if test="areaLevel != null and areaLevel.trim() != ''">
-			and t.area_level like concat(concat('%',#{areaLevel}),'%')
+			and t.area_level like concat('%',#{areaLevel},'%')
 		</if>
 		<if test="state != null and state.trim() != ''">
 			and t.state =#{state}
 		</if>
 		order by t.area_level asc, t.xz_code asc
-		) ts ) tt
-		<where>
-			<if test="offset != null and limit != null">
-				and tt.rn between #{offset} and #{offend}
-			</if>
-		</where>
+
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 	</select>
 
 	<select id="queryTotal" resultType="int">
 		select count(*) from t_area t WHERE 1=1
 		<if test="areaName != null and areaName.trim() != ''">
-			and t.area_name like concat(concat('%',#{areaName}),'%')
+			and t.area_name like concat('%',#{areaName},'%')
 		</if>
 		<if test="xzCode != null and xzCode.trim() != ''">
-			and t.xz_code like concat(concat('%',#{xzCode}),'%')
+			and t.xz_code like concat('%',#{xzCode},'%')
 		</if>
 		<if test="areaLevel != null and areaLevel.trim() != ''">
-			and t.area_level like concat(concat('%',#{areaLevel}),'%')
+			and t.area_level like concat('%',#{areaLevel},'%')
 		</if>
 		<if test="state != null and state.trim() != ''">
 			and t.state =#{state}
@@ -98,19 +94,19 @@
 	<insert id="save" parameterType="xin.cymall.entity.Area">
 		insert into t_area
 		(
-		area_id,
-		area_name,
-		en_name,
-		word_index,
-		parent_area_id,
-		sort_no,
-		area_level,
-		is_city,
-		region,
-		level_area,
-		state,
-		post_code,
-		xz_code
+		`area_id`,
+		`area_name`,
+		`en_name`,
+		`word_index`,
+		`parent_area_id`,
+		`sort_no`,
+		`area_level`,
+		`is_city`,
+		`region`,
+		`level_area`,
+		`state`,
+		`post_code`,
+		`xz_code`
 		)
 		values
 		(
@@ -122,29 +118,29 @@
 		#{sortNo},
 		#{areaLevel},
 		#{isCity},
-		#{region,jdbcType=VARCHAR},
+		#{region},
 		#{levelArea},
 		#{state},
-		#{postCode,jdbcType=VARCHAR},
-		#{xzCode,jdbcType=VARCHAR}
+		#{postCode},
+		#{xzCode}
 		)
 	</insert>
 
 	<update id="update" parameterType="xin.cymall.entity.Area">
 		update t_area
 		<set>
-			<if test="areaName != null">area_name = #{areaName}, </if>
-			<if test="enName != null">en_name = #{enName}, </if>
-			<if test="wordIndex != null">word_index = #{wordIndex}, </if>
-			<if test="parentAreaId != null">parent_area_id = #{parentAreaId}, </if>
-			<if test="sortNo != null">sort_no = #{sortNo}, </if>
-			<if test="areaLevel != null">area_level = #{areaLevel}, </if>
-			<if test="isCity != null">is_city = #{isCity}, </if>
-			<if test="region != null">region = #{region}, </if>
-			<if test="levelArea != null">level_area = #{levelArea}, </if>
-			<if test="state != null">state = #{state}, </if>
-			<if test="postCode != null">post_code = #{postCode}, </if>
-			<if test="xzCode != null">xz_code = #{xzCode}</if>
+			<if test="areaName != null">`area_name` = #{areaName}, </if>
+			<if test="enName != null">`en_name` = #{enName}, </if>
+			<if test="wordIndex != null">`word_index` = #{wordIndex}, </if>
+			<if test="parentAreaId != null">`parent_area_id` = #{parentAreaId}, </if>
+			<if test="sortNo != null">`sort_no` = #{sortNo}, </if>
+			<if test="areaLevel != null">`area_level` = #{areaLevel}, </if>
+			<if test="isCity != null">`is_city` = #{isCity}, </if>
+			<if test="region != null">`region` = #{region}, </if>
+			<if test="levelArea != null">`level_area` = #{levelArea}, </if>
+			<if test="state != null">`state` = #{state}, </if>
+			<if test="postCode != null">`post_code` = #{postCode}, </if>
+			<if test="xzCode != null">`xz_code` = #{xzCode}</if>
 		</set>
 		where area_id = #{areaId}
 	</update>

@@ -8,18 +8,16 @@
 	</select>
 	
 	<select id="queryList" resultType="xin.cymall.entity.SysRole">
-		select srr.* from (
-		select ts.*,rownum as rn from (
-		select sr.* from sys_role sr
+		select * from sys_role 
 		<where>
 			<if test="roleName != null and roleName.trim() != ''">
-				and sr.role_name like concat(concat('%',#{roleName}),'%') 
+				and `role_name` like concat('%',#{roleName},'%') 
 			</if>
 			<if test="createUserId != null">
-				and sr.create_user_id = #{createUserId} 
+				and create_user_id = #{createUserId} 
 			</if>
 			<if test="remark != null">
-				and sr.remark = #{remark}
+				and remark = #{remark}
 			</if>
 		</where>
 		<choose>
@@ -27,15 +25,12 @@
 				order by ${sidx} ${order}
 			</when>
 			<otherwise>
-				order by sr.role_id asc
+				order by role_id asc
 			</otherwise>
 		</choose>
-		) ts ) srr
-		<where>
-			<if test="offset != null and limit != null">
-			 and srr.rn between #{offset} and #{limit}
-			</if>
-		</where>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 	</select>
 	<select id="findAll"   resultType="xin.cymall.entity.SysRole">
 		select * from sys_role
@@ -52,7 +47,7 @@
 		<where>
 
 			<if test="roleName != null and roleName.trim() != ''">
-				and role_name like concat(concat('%',#{roleName}),'%') 
+				and `role_name` like concat('%',#{roleName},'%') 
 			</if>
 			<if test="createUserId != null">
 				and create_user_id = #{createUserId} 
@@ -63,36 +58,34 @@
 		</where>
 	</select>
 	
-	<insert id="save" parameterType="xin.cymall.entity.SysRole" keyProperty="roleId">
-		<selectKey resultType="Long" order="BEFORE" keyProperty="roleId">  
-            SELECT seq_sys_role.NEXTVAL as roleId from DUAL
-        </selectKey>
+	<insert id="save" parameterType="xin.cymall.entity.SysRole" useGeneratedKeys="true" keyProperty="roleId">
 		insert into sys_role
 		(
-			role_id, 
-			role_name, 
-			remark,
-			create_user_id,
-			create_time,
-			org_id
+			`role_id`, 
+			`role_name`, 
+			`remark`,
+			`create_user_id`,
+			`create_time`,
+			`org_id`
+
 		)
 		values
 		(
-			#{roleId,jdbcType=INTEGER}, 
-			#{roleName,jdbcType=VARCHAR}, 
-			#{remark,jdbcType=VARCHAR},
-			#{createUserId,jdbcType=VARCHAR},
-			#{createTime,jdbcType=DATE},
-			#{orgId,jdbcType=CHAR}
+			#{roleId}, 
+			#{roleName}, 
+			#{remark},
+			#{createUserId},
+			#{createTime},
+			#{orgId}
 		)
 	</insert>
 	 
 	<update id="update" parameterType="xin.cymall.entity.SysRole">
 		update sys_role 
 		<set> 
-			<if test="roleName != null">role_name = #{roleName}, </if>
-			<if test="remark != null">remark = #{remark},</if>
-			<if test="orgId != null">org_id = #{orgId}</if>
+			<if test="roleName != null">`role_name` = #{roleName}, </if>
+			<if test="remark != null">`remark` = #{remark},</if>
+			<if test="orgId != null">`org_id` = #{orgId}</if>
 		</set>
 		where role_id = #{roleId}
 	</update>

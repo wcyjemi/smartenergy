@@ -8,58 +8,45 @@
 	</select>
 
 	<select id="queryList" resultType="xin.cymall.entity.SysLog">
-		select ss.* from (
-			select ts.*,rownum as rn from (
-			select s.* from sys_log s
-			where 1=1
-				<if test="username != null and username.trim() != ''">
-					and s.username like concat(concat('%',#{username}),'%')
-				</if>
-				<if test="startDate != null and startDate.trim() != ''">
-					and s.create_date &gt;= TO_DATE(#{startDate}, 'YYYY-MM-DD')
-				</if>
-				<if test="endDate != null and endDate.trim() != ''">
-					and s.create_date &lt;= TO_DATE(#{endDate}, 'YYYY-MM-DD')
-				</if>
-			order by s.id desc 
-		) ts ) ss
-		<where>
-			<if test="offset != null and limit != null">
-				and ss.rn between #{offset} and #{offend}
+		select * from sys_log
+		where 1=1
+
+			<if test="startDate != null and startDate.trim() != ''">
+				and DATE_FORMAT(create_date,'%Y-%m-%d') &gt;= DATE_FORMAT(#{startDate},'%Y-%m-%d')
 			</if>
-		</where>
+			<if test="endDate != null and endDate.trim() != ''">
+				and DATE_FORMAT(create_date,'%Y-%m-%d') &lt;= DATE_FORMAT(#{endDate},'%Y-%m-%d')
+			</if>
+
+		order by id desc 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 	</select>
 	
  	<select id="queryTotal" resultType="int">
 		select count(*) from sys_log  where 1=1
-		<if test="username != null and username.trim() != ''">
-			and username like concat(concat('%',#{username}),'%')
-		</if>
-		<if test="startDate != null and startDate.trim() != ''">
-			and create_date &gt;= TO_DATE(#{startDate}, 'YYYY-MM-DD')
+
+		<if test="createDate != null and createDate.trim() != ''">
+			and DATE_FORMAT(create_date,'%Y-%m-%d') &gt;= DATE_FORMAT(#{createDate},'%Y-%m-%d')
 		</if>
 		<if test="endDate != null and endDate.trim() != ''">
-			and create_date &lt;= TO_DATE(#{endDate}, 'YYYY-MM-DD')
+			and DATE_FORMAT(create_date,'%Y-%m-%d') &lt;= DATE_FORMAT(#{endDate},'%Y-%m-%d')
 		</if>
 	</select>
 	 
-	<insert id="save" parameterType="xin.cymall.entity.SysLog" keyProperty="id">
-		<selectKey resultType="Long" order="BEFORE" keyProperty="id">  
-            SELECT seq_sys_log.NEXTVAL as id from DUAL
-        </selectKey>
+	<insert id="save" parameterType="xin.cymall.entity.SysLog" useGeneratedKeys="true" keyProperty="id">
 		insert into sys_log
 		(
-			id,
-			username, 
-			operation, 
-			method,
-			ip,
-			params,
-			create_date
+			`username`, 
+			`operation`, 
+			`method`,
+			`ip`,
+			 `params`,
+			`create_date`
 		)
 		values
 		(
-			#{id},
 			#{username}, 
 			#{operation}, 
 			#{method}, 
@@ -72,11 +59,11 @@
 	<update id="update" parameterType="xin.cymall.entity.SysLog">
 		update sys_log 
 		<set>
-			<if test="username != null">username = #{username}, </if>
-			<if test="operation != null">operation = #{operation}, </if>
-			<if test="method != null">method = #{method}, </if>
-			<if test="params != null">params = #{params}, </if>
-			<if test="ip != null">ip = #{ip} </if>
+			<if test="username != null">`username` = #{username}, </if>
+			<if test="operation != null">`operation` = #{operation}, </if>
+			<if test="method != null">`method` = #{method}, </if>
+			<if test="params != null">`params` = #{params}, </if>
+			<if test="ip != null">`ip` = #{ip} </if>
 		</set>
 		where id = #{id}
 	</update>

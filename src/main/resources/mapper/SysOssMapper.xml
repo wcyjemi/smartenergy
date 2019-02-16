@@ -19,8 +19,7 @@
 	</select>
 
 	<select id="getList" resultType="xin.cymall.entity.SysOss">
-		select tt.* from (
-		select t.*,rownum as rn from sys_oss t <include refid="where_clause" />
+		select * from sys_oss t <include refid="where_clause" />
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -29,12 +28,9 @@
                 order by bucket desc
 			</otherwise>
         </choose>
-        ) tt
-        <where>
-			<if test="offset != null and limit != null">
-				and tt.rn between #{offset} and #{offend}
-			</if>
-        </where>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 	</select>
 	
  	<select id="getCount" resultType="int">
@@ -46,32 +42,32 @@
         <where>
             1=1
             <if test="bucket != null and bucket != ''"> and t.bucket = #{bucket} </if>
-    		<if test="bucketVague != null and bucketVague != ''"> and t.bucket like concat(concat('%',#{bucketVague}),'%') </if>
+    		<if test="bucketVague != null and bucketVague != ''"> and t.bucket like concat('%',#{bucketVague},'%') </if>
             <if test="url != null and url != ''"> and t.url = #{url} </if>
-    		<if test="urlVague != null and urlVague != ''"> and t.url like concat(concat('%',#{urlVague}),'%') </if>
+    		<if test="urlVague != null and urlVague != ''"> and t.url like concat('%',#{urlVague},'%') </if>
             <if test="endpoint != null and endpoint != ''"> and t.endpoint = #{endpoint} </if>
-    		<if test="endpointVague != null and endpointVague != ''"> and t.endpoint like concat(concat('%',#{endpointVague}),'%') </if>
+    		<if test="endpointVague != null and endpointVague != ''"> and t.endpoint like concat('%',#{endpointVague},'%') </if>
             <if test="accessKeyId != null and accessKeyId != ''"> and t.access_key_id = #{accessKeyId} </if>
-    		<if test="accessKeyIdVague != null and accessKeyIdVague != ''"> and t.access_key_id like concat(concat('%',#{accessKeyIdVague}),'%') </if>
+    		<if test="accessKeyIdVague != null and accessKeyIdVague != ''"> and t.access_key_id like concat('%',#{accessKeyIdVague},'%') </if>
             <if test="accessKeySecret != null and accessKeySecret != ''"> and t.access_key_secret = #{accessKeySecret} </if>
-    		<if test="accessKeySecretVague != null and accessKeySecretVague != ''"> and t.access_key_secret like concat(concat('%',#{accessKeySecretVague}),'%') </if>
+    		<if test="accessKeySecretVague != null and accessKeySecretVague != ''"> and t.access_key_secret like concat('%',#{accessKeySecretVague},'%') </if>
             <if test="state != null and state != ''"> and t.state = #{state} </if>
-    		<if test="stateVague != null and stateVague != ''"> and t.state like concat(concat('%',#{stateVague}),'%') </if>
+    		<if test="stateVague != null and stateVague != ''"> and t.state like concat('%',#{stateVague},'%') </if>
             <if test="createTime != null and createTime != ''"> and t.create_time = #{createTime} </if>
-    		<if test="createTimeVague != null and createTimeVague != ''"> and t.create_time like concat(concat('%',#{createTimeVague}),'%') </if>
+    		<if test="createTimeVague != null and createTimeVague != ''"> and t.create_time like concat('%',#{createTimeVague},'%') </if>
         </where>
     </sql>
 	 
 	<insert id="save" parameterType="xin.cymall.entity.SysOss">
 		insert into sys_oss
 		(
-			bucket, 
-			url, 
-			endpoint, 
-			access_key_id, 
-			access_key_secret, 
-			state, 
-			create_time
+			`bucket`, 
+			`url`, 
+			`endpoint`, 
+			`access_key_id`, 
+			`access_key_secret`, 
+			`state`, 
+			`create_time`
 		)
 		values
 		(
@@ -88,12 +84,12 @@
 	<update id="update" parameterType="xin.cymall.entity.SysOss">
 		update sys_oss 
 		<set>
-			<if test="url != null">url = #{url}, </if>
-			<if test="endpoint != null">endpoint = #{endpoint}, </if>
-			<if test="accessKeyId != null">access_key_id = #{accessKeyId}, </if>
-			<if test="accessKeySecret != null">access_key_secret = #{accessKeySecret}, </if>
-			<if test="state != null">state = #{state}, </if>
-			<if test="createTime != null">create_time = #{createTime}</if>
+			<if test="url != null">`url` = #{url}, </if>
+			<if test="endpoint != null">`endpoint` = #{endpoint}, </if>
+			<if test="accessKeyId != null">`access_key_id` = #{accessKeyId}, </if>
+			<if test="accessKeySecret != null">`access_key_secret` = #{accessKeySecret}, </if>
+			<if test="state != null">`state` = #{state}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
 		</set>
 		where bucket = #{bucket}
 	</update>
