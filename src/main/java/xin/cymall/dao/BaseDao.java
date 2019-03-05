@@ -13,7 +13,11 @@ import java.util.Map;
  * @date 2016年9月18日 上午9:31:36
  */
 public interface BaseDao<T> {
-	
+
+	/**
+	 * 保存
+	 * @param t
+	 */
 	void save(T t);
 	
 	void save(Map<String, Object> map);

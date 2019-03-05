@@ -18,7 +18,17 @@ import java.util.Map;
 @Repository
 public interface CommparaDao extends BaseDao<Commpara> {
 
+    /**
+     * 获取Code值
+     * @param params
+     * @return
+     */
     List<Commpara> getCodeValues(Map<String, Object> params);
 
+    /**
+     * 验证查询
+     * @param commpara
+     * @return
+     */
     List<Commpara> findByVerify(Commpara commpara);
 }

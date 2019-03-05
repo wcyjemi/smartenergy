@@ -15,9 +15,13 @@ import java.util.Map;
  */
 public class Query extends LinkedHashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
-	//当前页码
+    /**
+     * 当前页码
+     */
     private int page;
-    //每页条数
+    /**
+     * 每页条数
+     */
     private int limit;
 
     public Query(Map<String, Object> params){
@@ -26,7 +30,7 @@ public class Query extends LinkedHashMap<String, Object> {
         //分页参数
         this.page = Integer.parseInt(params.get("page").toString());
         this.limit = Integer.parseInt(params.get("limit").toString());
-        this.put("offset", (page - 1) * limit+1);
+        this.put("offset", (page - 1) * limit);
         this.put("offend", page*limit);
         this.put("page", page);
         this.put("limit", limit);

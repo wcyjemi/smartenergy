@@ -27,7 +27,7 @@ $(function () {
 
             $(".content").find("iframe").removeClass("cy-show");
             //打开iframe
-            var iframe = $('<iframe class="cy-show" scrolling="yes" frameborder="0" style="width: 100%; height: 100%; overflow: visible; "></iframe>');
+            var iframe = $('<iframe class="cy-show" scrolling="yes" frameborder="0" style="width: 100%; height: 100%; overflow: visible; background: rgb(242, 242, 242);"></iframe>');
             $(iframe).attr("src", url);
             $(".content").append(iframe);
             $(iframe).load(function() {
