@@ -32,7 +32,7 @@
                     </form>
                     <div class="layui-btn-group">
                         <@shiro.hasPermission name="energy:company:save">
-                            <button class="layui-btn" onclick="addPage('/encompany/add')">
+                            <button class="layui-btn" onclick="addPageAare('/encompany/add','增加企业信息',1200,800)">
                                 <i class="fa fa-plus">&nbsp;</i>增加
                             </button>
                         </@shiro.hasPermission>
@@ -44,8 +44,8 @@
                                 hasupdateDepart = true;
                             </script>
                         </@shiro.hasPermission>
-                        <@shiro.hasPermission name="energy:company:seriapply">
-                            <button class="layui-btn layui-btn-green" onclick="updateState('序列号申请','companyTable','/encompany/seriapply')">
+                        <@shiro.hasPermission name="energy:company:seri">
+                            <button class="layui-btn layui-btn-green" onclick="editPage('companyTable','/encompany/toApplySeri')">
                                 <i class="fa fa-check-square-o">&nbsp;</i>序列号申请
                             </button>
                         </@shiro.hasPermission>
@@ -83,7 +83,6 @@
                                 <th width="10%" param="{name:'contactPhone'}">联系方式</th>
 
                                 <!--isPrimary：渲染列-->
-                                <th width="10%" param="{name:'appStatus',enumName:'AppStatusEnum',render:'Render.customState'}">状态</th>
 
                                 <th width="10%" param="{operate:'true',buttons:'Render.state,Render.edit,Render.delete'}">操作</th>
                             </tr>

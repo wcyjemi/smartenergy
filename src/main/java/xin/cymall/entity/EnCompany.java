@@ -1,7 +1,10 @@
 package xin.cymall.entity;
 
+import xin.cymall.common.utils.ChineseToEnglishUtil;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * 企业信息
@@ -26,6 +29,13 @@ public class EnCompany extends BaseEntity implements Serializable {
      * 拼音首字母
      */
     private String pinyinIndex;
+
+    /**
+     * 地区路径
+     */
+    private String companyAreapath;
+
+    private String[] companyAreaIds;
     /**
      * 企业地址
      */
@@ -87,9 +97,26 @@ public class EnCompany extends BaseEntity implements Serializable {
         this.pinyinIndex = pinyinIndex;
     }
 
+    public String getCompanyAreapath() {
+        return companyAreapath;
+    }
+
+    public void setCompanyAreapath(String companyAreapath) {
+        this.companyAreapath = companyAreapath;
+    }
+
+    public String[] getCompanyAreaIds() {
+        return companyAreaIds;
+    }
+
+    public void setCompanyAreaIds(String[] companyAreaIds) {
+        this.companyAreaIds = companyAreaIds;
+    }
+
     public String getCompanyAddress() {
         return companyAddress;
     }
+
 
     public void setCompanyAddress(String companyAddress) {
         this.companyAddress = companyAddress;
@@ -166,4 +193,42 @@ public class EnCompany extends BaseEntity implements Serializable {
     public void setKeyEdtime(Date keyEdtime) {
         this.keyEdtime = keyEdtime;
     }
+
+    /**
+     * 给地区路径赋值
+     */
+    public void toAreaPath(){
+        String areaPath = "";
+        if (this.companyAreaIds !=null && this.companyAreaIds.length>0){
+            for (int i=0;i<this.companyAreaIds.length;i++){
+                if (i != this.companyAreaIds.length-1){
+                    areaPath = areaPath + this.companyAreaIds[i]+",";
+                }else {
+                    areaPath = areaPath + this.companyAreaIds[i];
+                }
+            }
+            this.companyAreapath = areaPath;
+        }else {
+            this.companyAreapath = "";
+        }
+    }
+
+    /**
+     * 补充拼音首字母
+     */
+    public void toPinYing(){
+        if (this.companyName != null){
+            this.pinyinIndex = ChineseToEnglishUtil.getPinYinHeadChar(this.companyName);
+        }
+    }
+
+    /**
+     * 生成KEY
+     */
+    public void generKey(){
+        if (this.companyKey == null){
+            this.companyKey = UUID.randomUUID().toString();
+        }
+    }
+
 }

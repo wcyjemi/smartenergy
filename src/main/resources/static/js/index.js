@@ -179,9 +179,9 @@ $(document).ready(function () {
         $(".username").html(r.user.username) ;
 //        notice();
     });
-    $.getJSON("appapi/getOnlineCount", function(r){
-        $(".onlineCount").html(r.onlineCount) ;
-    });
+    // $.getJSON("appapi/getOnlineCount", function(r){
+    //     $(".onlineCount").html(r.onlineCount) ;
+    // });
     $.getJSON("sys/user/verfiyAdmin", function(r){
 
         if (!r.isAdmin){

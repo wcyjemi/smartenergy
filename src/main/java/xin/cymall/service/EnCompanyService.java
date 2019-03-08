@@ -21,6 +21,13 @@ public interface EnCompanyService {
 	 * @return
 	 */
 	EnCompany queryObject(Integer id);
+
+	/**
+	 * 根据企业名称查询
+	 * @param enCompany
+	 * @return
+	 */
+	List<EnCompany> queryByName(EnCompany enCompany);
 	
 	/**
 	 * 查询企业列表

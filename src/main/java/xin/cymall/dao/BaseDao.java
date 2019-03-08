@@ -12,6 +12,7 @@ import java.util.Map;
  * @email 228112142@qq.com
  * @date 2016年9月18日 上午9:31:36
  */
+@SuppressWarnings("ALL")
 public interface BaseDao<T> {
 
 	/**

@@ -2,6 +2,7 @@
  * Created by chenyi on 2017-10-20 13:54:57
  *  email   :  qq228112142@qq.com//
  */
+
 /** 数据渲染对象 */
 var Render = {
     /**
@@ -80,7 +81,7 @@ var Render = {
 	 * @description 显示图片
 	 */
     showimg:function(rowdata,renderData){
-    	var uploadId = rowdata.appIcon;
+    	var uploadId = rowdata.companyLogo;
     	var imgPart = '';
         if(uploadId){
             $.ajax({

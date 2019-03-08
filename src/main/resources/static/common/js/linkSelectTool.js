@@ -97,7 +97,7 @@
                         //获取所有下级数据
                         var LowerData = selectTool.getDataByUrl(cyProps.url+"/"+ _values[j]);
                         var curr_data=LowerData.data;
-                        if(curr_data){
+                        if(curr_data&&curr_data.length>0){
                             var _div = '<div id="div_' + _values[j] + '" class="layui-input-inline" ></div>';
                             $(_grid).parent().append(_div);
                             var _select = '<select id="select_' + _values[j] + '" name="'+cyProps.name+'" lay-search lay-filter="link" ></select>';

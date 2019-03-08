@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import xin.cymall.entity.EnCompany;
 
+import java.util.List;
+
 /**
  * 企业信息 mapper
  * @author wcy
@@ -19,5 +21,12 @@ public interface EnCompanyDao extends BaseDao<EnCompany>{
      * @param enCompany
      */
     void updateCompanyKey(@Param("enCompany") EnCompany enCompany);
+
+    /**
+     * 根据名称查询企业
+     * @param enCompany
+     * @return
+     */
+    List<EnCompany> queryByName(@Param("enCompany") EnCompany enCompany);
 
 }

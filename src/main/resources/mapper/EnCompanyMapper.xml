@@ -8,6 +8,7 @@
 		<result column="company_shortname" property="companyShortname"/>
 		<result column="company_ename" property="companyEname"/>
 		<result column="pinyin_index" property="pinyinIndex"/>
+		<result column="company_areapath" property="companyAreapath"/>
 		<result column="company_address" property="companyAddress"/>
 		<result column="company_fr" property="companyFr"/>
 		<result column="company_contact" property="companyContact"/>
@@ -31,6 +32,7 @@
 	<select id="queryList" resultType="xin.cymall.entity.EnCompany">
 		select * from en_company
 		<where>
+			del_flag = 0
 			<if test="createUser != null">
 				and `create_user` = #{createUser}
 			</if>
@@ -54,12 +56,21 @@
 	<select id="queryTotal" resultType="int">
 		select count(*) from en_company
 		<where>
+			del_flag = 0
 			<if test="createUser != null">
 				and `create_user` = #{createUser}
 			</if>
 			<if test="companyName != null and companyName.trim() != ''">
 				and `company_name` like concat('%',#{companyName},'%')
 			</if>
+		</where>
+	</select>
+	<select id="queryByName" parameterType="xin.cymall.entity.EnCompany" resultType="xin.cymall.entity.EnCompany">
+		select * from en_company
+		<where>
+			del_flag = 0
+			<if test="enCompany.companyName != null and enCompany.companyName.trim() != ''">and company_name = #{enCompany.companyName}</if>
+			<if test="enCompany.id != null">and id &lt;&gt; #{enCompany.id}</if>
 		</where>
 	</select>
 
@@ -70,6 +81,7 @@
 			company_shortname,
 			company_ename,
 			pinyin_index,
+			company_areapath,
 			company_address,
 			company_fr,
 			company_contact,
@@ -91,6 +103,7 @@
 			#{companyShortname},
 			#{companyEname},
 			#{pinyinIndex},
+			#{companyAreapath},
 			#{companyAddress},
 			#{companyFr},
 			#{companyContact},
@@ -104,7 +117,7 @@
 			#{createUser},
 			#{updateTime},
 			#{updateUser},
-			#{delFlag}
+			0
 		)
 	</insert>
 	 
@@ -114,6 +127,8 @@
 			<if test="companyName != null and companyName.trim() != ''">company_name = #{companyName}, </if>
 			<if test="companyShortname != null and companyShortname.trim() != ''">company_shortname = #{companyShortname}, </if>
 			<if test="companyEname != null and companyEname.trim() != ''">company_ename = #{companyEname}, </if>
+			<if test="pinyinIndex != null and pinyinIndex.trim() != ''">pinyin_index = #{pinyinIndex}, </if>
+			<if test="companyAreapath != null and companyAreapath.trim() != ''">company_areapath = #{companyAreapath}, </if>
 			<if test="companyAddress != null and companyAddress.trim() != ''">company_address = #{companyAddress}, </if>
 			<if test="companyFr != null and companyFr.trim() != ''">company_fr = #{companyFr}, </if>
 			<if test="companyContact != null and companyContact.trim() != ''">company_contact = #{companyContact}, </if>
@@ -129,18 +144,18 @@
 	<update id="updateCompanyKey" parameterType="xin.cymall.entity.EnCompany">
 		update en_company
 		<set>
-			<if test="companyKey != null and companyKey.trim() != ''">company_key = #{companyKey}, </if>
-			<if test="keyType != null and keyType.trim() != ''">key_type = #{keyType}, </if>
-			<if test="keySttime != null and keySttime.trim() != ''">key_sttime = #{keySttime}, </if>
-			<if test="keyEdtime != null and keyEdtime.trim() != ''">key_edtime = #{keyEdtime}, </if>
-			<if test="updateTime != null">update_time = #{updateTime}, </if>
-			<if test="updateUser != null">update_user = #{updateUser}</if>
+			<if test="enCompany.companyKey != null and enCompany.companyKey.trim() != ''">company_key = #{enCompany.companyKey}, </if>
+			<if test="enCompany.keyType != null">key_type = #{enCompany.keyType}, </if>
+			<if test="enCompany.keySttime != null">key_sttime = #{enCompany.keySttime}, </if>
+			<if test="enCompany.keyEdtime != null">key_edtime = #{enCompany.keyEdtime}, </if>
+			<if test="enCompany.updateTime != null">update_time = #{enCompany.updateTime}, </if>
+			<if test="enCompany.updateUser != null">update_user = #{enCompany.updateUser}</if>
 		</set>
-		where id = #{id}
+		where id = #{enCompany.id}
 	</update>
 
 	<delete id="deleteBatch">
-		delete from en_company where id in
+		update en_company set del_flag = 1 where id in
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>

@@ -65,7 +65,7 @@ public class ChineseToEnglishUtil {
 
 
 	public static void main(String[] args) {
-		System.out.println(getPinYinHeadChar("中国 人"));
+		System.out.println(getPinYinHeadChar("sss"));
 	}
 	
 }

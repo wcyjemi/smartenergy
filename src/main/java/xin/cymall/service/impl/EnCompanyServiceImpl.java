@@ -38,6 +38,11 @@ public class EnCompanyServiceImpl implements EnCompanyService {
 	}
 
 	@Override
+	public List<EnCompany> queryByName(EnCompany enCompany){
+		return enCompanyDao.queryByName(enCompany);
+	}
+
+	@Override
 	public List<EnCompany> queryList(Map<String, Object> map){
 		return enCompanyDao.queryList(map);
 	}
@@ -50,12 +55,18 @@ public class EnCompanyServiceImpl implements EnCompanyService {
 	@Override
 	@Transactional(readOnly = false,rollbackFor = Exception.class)
 	public void save(EnCompany enCompany) {
+		enCompany.preSave();
+		enCompany.toAreaPath();
+		enCompany.toPinYing();
 		enCompanyDao.save(enCompany);
 	}
 
 	@Override
 	@Transactional(readOnly = false,rollbackFor = Exception.class)
 	public void update(EnCompany enCompany) {
+		enCompany.preUpdate();
+		enCompany.toAreaPath();
+		enCompany.toPinYing();
 		enCompanyDao.update(enCompany);
 	}
 
@@ -68,6 +79,8 @@ public class EnCompanyServiceImpl implements EnCompanyService {
 	@Override
 	@Transactional(readOnly = false,rollbackFor = Exception.class)
 	public void updateCompanyKey(EnCompany enCompany) {
+		enCompany.generKey();
+		enCompany.preUpdate();
 		enCompanyDao.updateCompanyKey(enCompany);
 	}
 }
