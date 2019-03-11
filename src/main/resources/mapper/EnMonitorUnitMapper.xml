@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xin.cymall.dao.EnMonitorUnitDao">
+	<resultMap id="enMonitorUnitMap" type="xin.cymall.entity.EnMonitorUnit">
+		<id column="id" property="id"/>
+		<result column="company_id" property="companyId"/>
+		<result column="monitor_unit_name" property="monitorUnitName"/>
+		<result column="monitor_type" property="monitorType"/>
+		<result column="parent_id" property="parentId"/>
+		<result column="parent_ids" property="parentIds"/>
+		<result column="level" property="level"/>
+		<result column="sort" property="sort"/>
+		<result column="create_time" property="createTime"/>
+		<result column="create_user" property="createUser"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="update_user" property="updateUser"/>
+		<result column="del_flag" property="delFlag"/>
+	</resultMap>
+
+	<select id="queryObject" resultType="xin.cymall.entity.EnMonitorUnit">
+		select * from monitor_unit where id = #{value}
+	</select>
+	
+	<select id="queryList" resultType="xin.cymall.entity.EnMonitorUnit">
+		select * from monitor_unit
+		<where>
+			del_flag = 0
+			<if test="createUser != null">
+				and `create_user` = #{createUser}
+			</if>
+			<if test="companyName != null and companyName.trim() != ''">
+				and `company_name` like concat('%',#{companyName},'%')
+			</if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by create_time desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="queryTotal" resultType="int">
+		select count(*) from monitor_unit
+		<where>
+			del_flag = 0
+			<if test="createUser != null">
+				and `create_user` = #{createUser}
+			</if>
+			<if test="companyName != null and companyName.trim() != ''">
+				and `company_name` like concat('%',#{companyName},'%')
+			</if>
+		</where>
+	</select>
+	<select id="queryByName" parameterType="xin.cymall.entity.EnMonitorUnit" resultType="xin.cymall.entity.EnMonitorUnit">
+		select * from monitor_unit
+		<where>
+			del_flag = 0
+			<if test="enMonitorUnit.monitorUnitName != null and enMonitorUnit.monitorUnitName.trim() != ''">and monitor_unit_name = #{enMonitorUnit.monitorUnitName}</if>
+			<if test="enMonitorUnit.id != null">and id &lt;&gt; #{enMonitorUnit.id}</if>
+		</where>
+	</select>
+
+	<insert id="save" parameterType="xin.cymall.entity.EnMonitorUnit" useGeneratedKeys="true" keyProperty="id">
+		insert into monitor_unit
+		(
+			company_id,
+			monitor_unit_name,
+			monitor_type,
+			parent_id,
+			parent_ids,
+			level,
+			sort,
+			create_time,
+			create_user,
+			update_time,
+			update_user,
+			del_flag
+		)
+		values
+		(
+			#{companyId},
+			#{monitorUnitName},
+			#{monitorType},
+			#{parentId},
+			#{parentIds},
+			#{level},
+			#{sort},
+			#{createTime},
+			#{createUser},
+			#{updateTime},
+			#{updateUser},
+			0
+		)
+	</insert>
+	 
+	<update id="update" parameterType="xin.cymall.entity.EnMonitorUnit">
+		update monitor_unit
+		<set>
+			<if test="companyId != null">company_id = #{companyId},</if>
+			<if test="monitorUnitName != null and monitorUnitName.trim()">monitor_unit_name = #{monitorUnitName},</if>
+			<if test="monitorType != null">monitor_type = #{monitorType},</if>
+			<if test="parentId != null">parent_id = #{parentId},</if>
+			<if test="parentIds != null and parentIds.trim()">parentIds = #{parentIds},</if>
+			<if test="level != null">level = #{level},</if>
+			<if test="sort != null">sort = #{sort},</if>
+			<if test="updateTime != null">update_time = #{updateTime}, </if>
+			<if test="updateUser != null">update_user = #{updateUser}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="deleteBatch">
+		update monitor_unit set del_flag = 1 where id in
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

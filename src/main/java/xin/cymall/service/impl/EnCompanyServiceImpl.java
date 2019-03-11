@@ -21,7 +21,7 @@ import java.util.Map;
 
 
 /**
- * 系统用户
+ * 企业信息业务实现类
  * 
  * @author wcy
  * @date 2016年9月18日 上午9:46:09

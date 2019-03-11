@@ -1,4 +1,5 @@
 <script src="/statics/libs/jquery-1.10.2.min.js"></script>
+<#--<script src="/statics/libs/jquery.js"></script>-->
 <link rel="stylesheet" href="/statics/css/font-awesome.min.css">
 <!--layui ztree样式-->
 <link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="all">
