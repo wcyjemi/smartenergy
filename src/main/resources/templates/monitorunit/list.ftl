@@ -17,22 +17,30 @@
                 <div class="layui-card-body">
                     <form class="layui-form " action="">
                         <div class="layui-form-item">
-                            <label class="layui-form-label">企业名称:</label>
+                            <label class="layui-form-label">单位名称:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="companyName" placeholder="请输入名称" class="layui-input">
+                                <input id="monitorUnitName" type="text" name="monitorUnitName" placeholder="请输入监测单位名称" class="layui-input">
                             </div>
-
+                            <label class="layui-form-label">企业名称:</label>
+                            <div id="companyId" cyType="selectTool" cyProps="url:'/encompany/queryAll',search:'true'" name="companyId" value="" lay-verify=""
+                                 class="layui-input-inline"></div>
+                            <label class="layui-form-label">单位类型:</label>
+                            <div id="monitorType" cyType="selectTool" cyProps="codeName:'monitorType',search:'true'" name="monitorType" value="" lay-verify=""
+                                 class="layui-input-inline"></div>
                             <div class="layui-input-inline">
-                                <button class="layui-btn search-btn" table-id="companyTable" lay-submit="" lay-filter="search"><i
+                                <button id="serchForm" class="layui-btn search-btn"><i
                                             class="fa fa-search">&nbsp;</i>查询
                                 </button>
-                                <button type="reset" class="layui-btn layui-btn-primary"><i class="fa fa-refresh">&nbsp;</i>重置</button>
+                                <button type="reset" class="layui-btn layui-btn-primary"><i
+                                            class="fa fa-refresh">&nbsp;</i>重置
+                                </button>
                             </div>
                         </div>
                     </form>
                     <div class="layui-btn-group">
-                        <@shiro.hasPermission name="energy:company:save">
-                            <button class="layui-btn" onclick="addPageAare('/encompany/add','增加企业信息',1200,800)">
+                        <@shiro.hasPermission name="energy:monitorunit:save">
+                            <button class="layui-btn"
+                                    onclick="addPageAare('/enmonitorunit/toSelectCompany','选择企业',600,250)">
                                 <i class="fa fa-plus">&nbsp;</i>增加
                             </button>
                         </@shiro.hasPermission>

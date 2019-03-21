@@ -11,10 +11,16 @@
 		<result column="company_areapath" property="companyAreapath"/>
 		<result column="company_address" property="companyAddress"/>
 		<result column="company_fr" property="companyFr"/>
+		<result column="company_fr_phone" property="companyFrPhone"/>
 		<result column="company_contact" property="companyContact"/>
 		<result column="contact_phone" property="contactPhone"/>
 		<result column="company_key" property="companyKey"/>
 		<result column="company_logo" property="companyLogo"/>
+		<result column="company_type" property="companyType"/>
+		<result column="company_capacity" property="companyCapacity"/>
+		<result column="company_lo" property="companyLo"/>
+		<result column="company_la" property="companyLa"/>
+		<result column="pay_type" property="payType"/>
 		<result column="key_type" property="keyType"/>
 		<result column="key_sttime" property="keySttime"/>
 		<result column="key_edtime" property="keyEdtime"/>
@@ -74,6 +80,10 @@
 		</where>
 	</select>
 
+	<select id="queryCodeAndValue" resultType="xin.cymall.common.utils.EnumBean">
+		select ec.id as code, ec.company_name as value from en_company ec where ec.del_flag = 0
+	</select>
+
 	<insert id="save" parameterType="xin.cymall.entity.EnCompany" useGeneratedKeys="true" keyProperty="id">
 		insert into en_company
 		(
@@ -84,10 +94,16 @@
 			company_areapath,
 			company_address,
 			company_fr,
+			company_fr_phone,
 			company_contact,
 			contact_phone,
 			company_key,
 			company_logo,
+			company_type,
+			company_capacity,
+			company_lo,
+			company_la,
+			pay_type,
 			key_type,
 			key_sttime,
 			key_edtime,
@@ -110,6 +126,11 @@
 			#{contactPhone},
 			#{companyKey},
 			#{companyLogo},
+			#{companyType},
+			#{companyCapacity},
+			#{companyLo},
+			#{companyLa},
+			#{payType}
 			#{keyType},
 			#{keySttime},
 			#{keyEdtime},
@@ -131,10 +152,16 @@
 			<if test="companyAreapath != null and companyAreapath.trim() != ''">company_areapath = #{companyAreapath}, </if>
 			<if test="companyAddress != null and companyAddress.trim() != ''">company_address = #{companyAddress}, </if>
 			<if test="companyFr != null and companyFr.trim() != ''">company_fr = #{companyFr}, </if>
+			<if test="companyFrPhone != null and companyFrPhone.trim() != ''">company_fr_phone = #{companyFrPhone}, </if>
 			<if test="companyContact != null and companyContact.trim() != ''">company_contact = #{companyContact}, </if>
 			<if test="contactPhone != null and contactPhone.trim() != ''">contact_phone = #{contactPhone}, </if>
 			<if test="companyKey != null and companyKey.trim() != ''">company_key = #{companyKey}, </if>
 			<if test="companyLogo != null and companyLogo.trim() != ''">company_logo = #{companyLogo}, </if>
+			<if test="companyType != null">company_type = #{companyType}, </if>
+			<if test="companyCapacity != null">company_capacity = #{companyCapacity}, </if>
+			<if test="companyLo != null and companyLo.trim() != ''">company_lo = #{companyLo}, </if>
+			<if test="companyLa != null and companyLa.trim() != ''">company_la = #{companyLa}, </if>
+			<if test="payType != null">pay_type = #{payType}, </if>
 			<if test="updateTime != null">update_time = #{updateTime}, </if>
 			<if test="updateUser != null">update_user = #{updateUser}</if>
 		</set>

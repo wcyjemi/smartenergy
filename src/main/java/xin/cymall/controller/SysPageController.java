@@ -50,5 +50,12 @@ public class SysPageController {
 		return "menu/list";
 	}
 
+	@RequestMapping("index/map")
+	public String mapPointChoose(Model model,String objId,String la,String lo){
+		model.addAttribute("objId",objId);
+		model.addAttribute("la",la);
+		model.addAttribute("lo",lo);
+		return "common/editmappoint";
+	}
 
 }

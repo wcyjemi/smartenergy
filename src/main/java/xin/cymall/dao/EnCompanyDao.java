@@ -3,6 +3,7 @@ package xin.cymall.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import xin.cymall.common.utils.EnumBean;
 import xin.cymall.entity.EnCompany;
 
 import java.util.List;
@@ -28,5 +29,11 @@ public interface EnCompanyDao extends BaseDao<EnCompany>{
      * @return
      */
     List<EnCompany> queryByName(@Param("enCompany") EnCompany enCompany);
+
+    /**
+     * 查詢企業的鍵值對
+     * @return
+     */
+    List<EnumBean> queryCodeAndValue();
 
 }

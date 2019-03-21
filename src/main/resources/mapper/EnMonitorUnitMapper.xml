@@ -21,7 +21,7 @@
 	<select id="queryObject" resultType="xin.cymall.entity.EnMonitorUnit">
 		select * from monitor_unit where id = #{value}
 	</select>
-	
+
 	<select id="queryList" resultType="xin.cymall.entity.EnMonitorUnit">
 		select * from monitor_unit
 		<where>
@@ -45,7 +45,7 @@
 			limit #{offset}, #{limit}
 		</if>
 	</select>
-	
+
 	<select id="queryTotal" resultType="int">
 		select count(*) from monitor_unit
 		<where>
@@ -67,7 +67,36 @@
 		</where>
 	</select>
 
-	<insert id="save" parameterType="xin.cymall.entity.EnMonitorUnit" useGeneratedKeys="true" keyProperty="id">
+    <select id="queryAllUnits" resultMap="enMonitorUnitMap">
+		select m.* from monitor_unit m
+		<where>
+			m.del_flag = 0
+			<if test="companyId != null"> and m.company_id = #{companyId}</if>
+		</where>
+
+	</select>
+
+	<select id="quertTreeTable" resultType="xin.cymall.common.utils.TreeTableBean">
+		select
+			m.id as id,
+			m.parent_id as pid,
+			m.monitor_unit_name as title,
+			m.monitor_type as monitorType,
+			m1.monitor_unit_name as parentName,
+			e.company_name as companyName
+		from monitor_unit m
+		left join monitor_unit m1 on m.parent_id = m1.id
+		left join en_company e on m.company_id = e.id
+		<where>
+			m.del_flag = 0
+			<if test="companyName">
+
+			</if>
+		</where>
+
+	</select>
+
+    <insert id="save" parameterType="xin.cymall.entity.EnMonitorUnit" useGeneratedKeys="true" keyProperty="id">
 		insert into monitor_unit
 		(
 			company_id,

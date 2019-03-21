@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+<#--  chenyi 2019-03-19 11:10:52-->
+
 <html>
 <head>
-    <title>应用管理</title>
+    <title>采集点信息表添加页面</title>
     <#include "../resource.ftl"/>
 </head>
 <body>
@@ -11,7 +12,7 @@
         <div class="page-footer">
             <div class="btn-list">
                 <div class="btnlist">
-                    <button class="layui-btn" lay-submit="" lay-filter="submit" data-url="/enmonitorunit/save"><i class="fa fa-floppy-o">&nbsp;</i>保存</button>
+                    <button class="layui-btn" lay-submit="" lay-filter="submit" data-url="/encollectionpoint/save"><i class="fa fa-floppy-o">&nbsp;</i>保存</button>
                     <button class="layui-btn" onclick="$t.closeWindow();"><i class="fa fa-undo">&nbsp;</i>返回</button>
                 </div>
             </div>

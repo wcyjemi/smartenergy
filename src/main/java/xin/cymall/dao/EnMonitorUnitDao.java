@@ -3,10 +3,12 @@ package xin.cymall.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import xin.cymall.common.utils.TreeTableBean;
 import xin.cymall.entity.EnCompany;
 import xin.cymall.entity.EnMonitorUnit;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 监测单位 mapper
@@ -23,5 +25,18 @@ public interface EnMonitorUnitDao extends BaseDao<EnMonitorUnit>{
      * @return
      */
     List<EnMonitorUnit> queryByName(@Param("enMonitorUnit") EnMonitorUnit enMonitorUnit);
+
+    /**
+     * 查询所有监测单位
+     * @return
+     */
+    List<EnMonitorUnit> queryAllUnits(@Param("companyId") Integer companyId);
+
+    /**
+     * 查询树形表格数据
+     * @param param
+     * @return
+     */
+    List<TreeTableBean> quertTreeTable(Map param);
 
 }

@@ -354,6 +354,29 @@ function openIframe(title,url){
     });
 }
 
+function openIframeHasBtn(title,url,laem,loem){
+    var index = parent.layer.open({
+        type: 2,
+        title: title,
+        shadeClose: false,
+        shade: [0.3, '#000'],
+        maxmin: true, //开启最大化最小化按钮
+        area: ['1000px', '700px'],
+        content: url,
+        btn: ['保存', '取消'], //只是为了演示
+        btn1: function(inx,layero){
+            var la = $(layero).find("iframe").contents().find("#mappointla").val();
+            var lo = $(layero).find("iframe").contents().find("#mappointlo").val();
+            $("#"+laem).val(la);
+            $("#"+loem).val(lo);
+            parent.layer.close(index);
+        },
+        btn2: function(){
+            // layer.close(index);
+            parent.layer.close(index);
+        }
+    })
+}
 
 //保存或修改
 layui.use(['form'], function () {

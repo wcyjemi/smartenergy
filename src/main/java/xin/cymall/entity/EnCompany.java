@@ -3,6 +3,7 @@ package xin.cymall.entity;
 import xin.cymall.common.utils.ChineseToEnglishUtil;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
@@ -44,6 +45,11 @@ public class EnCompany extends BaseEntity implements Serializable {
      * 企业法人
      */
     private String companyFr;
+
+    /**
+     * 企业法人联系方式
+     */
+    private String companyFrPhone;
     /**
      * 企业联系人
      */
@@ -60,6 +66,28 @@ public class EnCompany extends BaseEntity implements Serializable {
      * 企业LOGO
      */
     private String companyLogo;
+
+    /**
+     * 企业类型 1、化工厂 2、机械制造、3、 制药
+     */
+    private Integer companyType;
+    /**
+     * 企业用电容量
+     */
+    private BigDecimal companyCapacity;
+    /**
+     * 企业 经度
+     */
+    private String companyLo;
+    /**
+     * 企业 纬度
+     */
+    private String companyLa;
+    /**
+     * 缴费类型1、试用企业 2、租赁企业 3、落地企业 4、定制企业 5、孤岛企业
+     */
+    private Integer payType;
+
     /**
      * 序列号类型
      */
@@ -168,6 +196,55 @@ public class EnCompany extends BaseEntity implements Serializable {
 
     public void setCompanyLogo(String companyLogo) {
         this.companyLogo = companyLogo;
+    }
+
+
+    public String getCompanyFrPhone() {
+        return companyFrPhone;
+    }
+
+    public void setCompanyFrPhone(String companyFrPhone) {
+        this.companyFrPhone = companyFrPhone;
+    }
+
+    public Integer getCompanyType() {
+        return companyType;
+    }
+
+    public void setCompanyType(Integer companyType) {
+        this.companyType = companyType;
+    }
+
+    public BigDecimal getCompanyCapacity() {
+        return companyCapacity;
+    }
+
+    public void setCompanyCapacity(BigDecimal companyCapacity) {
+        this.companyCapacity = companyCapacity;
+    }
+
+    public String getCompanyLo() {
+        return companyLo;
+    }
+
+    public void setCompanyLo(String companyLo) {
+        this.companyLo = companyLo;
+    }
+
+    public String getCompanyLa() {
+        return companyLa;
+    }
+
+    public void setCompanyLa(String companyLa) {
+        this.companyLa = companyLa;
+    }
+
+    public Integer getPayType() {
+        return payType;
+    }
+
+    public void setPayType(Integer payType) {
+        this.payType = payType;
     }
 
     public Integer getKeyType() {

@@ -2045,8 +2045,14 @@ a cite {
 
 .layui-form-item .layui-input-inline {
     float: left;
-    width: 190px;
-    margin-right: 10px
+    width: 180px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.formitem-inline-select{
+    width: 185px!important;
+    margin-right: unset!important;
 }
 
 .layui-form-text .layui-input-inline {

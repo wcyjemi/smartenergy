@@ -1,5 +1,6 @@
 package xin.cymall.service;
 
+import xin.cymall.common.utils.EnumBean;
 import xin.cymall.entity.EnCompany;
 import xin.cymall.entity.SysUser;
 
@@ -35,6 +36,13 @@ public interface EnCompanyService {
 	 * @return
 	 */
 	List<EnCompany> queryList(Map<String, Object> map);
+
+
+	/**
+	 * 查询企业键值对
+	 * @return
+	 */
+	List<EnumBean> queryCodeAndValue();
 	
 	/**
 	 * 查询总数

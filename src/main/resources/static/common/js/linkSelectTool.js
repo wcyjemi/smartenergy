@@ -27,6 +27,7 @@
     };
     /*默认配置*/
     var cyProps = {};
+    var defaultClass;
     /*方法对象*/
     var selectTool = {
         /**获取数据 by chenyi 2017/6/21*/
@@ -55,6 +56,7 @@
             //获取下拉控件的name
             var _name = cyProps.name;
             $(_grid).attr("name",_name);
+            defaultClass = $(_grid).attr("class");
             //获取下拉控件的默认值
             var _value = $(_grid).attr("value");
             var _values = _value.split(",");
@@ -98,7 +100,7 @@
                         var LowerData = selectTool.getDataByUrl(cyProps.url+"/"+ _values[j]);
                         var curr_data=LowerData.data;
                         if(curr_data&&curr_data.length>0){
-                            var _div = '<div id="div_' + _values[j] + '" class="layui-input-inline" ></div>';
+                            var _div = '<div id="div_' + _values[j] + '" class="'+defaultClass+'" ></div>';
                             $(_grid).parent().append(_div);
                             var _select = '<select id="select_' + _values[j] + '" name="'+cyProps.name+'" lay-search lay-filter="link" ></select>';
                             $("#div_" + _values[j]).append(_select);
@@ -134,7 +136,7 @@
                         var R = selectTool.getDataByUrl(cyProps.url+"/"+ parentId);
 
                         if (R.data&&R.data.length > 0) {
-                            var _div = '<div id="div_' + data.value + '" class="layui-input-inline" ></div>';
+                            var _div = '<div id="div_' + data.value + '" class="'+defaultClass+'" ></div>';
                             $(_grid).after(_div);
                             var _select = '<select id="select_' + data.value + '" name="'+cyProps.name+'" lay-search lay-filter="link" ></select>';
                             $("#div_" + data.value).append(_select);

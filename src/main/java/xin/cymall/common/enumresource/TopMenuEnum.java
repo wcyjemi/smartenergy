@@ -5,6 +5,7 @@ package xin.cymall.common.enumresource;
  * 顶级菜单
  */
 public enum TopMenuEnum {
+    TopMonitorUnit("0","根监测单位"),
     TopMenu("0","顶级菜单"),
     TopOrg("0","顶级部门");
     private final String desc;

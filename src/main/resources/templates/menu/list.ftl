@@ -4,7 +4,6 @@
     <title>菜单列表</title>
     <#include "../resource.ftl"/>
     <script type="text/javascript" src="/menu/js/list.js"></script>
-    <link rel="stylesheet" href="/statics/plugins/layui2-4/css/layui.css" media="all">
 </head>
 <body>
 <div class="layui-fluid">

@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="/statics/css/font-awesome.min.css">
 <!--layui ztree样式-->
 <link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="/statics/plugins/layui2-4/css/layui.css" media="all">
 <script src="/statics/plugins/layer/layer.js"></script>
 <script src="/statics/plugins/layui/layui.js"></script>
 <#--<script type="text/javascript" src="/statics/plugins/layui2-4/layui.js"></script>-->

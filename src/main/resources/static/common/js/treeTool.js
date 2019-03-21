@@ -25,6 +25,7 @@
         var _value = $(this).attr("value") || "";
         //下拉树显示的值
         var valueName="";
+
         //加载下拉树数据
         $.ajax({
             type: "post",

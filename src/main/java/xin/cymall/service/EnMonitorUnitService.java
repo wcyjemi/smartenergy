@@ -1,5 +1,6 @@
 package xin.cymall.service;
 
+import xin.cymall.common.utils.TreeTableBean;
 import xin.cymall.entity.EnCompany;
 import xin.cymall.entity.EnMonitorUnit;
 
@@ -35,6 +36,20 @@ public interface EnMonitorUnitService {
 	 * @return
 	 */
 	List<EnMonitorUnit> queryList(Map<String, Object> map);
+
+	/**
+	 * 根据企业ID 查询监测单位
+	 * @param companyId
+	 * @return
+	 */
+	List<EnMonitorUnit> queryListByCompId(Integer companyId);
+
+	/**
+	 * 查询树形table数据
+	 * @param param
+	 * @return
+	 */
+	List<TreeTableBean> queryTreeTable(Map param);
 	
 	/**
 	 * 查询总数

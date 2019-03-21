@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import xin.cymall.common.log.SysLog;
+import xin.cymall.common.utils.EnumBean;
 import xin.cymall.common.utils.PageUtils;
 import xin.cymall.common.utils.Query;
 import xin.cymall.common.utils.R;
@@ -54,6 +55,13 @@ public class EnCompanyController extends AbstractController{
         PageUtils pageUtil = new PageUtils(enCompanyList, total, query.getLimit(), query.getPage());
 
         return R.ok().put("page", pageUtil);
+    }
+
+    @ResponseBody
+    @RequestMapping("/queryAll")
+    public R queryAll(){
+        List<EnumBean> enumBeans = enCompanyService.queryCodeAndValue();
+        return R.ok().put("data",enumBeans);
     }
 
     /**

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xin.cymall.dao.EnCollectionPointDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="xin.cymall.entity.EnCollectionPoint" id="enCollectionPointMap">
+        <result property="id" column="id"/>
+        <result property="collectionPointName" column="collection_point_name"/>
+        <result property="phyaddr" column="phyaddr"/>
+        <result property="virtaddr" column="virtaddr"/>
+        <result property="concentratorId" column="concentrator_id"/>
+        <result property="pointType" column="point_type"/>
+        <result property="pointBrand" column="point_brand"/>
+        <result property="pointModel" column="point_model"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="xin.cymall.entity.EnCollectionPoint">
+		select * from en_collection_point where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="xin.cymall.entity.EnCollectionPoint">
+		select * from en_collection_point t
+		<where>
+			t.del_flag = 0
+			<if test="createUser != null">
+				and t.create_user = #{createUser}
+			</if>
+			<if test="collectionPointName != null and collectionPointName.trim() != ''">
+				and t.collection_point_name like concat('%',#{collectionPointName},'%')
+			</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by t.id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from en_collection_point t
+		<where>
+			t.del_flag = 0
+			<if test="createUser != null">
+				and t.create_user = #{createUser}
+			</if>
+			<if test="collectionPointName != null and collectionPointName.trim() != ''">
+				and t.collection_point_name like concat('%',#{collectionPointName},'%')
+			</if>
+		</where>
+	</select>
+
+
+	<insert id="save" parameterType="xin.cymall.entity.EnCollectionPoint" useGeneratedKeys="true" keyProperty="id">
+		insert into en_collection_point
+		(
+			`collection_point_name`, 
+			`phyaddr`, 
+			`virtaddr`, 
+			`concentrator_id`, 
+			`point_type`, 
+			`point_brand`, 
+			`point_model`, 
+			`create_user`, 
+			`create_time`, 
+			`update_user`, 
+			`update_time`, 
+			`del_flag`
+		)
+		values
+		(
+			#{collectionPointName}, 
+			#{phyaddr}, 
+			#{virtaddr}, 
+			#{concentratorId}, 
+			#{pointType}, 
+			#{pointBrand}, 
+			#{pointModel}, 
+			#{createUser}, 
+			#{createTime}, 
+			#{updateUser}, 
+			#{updateTime}, 
+			#{delFlag}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="xin.cymall.entity.EnCollectionPoint">
+		update en_collection_point 
+		<set>
+			<if test="collectionPointName != null">`collection_point_name` = #{collectionPointName}, </if>
+			<if test="phyaddr != null">`phyaddr` = #{phyaddr}, </if>
+			<if test="virtaddr != null">`virtaddr` = #{virtaddr}, </if>
+			<if test="concentratorId != null">`concentrator_id` = #{concentratorId}, </if>
+			<if test="pointType != null">`point_type` = #{pointType}, </if>
+			<if test="pointBrand != null">`point_brand` = #{pointBrand}, </if>
+			<if test="pointModel != null">`point_model` = #{pointModel}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateUser != null">`update_user` = #{updateUser}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from en_collection_point where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from en_collection_point where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

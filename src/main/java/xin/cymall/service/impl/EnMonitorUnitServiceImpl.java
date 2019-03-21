@@ -3,6 +3,7 @@ package xin.cymall.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import xin.cymall.common.utils.TreeTableBean;
 import xin.cymall.dao.EnCompanyDao;
 import xin.cymall.dao.EnMonitorUnitDao;
 import xin.cymall.entity.EnCompany;
@@ -40,7 +41,17 @@ public class EnMonitorUnitServiceImpl implements EnMonitorUnitService {
 	public List<EnMonitorUnit> queryList(Map<String, Object> map){
 		return enMonitorUnitDao.queryList(map);
 	}
-	
+
+	@Override
+	public List<EnMonitorUnit> queryListByCompId(Integer companyId) {
+		return enMonitorUnitDao.queryAllUnits(companyId);
+	}
+
+	@Override
+	public List<TreeTableBean> queryTreeTable(Map param) {
+		return enMonitorUnitDao.quertTreeTable(param);
+	}
+
 	@Override
 	public int queryTotal(Map<String, Object> map) {
 		return enMonitorUnitDao.queryTotal(map);

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import xin.cymall.common.enumresource.DefaultEnum;
 import xin.cymall.common.exception.MyException;
 import xin.cymall.common.utils.Constant;
+import xin.cymall.common.utils.EnumBean;
 import xin.cymall.dao.EnCompanyDao;
 import xin.cymall.dao.SysUserDao;
 import xin.cymall.entity.EnCompany;
@@ -46,7 +47,12 @@ public class EnCompanyServiceImpl implements EnCompanyService {
 	public List<EnCompany> queryList(Map<String, Object> map){
 		return enCompanyDao.queryList(map);
 	}
-	
+
+	@Override
+	public List<EnumBean> queryCodeAndValue(){
+		return enCompanyDao.queryCodeAndValue();
+	}
+
 	@Override
 	public int queryTotal(Map<String, Object> map) {
 		return enCompanyDao.queryTotal(map);

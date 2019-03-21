@@ -7,7 +7,6 @@
         var hasupdateDepart = false;
     </script>
     <#include "../resource.ftl"/>
-    <link rel="stylesheet" href="/statics/plugins/layui2-4/css/layui.css" media="all">
 </head>
 <body>
 <div class="layui-fluid">

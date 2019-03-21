@@ -1,19 +1,20 @@
 package xin.cymall.controller;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import xin.cymall.common.enumresource.TopMenuEnum;
 import xin.cymall.common.log.SysLog;
-import xin.cymall.common.utils.PageUtils;
-import xin.cymall.common.utils.Query;
-import xin.cymall.common.utils.R;
+import xin.cymall.common.utils.*;
 import xin.cymall.entity.EnCompany;
 import xin.cymall.entity.EnMonitorUnit;
 import xin.cymall.service.EnCompanyService;
 import xin.cymall.service.EnMonitorUnitService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -56,10 +57,70 @@ public class EnMonitorUnitController extends AbstractController{
     }
 
     /**
+     * 获取树形table数据
+     * @param params
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/treeTableData")
+    public R treeTableData(@RequestParam Map<String,Object> params){
+        List<TreeTableBean> treeTableBeans = enMonitorUnitService.queryTreeTable(params);
+        return R.ok().put("data", treeTableBeans);
+    }
+
+    /**
+     * 跳转到选择企业页面
+     * @return
+     */
+    @RequestMapping("/toSelectCompany")
+    public String toSelectCompany(){
+        return "monitorunit/selectCompany";
+    }
+
+    /**
+     * 选择监测单位
+     * @param companyId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/select")
+    public R selectMonitorUnit(@RequestParam Integer companyId){
+
+        if (companyId == null){
+            return R.error("请选择企业！");
+        }
+
+        //查询列表数据
+        List<EnMonitorUnit> enMonitorUnits = enMonitorUnitService.queryListByCompId(companyId);
+
+        //添加顶级菜单
+        EnMonitorUnit root = new EnMonitorUnit();
+        root.setId(Integer.parseInt(TopMenuEnum.TopMonitorUnit.getCode()));
+        root.setMonitorUnitName(TopMenuEnum.TopMonitorUnit.getDesc());
+        root.setParentId(Integer.parseInt("-1"));
+        enMonitorUnits.add(root);
+        List<ZtreeBean> ztreeBeans = new ArrayList<>();
+        for (EnMonitorUnit enMonitorUnit : enMonitorUnits) {
+            ZtreeBean tree = new ZtreeBean();
+            tree.setId(enMonitorUnit.getId() + "");
+            tree.setpId(enMonitorUnit.getParentId() + "");
+            tree.setName(enMonitorUnit.getMonitorUnitName());
+            tree.setOpen("true");
+            tree.setChkDisabled("false");
+            ztreeBeans.add(tree);
+        }
+
+        return R.ok().put("data", ztreeBeans);
+    }
+
+    /**
      * 跳转到添加页面
      */
     @RequestMapping("/add")
-    public String add(){
+    public String add(@RequestParam Integer companyId,Model model){
+        EnMonitorUnit enMonitorUnit = new EnMonitorUnit();
+        enMonitorUnit.setCompanyId(companyId);
+        model.addAttribute("model",enMonitorUnit);
         return "monitorunit/add";
     }
 
@@ -75,6 +136,15 @@ public class EnMonitorUnitController extends AbstractController{
     public R save(@RequestBody EnMonitorUnit enMonitorUnit){
         //保存监测单位信息
         try{
+            if (enMonitorUnit.getParentId()==0){
+                enMonitorUnit.setParentIds("0");
+                enMonitorUnit.setLevel(1);
+            }else {
+                EnMonitorUnit parentEm = enMonitorUnitService.queryObject(enMonitorUnit.getParentId());
+                enMonitorUnit.setParentIds(parentEm.getParentIds()+","+parentEm.getId());
+                String[] parentIds = parentEm.getParentIds().split(",");
+                enMonitorUnit.setLevel(parentIds.length+1);
+            }
             enMonitorUnitService.save(enMonitorUnit);
         }catch (Exception e){
             logger.error("保存监测单位出错",e.toString());
@@ -105,6 +175,15 @@ public class EnMonitorUnitController extends AbstractController{
     public R update(@RequestBody EnMonitorUnit enMonitorUnit){
         //保存企业信息
         try{
+            if (enMonitorUnit.getParentId()==0){
+                enMonitorUnit.setParentIds("0");
+                enMonitorUnit.setLevel(1);
+            }else {
+                EnMonitorUnit parentEm = enMonitorUnitService.queryObject(enMonitorUnit.getParentId());
+                enMonitorUnit.setParentIds(parentEm.getParentIds()+","+parentEm.getId());
+                String[] parentIds = parentEm.getParentIds().split(",");
+                enMonitorUnit.setLevel(parentIds.length+1);
+            }
             enMonitorUnitService.update(enMonitorUnit);
         }catch (Exception e){
             logger.error("保存监测单位信息出错",e.toString());
