@@ -82,7 +82,11 @@
 			m.parent_id as pid,
 			m.monitor_unit_name as title,
 			m.monitor_type as monitorType,
-			m1.monitor_unit_name as parentName,
+			case
+				when m1.monitor_unit_name is null
+				then '无'
+				else m1.monitor_unit_name
+			end  as parentName,
 			e.company_name as companyName
 		from monitor_unit m
 		left join monitor_unit m1 on m.parent_id = m1.id

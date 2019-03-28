@@ -7,7 +7,6 @@
         var hasupdateDepart = false;
     </script>
     <#include "../resource.ftl"/>
-    <link rel="stylesheet" href="/statics/plugins/layui2-4/css/layui.css" media="all">
 </head>
 <body>
 <div class="layui-fluid">
@@ -28,25 +27,24 @@
                             <div id="monitorType" cyType="selectTool" cyProps="codeName:'monitorType',search:'true'" name="monitorType" value="" lay-verify=""
                                  class="layui-input-inline"></div>
                             <div class="layui-input-inline">
-                                <button id="serchForm" class="layui-btn search-btn"><i
-                                            class="fa fa-search">&nbsp;</i>查询
+                                <button id="serchForm" type="button" class="layui-btn" lay-filter="serchForm">
+                                    <i class="fa fa-search">&nbsp;</i>查询
                                 </button>
-                                <button type="reset" class="layui-btn layui-btn-primary"><i
-                                            class="fa fa-refresh">&nbsp;</i>重置
+                                <button type="reset" class="layui-btn layui-btn-primary">
+                                    <i class="fa fa-refresh">&nbsp;</i>重置
                                 </button>
                             </div>
                         </div>
                     </form>
                     <div class="layui-btn-group">
                         <@shiro.hasPermission name="energy:monitorunit:save">
-                            <button class="layui-btn"
-                                    onclick="addPageAare('/enmonitorunit/toSelectCompany','选择企业',600,250)">
+                            <button class="layui-btn" onclick="addPageAare('/enmonitorunit/toSelectCompany','选择企业',600,250)">
                                 <i class="fa fa-plus">&nbsp;</i>增加
                             </button>
                         </@shiro.hasPermission>
                     </div>
                     <div class="layui-form ">
-                        <table class="layui-table" id="monitorUnitTable"></table>
+                        <table class="layui-table" id="monitorUnitTable" lay-filter="monitorUnitTable"></table>
                     </div>
                 </div>
             </div>

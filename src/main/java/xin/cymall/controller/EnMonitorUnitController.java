@@ -1,6 +1,7 @@
 package xin.cymall.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,9 +64,9 @@ public class EnMonitorUnitController extends AbstractController{
      */
     @ResponseBody
     @RequestMapping("/treeTableData")
-    public R treeTableData(@RequestParam Map<String,Object> params){
+    public JSONArray treeTableData(@RequestParam Map<String,Object> params){
         List<TreeTableBean> treeTableBeans = enMonitorUnitService.queryTreeTable(params);
-        return R.ok().put("data", treeTableBeans);
+        return JSONArray.parseArray(JSON.toJSONString(treeTableBeans));
     }
 
     /**
