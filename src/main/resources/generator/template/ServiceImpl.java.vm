@@ -20,18 +20,18 @@ public class ${className}ServiceImpl implements ${className}Service {
 	private ${className}Dao ${classname}Dao;
 	
 	@Override
-	public ${className} get(${pk.attrType} ${pk.attrname}){
-		return ${classname}Dao.get(${pk.attrname});
+	public ${className} queryObject(${pk.attrType} ${pk.attrname}){
+		return ${classname}Dao.queryObject(${pk.attrname});
 	}
 
 	@Override
-	public List<${className}> getList(Map<String, Object> map){
-		return ${classname}Dao.getList(map);
+	public List<${className}> queryList(Map<String, Object> map){
+		return ${classname}Dao.queryList(map);
 	}
 
 	@Override
-	public int getCount(Map<String, Object> map){
-		return ${classname}Dao.getCount(map);
+	public int queryTotal(Map<String, Object> map){
+		return ${classname}Dao.queryTotal(map);
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     @Override
     public void updateState(String[] ids,String stateValue) {
         for (String id:ids){
-			${className} ${classname}=get(id);
+			${className} ${classname}=queryObject(id);
 			${classname}.setState(stateValue);
             update(${classname});
         }

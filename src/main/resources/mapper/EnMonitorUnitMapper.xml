@@ -76,7 +76,7 @@
 
 	</select>
 
-	<select id="quertTreeTable" resultType="xin.cymall.common.utils.TreeTableBean">
+	<select id="quertTreeTable" resultType="xin.cymall.common.utils.TreeTableBean" parameterType="java.util.Map">
 		select
 			m.id as id,
 			m.parent_id as pid,
@@ -93,8 +93,14 @@
 		left join en_company e on m.company_id = e.id
 		<where>
 			m.del_flag = 0
-			<if test="companyName">
-
+			<if test="monitorUnitName != null and monitorUnitName.trim() != ''">
+				and m.monitor_unit_name like concat('%',#{monitorUnitName},'%')
+			</if>
+			<if test="companyId != null and companyId.trim() != ''">
+				and e.id = #{companyId}
+			</if>
+			<if test="monitorType != null and monitorType.trim() != ''">
+				and m.monitor_type = #{monitorType}
 			</if>
 		</where>
 
@@ -140,7 +146,7 @@
 			<if test="monitorUnitName != null and monitorUnitName.trim()">monitor_unit_name = #{monitorUnitName},</if>
 			<if test="monitorType != null">monitor_type = #{monitorType},</if>
 			<if test="parentId != null">parent_id = #{parentId},</if>
-			<if test="parentIds != null and parentIds.trim()">parentIds = #{parentIds},</if>
+			<if test="parentIds != null and parentIds.trim()">parent_ids = #{parentIds},</if>
 			<if test="level != null">level = #{level},</if>
 			<if test="sort != null">sort = #{sort},</if>
 			<if test="updateTime != null">update_time = #{updateTime}, </if>

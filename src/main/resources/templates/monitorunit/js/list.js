@@ -40,34 +40,34 @@ layui.use(['treeTable','layer','code','form'],function(){
                 {
                     key: 'title',
                     title: '监测单位名称',
-                    width: '100px'
+                    width: '20%'
                 },
                 {
                     key: 'id',
                     title: '监测单位编号',
-                    width: '100px'
+                    width: '10%'
                 },
                 {
                     key: 'pid',
                     title: '父级单位编号',
-                    width: '100px'
+                    width: '10%'
                 },
                 {
                     key: 'parentName',
                     title: '上级监测单位名称',
-                    width: '100px',
+                    width: '20%',
                     align: 'center'
                 },
                 {
                     key: 'companyName',
                     title: '归属公司',
-                    width: '100px',
+                    width: '20%',
                     align: 'center'
                 },
                 {
                     key: 'monitorType',
                     title: '类型',
-                    width: '100px',
+                    width: '10%',
                     align: 'center',
                     template: function(item){
                         if(item.monitorType == 1){
@@ -83,11 +83,17 @@ layui.use(['treeTable','layer','code','form'],function(){
                     title: '操作',
                     align: 'center',
                     template: function(item){
-                        return '<button onclick="editOne(\''+"/enmonitorunit/edit"+'\',\''+item.id+'\')" class="layui-btn layui-btn-mini">修改</button> <button onclick="deleteOne(\''+"删除"+'\',\''+"/enmonitorunit/delete"+'\',\''+item.id+'\')" class="layui-btn layui-btn-mini layui-btn-delete">删除</button>'
+                        return '<button onclick="editOneArea(\''+"/enmonitorunit/edit"+'\',\''+item.id+'\',\'550px\',\'500px\')" class="layui-btn layui-btn-mini">修改</button> <button onclick="deleteOne(\''+"删除"+'\',\''+"/enmonitorunit/delete"+'\',\''+item.id+'\')" class="layui-btn layui-btn-mini layui-btn-delete">删除</button>'
                     }
                 }
             ],
-            end: function () {
+            end: function (res) {
+                console.info(res);
+                if (res.data.length<=0){
+                    $("#noDataTable").css("display","block");
+                }else {
+                    $("#noDataTable").css("display","none");
+                }
                 layer.closeAll('loading');
             }
         });

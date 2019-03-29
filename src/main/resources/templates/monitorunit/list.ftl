@@ -27,7 +27,7 @@
                             <div id="monitorType" cyType="selectTool" cyProps="codeName:'monitorType',search:'true'" name="monitorType" value="" lay-verify=""
                                  class="layui-input-inline"></div>
                             <div class="layui-input-inline">
-                                <button id="serchForm" type="button" class="layui-btn" lay-filter="serchForm">
+                                <button id="serchForm" type="button" class="layui-btn search-btn" lay-filter="serchForm">
                                     <i class="fa fa-search">&nbsp;</i>查询
                                 </button>
                                 <button type="reset" class="layui-btn layui-btn-primary">
@@ -45,6 +45,32 @@
                     </div>
                     <div class="layui-form ">
                         <table class="layui-table" id="monitorUnitTable" lay-filter="monitorUnitTable"></table>
+
+                        <table class="layui-table" id="noDataTable" style="display: none">
+                            <thead>
+                            <tr>
+                                <th width="10%">监测单位名称</th>
+
+                                <th width="5%">监测单位编号</th>
+
+                                <th width="10%">父级单位编号</th>
+
+                                <th width="10%">上级监测单位名称</th>
+
+                                <th width="10%" style="text-align: center">归属公司</th>
+
+                                <th width="10%" style="text-align: center">类型</th>
+
+                                <!--isPrimary：渲染列-->
+
+                                <th width="10%" style="text-align: center">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="text-align: center" colspan="7">暂无数据</td></tr>
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>

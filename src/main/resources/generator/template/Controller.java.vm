@@ -50,8 +50,8 @@ public class ${className}Controller {
 		//查询列表数据
         Query query = new Query(params);
 
-		List<${className}> ${classname}List = ${classname}Service.getList(query);
-		int total = ${classname}Service.getCount(query);
+		List<${className}> ${classname}List = ${classname}Service.queryList(query);
+		int total = ${classname}Service.queryTotal(query);
 		
 		PageUtils pageUtil = new PageUtils(${classname}List, total, query.getLimit(), query.getPage());
 		
@@ -73,7 +73,7 @@ public class ${className}Controller {
     @RequestMapping("/edit/{id}")
     @RequiresPermissions("${pathName}:update")
     public String edit(Model model, @PathVariable("id") String id){
-		${className} ${classname} = ${classname}Service.get(id);
+		${className} ${classname} = ${classname}Service.queryObject(id);
         model.addAttribute("model",${classname});
         return "${pathName}/edit";
     }
@@ -85,7 +85,7 @@ public class ${className}Controller {
     @RequestMapping("/info/{${pk.attrname}}")
     @RequiresPermissions("${pathName}:info")
     public R info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
-        ${className} ${classname} = ${classname}Service.get(${pk.attrname});
+        ${className} ${classname} = ${classname}Service.queryObject(${pk.attrname});
         return R.ok().put("${classname}", ${classname});
     }
 

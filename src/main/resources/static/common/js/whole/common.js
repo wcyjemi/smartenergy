@@ -142,6 +142,24 @@ function editOne(url,id){
 }
 
 /**
+ * 窗口任意大小 修改 弹出
+ * @param url
+ * @param id
+ */
+function editOneArea(url,id,w,h){
+    parent.layer.open({
+        type: 2,
+        title: '修改',
+        shadeClose: false,
+        shade: [0.3, '#000'],
+        maxmin: true, //开启最大化最小化按钮
+        area: [w, h],
+        content: url+"/"+id
+    });
+}
+
+
+/**
  * 批量删除
  * @param table_id 表格id
  * @param url      请求地址

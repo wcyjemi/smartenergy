@@ -14,11 +14,11 @@ import java.util.Map;
  */
 public interface ${className}Service {
 	
-	${className} get(${pk.attrType} ${pk.attrname});
+	${className} queryObject(${pk.attrType} ${pk.attrname});
 	
-	List<${className}> getList(Map<String, Object> map);
+	List<${className}> queryList(Map<String, Object> map);
 	
-	int getCount(Map<String, Object> map);
+	int queryTotal(Map<String, Object> map);
 	
 	void save(${className} ${classname});
 	

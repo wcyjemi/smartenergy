@@ -10,12 +10,13 @@
 #end
     </resultMap>
 
-	<select id="get" resultType="${package}.entity.${className}">
+	<select id="queryObject" resultType="${package}.entity.${className}">
 		select * from ${tableName} where ${pk.columnName} = #{value}
 	</select>
 
-	<select id="getList" resultType="${package}.entity.${className}">
-		select * from ${tableName} t <include refid="where_clause" />
+	<select id="queryList" resultType="${package}.entity.${className}">
+		select * from ${tableName} t
+		<include refid="where_clause" />
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -29,7 +30,7 @@
 		</if>
 	</select>
 	
- 	<select id="getCount" resultType="int">
+ 	<select id="queryTotal" resultType="int">
 		select count(*) from ${tableName} t  <include refid="where_clause" />
 	</select>
 
