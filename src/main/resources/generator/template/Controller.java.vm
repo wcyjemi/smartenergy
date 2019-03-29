@@ -84,7 +84,7 @@ public class ${className}Controller {
     @RequestMapping("detail/{id}")
     @RequiresPermissions("encollector:info")
     public String detail(Model model, @PathVariable("id") String id){
-        ${className} ${classname} = ${classname}Service.queryObject(id)};
+        ${className} ${classname} = ${classname}Service.queryObject(id);
         model.addAttribute("model",${classname});
         return "encollector/info";
     }
