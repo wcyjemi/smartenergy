@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xin.cymall.dao.EnConcentratorDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="xin.cymall.entity.EnConcentrator" id="enConcentratorMap">
+        <result property="id" column="id"/>
+        <result property="concentratorName" column="concentrator_name"/>
+        <result property="concentratorModel" column="concentrator_model"/>
+        <result property="monitorUnitId" column="monitor_unit_id"/>
+        <result property="address" column="address"/>
+        <result property="serviceHost" column="service_host"/>
+        <result property="timeCheck" column="time_check"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="xin.cymall.entity.EnConcentrator">
+		select * from en_concentrator where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="xin.cymall.entity.EnConcentrator">
+		select * from en_concentrator t
+
+		<where>
+			t.del_flag = 0
+			<if test="createUser != null">
+				and t.`create_user` = #{createUser}
+			</if>
+			<if test="concentratorName != null and concentratorName.trim() != ''">
+				and t.`concentrator_name` like concat('%',#{concentratorName},'%')
+			</if>
+		</where>
+
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+
+	</select>
+	
+ 	<select id="getCount" resultType="int">
+		select count(*) from en_concentrator t  <include refid="where_clause" />
+	</select>
+
+    <!-- 搜索数据区域 -->
+    <sql id="where_clause">
+        <where>
+            1=1
+            <if test="id != null and id != ''"> and t.id = #{id} </if>
+    		<if test="idVague != null and idVague != ''"> and t.id like concat('%',#{idVague},'%') </if>
+            <if test="concentratorName != null and concentratorName != ''"> and t.concentrator_name = #{concentratorName} </if>
+    		<if test="concentratorNameVague != null and concentratorNameVague != ''"> and t.concentrator_name like concat('%',#{concentratorNameVague},'%') </if>
+            <if test="concentratorModel != null and concentratorModel != ''"> and t.concentrator_model = #{concentratorModel} </if>
+    		<if test="concentratorModelVague != null and concentratorModelVague != ''"> and t.concentrator_model like concat('%',#{concentratorModelVague},'%') </if>
+            <if test="monitorUnitId != null and monitorUnitId != ''"> and t.monitor_unit_id = #{monitorUnitId} </if>
+    		<if test="monitorUnitIdVague != null and monitorUnitIdVague != ''"> and t.monitor_unit_id like concat('%',#{monitorUnitIdVague},'%') </if>
+            <if test="address != null and address != ''"> and t.address = #{address} </if>
+    		<if test="addressVague != null and addressVague != ''"> and t.address like concat('%',#{addressVague},'%') </if>
+            <if test="serviceHost != null and serviceHost != ''"> and t.service_host = #{serviceHost} </if>
+    		<if test="serviceHostVague != null and serviceHostVague != ''"> and t.service_host like concat('%',#{serviceHostVague},'%') </if>
+            <if test="timeCheck != null and timeCheck != ''"> and t.time_check = #{timeCheck} </if>
+    		<if test="timeCheckVague != null and timeCheckVague != ''"> and t.time_check like concat('%',#{timeCheckVague},'%') </if>
+            <if test="createUser != null and createUser != ''"> and t.create_user = #{createUser} </if>
+    		<if test="createUserVague != null and createUserVague != ''"> and t.create_user like concat('%',#{createUserVague},'%') </if>
+            <if test="createTime != null and createTime != ''"> and t.create_time = #{createTime} </if>
+    		<if test="createTimeVague != null and createTimeVague != ''"> and t.create_time like concat('%',#{createTimeVague},'%') </if>
+            <if test="updateUser != null and updateUser != ''"> and t.update_user = #{updateUser} </if>
+    		<if test="updateUserVague != null and updateUserVague != ''"> and t.update_user like concat('%',#{updateUserVague},'%') </if>
+            <if test="updateTime != null and updateTime != ''"> and t.update_time = #{updateTime} </if>
+    		<if test="updateTimeVague != null and updateTimeVague != ''"> and t.update_time like concat('%',#{updateTimeVague},'%') </if>
+            <if test="delFlag != null and delFlag != ''"> and t.del_flag = #{delFlag} </if>
+    		<if test="delFlagVague != null and delFlagVague != ''"> and t.del_flag like concat('%',#{delFlagVague},'%') </if>
+        </where>
+    </sql>
+	 
+	<insert id="save" parameterType="xin.cymall.entity.EnConcentrator" useGeneratedKeys="true" keyProperty="id">
+		insert into en_concentrator
+		(
+			`concentrator_name`, 
+			`concentrator_model`, 
+			`monitor_unit_id`, 
+			`address`, 
+			`service_host`, 
+			`time_check`, 
+			`create_user`, 
+			`create_time`, 
+			`update_user`, 
+			`update_time`, 
+			`del_flag`
+		)
+		values
+		(
+			#{concentratorName}, 
+			#{concentratorModel}, 
+			#{monitorUnitId}, 
+			#{address}, 
+			#{serviceHost}, 
+			#{timeCheck}, 
+			#{createUser}, 
+			#{createTime}, 
+			#{updateUser}, 
+			#{updateTime}, 
+			0
+		)
+	</insert>
+	 
+	<update id="update" parameterType="xin.cymall.entity.EnConcentrator">
+		update en_concentrator 
+		<set>
+			<if test="concentratorName != null">`concentrator_name` = #{concentratorName}, </if>
+			<if test="concentratorModel != null">`concentrator_model` = #{concentratorModel}, </if>
+			<if test="monitorUnitId != null">`monitor_unit_id` = #{monitorUnitId}, </if>
+			<if test="address != null">`address` = #{address}, </if>
+			<if test="serviceHost != null">`service_host` = #{serviceHost}, </if>
+			<if test="timeCheck != null">`time_check` = #{timeCheck}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateUser != null">`update_user` = #{updateUser}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		update en_concentrator set del_flag = 1 where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		update en_concentrator set del_flag = 1 where id in
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
