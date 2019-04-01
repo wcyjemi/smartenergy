@@ -78,7 +78,7 @@
 
                                 <th width="10%" param="{name:'createUser'}">创建人</th>
 
-                                <th width="10%" param="{name:'createTime'}">创建时间</th>
+                                <th width="10%" param="{name:'createTime',render:Render.dateFormat}">创建时间</th>
 
                                 <th width="10%" param="{name:'updateUser'}">修改人</th>
 

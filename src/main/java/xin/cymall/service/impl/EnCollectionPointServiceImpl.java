@@ -39,11 +39,14 @@ public class EnCollectionPointServiceImpl implements EnCollectionPointService {
 
 	@Override
 	public void save(EnCollectionPoint enCollectionPoint){
+		enCollectionPoint.preSave();
+		enCollectionPoint.preUpdate();
 		enCollectionPointDao.save(enCollectionPoint);
 	}
 
 	@Override
 	public void update(EnCollectionPoint enCollectionPoint){
+		enCollectionPoint.preUpdate();
 		enCollectionPointDao.update(enCollectionPoint);
 	}
 

@@ -41,6 +41,7 @@
 			${checkDisable} AS 'chkDisabled'
 		FROM
 			monitor_unit mun
+		WHERE mun.del_flag = 0
 	</sql>
 
 	<sql id="level_2">
@@ -53,6 +54,7 @@
 			${checkDisable} AS 'chkDisabled'
 		FROM
 			monitor_unit mun
+			WHERE mun.del_flag = 0
 		UNION
 		SELECT
 			ec.id AS id,
@@ -62,6 +64,7 @@
 			${checkDisable} AS 'chkDisabled'
 		FROM
 			en_concentrator ec
+			WHERE ec.del_flag = 0
 	</sql>
 
 	<sql id="level_3">
@@ -74,6 +77,7 @@
 			${checkDisable} AS 'chkDisabled'
 		FROM
 			monitor_unit mun
+		WHERE mun.del_flag = 0
 		UNION
 		SELECT
 			ec.id AS id,
@@ -83,6 +87,7 @@
 			${checkDisable} AS 'chkDisabled'
 		FROM
 			en_concentrator ec
+		WHERE ec.del_flag = 0
 		UNION
 		SELECT
 			ecp.id AS id,
@@ -92,6 +97,7 @@
 			${checkDisable} AS 'chkDisabled'
 		FROM
 			en_collection_point ecp
+		WHERE ecp.del_flag = 0
 	</sql>
 
 	<select id="queryObject" resultType="xin.cymall.entity.EnCompany">
@@ -156,6 +162,7 @@
 			${checkDisable} AS 'chkDisabled'
 		FROM
 			en_company cm
+		WHERE cm.del_flag = 0
 		<if test="level != null and level == 1">
 			<include refid="level_1"/>
 		</if>
