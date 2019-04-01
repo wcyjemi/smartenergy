@@ -5,6 +5,8 @@
     <div class="layui-input-normal">
         <input value="${(model.parentId)!""}" id="parent" cyType="treeTool" cyProps="url:'/enmonitorunit/select?companyId=${(model.companyId)!""}',name:'parentId'"
                placeholder="请选择监测单位" class="layui-input"/>
+        <#--<input value="${(model.parentId)!""}" id="parent" cyType="treeTool" cyProps="url:'/encompany/sysJgTree?level=3&checkDisable=true&check=false',name:'parentId'"-->
+               <#--placeholder="请选择监测单位" class="layui-input"/>-->
     </div>
 </div>
 <div class="layui-form-item">

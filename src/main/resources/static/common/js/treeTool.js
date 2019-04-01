@@ -70,6 +70,9 @@
 
 })(jQuery);
 var setting = {
+    check: {
+        enable: false
+    },
     data: {
         simpleData: {
             enable: true
@@ -107,6 +110,9 @@ function openZtree(obj) {
         dataType: "json",
         success: function (R) {
             if (R.code == 0) {
+                if(R.check){
+                    setting.check.enable = R.check;
+                }
                 ztree = $.fn.zTree.init($("#zTree"), setting, R.data);
                 var node = ztree.getNodeByParam("id", _value);
                 if (node != null) {

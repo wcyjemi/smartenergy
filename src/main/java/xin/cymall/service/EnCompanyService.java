@@ -1,6 +1,8 @@
 package xin.cymall.service;
 
+import io.swagger.models.auth.In;
 import xin.cymall.common.utils.EnumBean;
+import xin.cymall.common.utils.ZtreeBean;
 import xin.cymall.entity.EnCompany;
 import xin.cymall.entity.SysUser;
 
@@ -78,5 +80,12 @@ public interface EnCompanyService {
 	 * @return
 	 */
 	void updateCompanyKey(EnCompany enCompany);
+
+	/**
+	 * 查询树形结构 企业 建筑 监测点
+	 * @param param
+	 * @return
+	 */
+	List<ZtreeBean> sysJgTreeData(Map<String,Object> param);
 
 }

@@ -4,9 +4,11 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import xin.cymall.common.utils.EnumBean;
+import xin.cymall.common.utils.ZtreeBean;
 import xin.cymall.entity.EnCompany;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 企业信息 mapper
@@ -35,5 +37,12 @@ public interface EnCompanyDao extends BaseDao<EnCompany>{
      * @return
      */
     List<EnumBean> queryCodeAndValue();
+
+    /**
+     * 查询 平台结构树 数据
+     * @param param
+     * @return
+     */
+    List<ZtreeBean> queryJgTreeData(Map param);
 
 }

@@ -58,6 +58,18 @@ var Render = {
         return btn;
     },
     /**
+     * @param rowdata
+     *            行数据
+     * @description 查看回访记录渲染
+     */
+    recvist:function(rowdata,renderData){
+        var btn = '';
+        if (hasvistDepart) {
+            btn='<button onclick="windowsFull(\''+"企业回访记录"+'\',\''+"/encompanyvisit/list"+'\',\''+rowdata.id+'\')" class="layui-btn layui-btn-mini layui-btn-danger">回访记录</button>';
+        }
+        return btn;
+    },
+    /**
 	 * @param rowdata
 	 *            行数据
 	 * @state 状态值 1|0

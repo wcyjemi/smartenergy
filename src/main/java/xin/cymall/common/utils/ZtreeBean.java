@@ -10,6 +10,7 @@ public class ZtreeBean {
     private String name;
     private String open;
     private String chkDisabled;
+    private String type;
 
     public String getChkDisabled() {
         return chkDisabled;
@@ -49,5 +50,13 @@ public class ZtreeBean {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -9,6 +9,7 @@ import xin.cymall.common.enumresource.DefaultEnum;
 import xin.cymall.common.exception.MyException;
 import xin.cymall.common.utils.Constant;
 import xin.cymall.common.utils.EnumBean;
+import xin.cymall.common.utils.ZtreeBean;
 import xin.cymall.dao.EnCompanyDao;
 import xin.cymall.dao.SysUserDao;
 import xin.cymall.entity.EnCompany;
@@ -88,5 +89,10 @@ public class EnCompanyServiceImpl implements EnCompanyService {
 		enCompany.generKey();
 		enCompany.preUpdate();
 		enCompanyDao.updateCompanyKey(enCompany);
+	}
+
+	@Override
+	public List<ZtreeBean> sysJgTreeData(Map<String,Object> param) {
+		return enCompanyDao.queryJgTreeData(param);
 	}
 }

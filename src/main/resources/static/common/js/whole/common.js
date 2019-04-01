@@ -158,6 +158,25 @@ function editOneArea(url,id,w,h){
     });
 }
 
+/**
+ * 全屏弹窗
+ * @param title
+ * @param url
+ */
+function windowsFull(title,url,id) {
+    var index = parent.layer.open({
+        id:"fullIframe",
+        type: 2,
+        title: title,
+        shadeClose: false,
+        shade: [0.3, '#000'],
+        maxmin: true, //开启最大化最小化按钮
+        area: ['500px', '800px'],
+        content: url+"/"+id
+    });
+    parent.layer.full(index);
+}
+
 
 /**
  * 批量删除
@@ -412,6 +431,38 @@ layui.use(['form'], function () {
             success: function (R) {
                 if (R.code == 0) {
                     $t.Refresh();
+                    //刷新页面
+                    parent.layer.msg('操作成功 !', {icon: 1});
+                } else {
+                    parent.layer.msg(R.msg, {icon: 5});
+                }
+            },
+            error: function () {
+                alert("系统繁忙");
+            }
+        });
+        return false;
+    });
+});
+//保存或修改
+layui.use(['form'], function () {
+    var form = layui.form();
+    //监听提交
+    form.on('submit(layersubmit)', function (data) {
+        var url=$(this).attr("data-url");
+        $.ajax({
+            url: url,
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(data.field),
+            async: false,
+            dataType: "json",
+            success: function (R) {
+                if (R.code == 0) {
+                    var  frameindex= parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(frameindex);
+                    var parent_iframe=$(parent.document).find("div #fullIframe ").find("iframe")[0];
+                    $(parent_iframe).contents().find(".search-btn").click();
                     //刷新页面
                     parent.layer.msg('操作成功 !', {icon: 1});
                 } else {

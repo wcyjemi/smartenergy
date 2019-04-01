@@ -5,6 +5,7 @@
     <script>
         var hasdeleteDepart = false;
         var hasupdateDepart = false;
+        var hasvistDepart = false;
     </script>
     <#include "../resource.ftl"/>
 </head>
@@ -56,6 +57,11 @@
                                 hasdeleteDepart = true;
                             </script>
                         </@shiro.hasPermission>
+                        <@shiro.hasPermission name="encompanyvisit:list">
+                            <script>
+                                hasvistDepart = true;
+                            </script
+                        </@shiro.hasPermission>
                     </div>
                     <div class="layui-form ">
                         <table class="layui-table" id="companyTable" cyType="pageGrid"
@@ -83,7 +89,7 @@
 
                                 <!--isPrimary：渲染列-->
 
-                                <th width="10%" param="{operate:'true',buttons:'Render.state,Render.edit,Render.delete'}">操作</th>
+                                <th width="10%" param="{operate:'true',buttons:'Render.state,Render.edit,Render.delete,Render.recvist'}">操作</th>
                             </tr>
                             </thead>
                         </table>

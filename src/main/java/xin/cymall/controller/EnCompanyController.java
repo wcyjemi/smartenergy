@@ -1,21 +1,15 @@
 package xin.cymall.controller;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import xin.cymall.common.log.SysLog;
-import xin.cymall.common.utils.EnumBean;
-import xin.cymall.common.utils.PageUtils;
-import xin.cymall.common.utils.Query;
-import xin.cymall.common.utils.R;
+import xin.cymall.common.utils.*;
 import xin.cymall.entity.EnCompany;
 import xin.cymall.service.EnCompanyService;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -175,6 +169,21 @@ public class EnCompanyController extends AbstractController{
             return R.error("生成KEY失败");
         }
         return R.ok("生成KEY成功");
+    }
+
+    @ResponseBody
+    @RequestMapping("/sysJgTree")
+    @RequiresPermissions("energy:company:sysJgTree")
+    public R sysJgTree(@RequestParam Map<String, Object> params){
+        boolean check = Boolean.parseBoolean(params.get("check").toString());
+        List<ZtreeBean> ztreeBeanList = null;
+        try {
+            ztreeBeanList = enCompanyService.sysJgTreeData(params);
+        }catch (Exception e){
+            e.printStackTrace();
+            return R.error("服务异常");
+        }
+        return R.ok().put("data",ztreeBeanList).put("check",check);
     }
 
 

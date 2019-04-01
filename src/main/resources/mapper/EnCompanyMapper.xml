@@ -31,6 +31,69 @@
 		<result column="del_flag" property="delFlag"/>
 	</resultMap>
 
+	<sql id="level_1">
+		UNION
+		SELECT
+			mun.id AS id,
+			mun.company_id AS pid,
+			mun.monitor_unit_name AS `name`,
+			'2' AS type,
+			${checkDisable} AS 'chkDisabled'
+		FROM
+			monitor_unit mun
+	</sql>
+
+	<sql id="level_2">
+		UNION
+		SELECT
+			mun.id AS id,
+			mun.company_id AS pid,
+			mun.monitor_unit_name AS `name`,
+			'2' AS type,
+			${checkDisable} AS 'chkDisabled'
+		FROM
+			monitor_unit mun
+		UNION
+		SELECT
+			ec.id AS id,
+			ec.monitor_unit_id AS pid,
+			ec.concentrator_name AS `name`,
+			'3' AS type,
+			${checkDisable} AS 'chkDisabled'
+		FROM
+			en_concentrator ec
+	</sql>
+
+	<sql id="level_3">
+		UNION
+		SELECT
+			mun.id AS id,
+			mun.company_id AS pid,
+			mun.monitor_unit_name AS `name`,
+			'2' AS type,
+			${checkDisable} AS 'chkDisabled'
+		FROM
+			monitor_unit mun
+		UNION
+		SELECT
+			ec.id AS id,
+			ec.monitor_unit_id AS pid,
+			ec.concentrator_name AS `name`,
+			'3' AS type,
+			${checkDisable} AS 'chkDisabled'
+		FROM
+			en_concentrator ec
+		UNION
+		SELECT
+			ecp.id AS id,
+			ecp.concentrator_id AS pid,
+			ecp.collection_point_name AS `name`,
+			'4' AS type,
+			${checkDisable} AS 'chkDisabled'
+		FROM
+			en_collection_point ecp
+	</sql>
+
 	<select id="queryObject" resultType="xin.cymall.entity.EnCompany">
 		select * from en_company where id = #{value}
 	</select>
@@ -84,7 +147,27 @@
 		select ec.id as code, ec.company_name as value from en_company ec where ec.del_flag = 0
 	</select>
 
-	<insert id="save" parameterType="xin.cymall.entity.EnCompany" useGeneratedKeys="true" keyProperty="id">
+    <select id="queryJgTreeData" resultType="xin.cymall.common.utils.ZtreeBean">
+		SELECT
+			cm.id AS id,
+			'0' AS pId,
+			cm.company_name AS `name`,
+			'1' AS type,
+			${checkDisable} AS 'chkDisabled'
+		FROM
+			en_company cm
+		<if test="level != null and level == 1">
+			<include refid="level_1"/>
+		</if>
+		<if test="level != null and level == 2">
+			<include refid="level_2"/>
+		</if>
+		<if test="level != null and level == 3">
+			<include refid="level_3"/>
+		</if>
+	</select>
+
+    <insert id="save" parameterType="xin.cymall.entity.EnCompany" useGeneratedKeys="true" keyProperty="id">
 		insert into en_company
 		(
 			company_name,

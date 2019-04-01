@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xin.cymall.dao.EnCompanyVisitDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="xin.cymall.entity.EnCompanyVisit" id="enCompanyVisitMap">
+        <result property="id" column="id"/>
+        <result property="companyId" column="company_id"/>
+        <result property="visitTime" column="visit_time"/>
+        <result property="visitPerson" column="visit_person"/>
+        <result property="receptionist" column="receptionist"/>
+        <result property="visitType" column="visit_type"/>
+        <result property="visitContent" column="visit_content"/>
+        <result property="visitFile" column="visit_file"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="xin.cymall.entity.EnCompanyVisit">
+		select * from en_company_visit where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="xin.cymall.entity.EnCompanyVisit">
+		select * from en_company_visit t
+		<include refid="where_clause" />
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from en_company_visit t  <include refid="where_clause" />
+	</select>
+
+    <!-- 搜索数据区域 -->
+    <sql id="where_clause">
+        <where>
+			t.del_flag = 0
+            <if test="id != null and id != ''"> and t.id = #{id} </if>
+            <if test="companyId != null and companyId != ''"> and t.company_id = #{companyId} </if>
+            <if test="visitTime != null and visitTime != ''"> and t.visit_time = #{visitTime} </if>
+            <if test="visitPerson != null and visitPerson != ''"> and t.visit_person = #{visitPerson} </if>
+            <if test="receptionist != null and receptionist != ''"> and t.receptionist = #{receptionist} </if>
+            <if test="visitType != null and visitType != ''"> and t.visit_type = #{visitType} </if>
+            <if test="visitContent != null and visitContent != ''"> and t.visit_content = #{visitContent} </if>
+            <if test="visitFile != null and visitFile != ''"> and t.visit_file = #{visitFile} </if>
+            <if test="createUser != null and createUser != ''"> and t.create_user = #{createUser} </if>
+            <if test="createTime != null"> and t.create_time = #{createTime} </if>
+            <if test="updateUser != null and updateUser != ''"> and t.update_user = #{updateUser} </if>
+            <if test="updateTime != null"> and t.update_time = #{updateTime} </if>
+        </where>
+    </sql>
+	 
+	<insert id="save" parameterType="xin.cymall.entity.EnCompanyVisit" useGeneratedKeys="true" keyProperty="id">
+		insert into en_company_visit
+		(
+			`company_id`, 
+			`visit_time`, 
+			`visit_person`, 
+			`receptionist`, 
+			`visit_type`, 
+			`visit_content`, 
+			`visit_file`, 
+			`create_user`, 
+			`create_time`, 
+			`update_user`, 
+			`update_time`, 
+			`del_flag`
+		)
+		values
+		(
+			#{companyId}, 
+			#{visitTime}, 
+			#{visitPerson}, 
+			#{receptionist}, 
+			#{visitType}, 
+			#{visitContent}, 
+			#{visitFile}, 
+			#{createUser}, 
+			#{createTime}, 
+			#{updateUser}, 
+			#{updateTime}, 
+			0
+		)
+	</insert>
+	 
+	<update id="update" parameterType="xin.cymall.entity.EnCompanyVisit">
+		update en_company_visit 
+		<set>
+			<if test="companyId != null">`company_id` = #{companyId}, </if>
+			<if test="visitTime != null">`visit_time` = #{visitTime}, </if>
+			<if test="visitPerson != null">`visit_person` = #{visitPerson}, </if>
+			<if test="receptionist != null">`receptionist` = #{receptionist}, </if>
+			<if test="visitType != null">`visit_type` = #{visitType}, </if>
+			<if test="visitContent != null">`visit_content` = #{visitContent}, </if>
+			<if test="visitFile != null">`visit_file` = #{visitFile}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateUser != null">`update_user` = #{updateUser}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		UPDATE en_company_visit SET del_flag = 1 WHERE id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		UPDATE en_company_visit SET del_flag = 1 WHERE id in
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
