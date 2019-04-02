@@ -124,6 +124,21 @@ function editPage(table_id,url){
         });
     }
 }
+function editPageArea(table_id,url,w,h){
+
+    var id=getSelectedRow(table_id,url);
+    if(id!=null){
+        parent.layer.open({
+            type: 2,
+            title: '修改',
+            shadeClose: false,
+            shade: [0.3, '#000'],
+            maxmin: true, //开启最大化最小化按钮
+            area: [w, h],
+            content: url+"/"+id
+        });
+    }
+}
 /**
  * 修改
  * @param url 请求地址

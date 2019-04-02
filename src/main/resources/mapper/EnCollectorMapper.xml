@@ -91,6 +91,7 @@
 	<insert id="save" parameterType="xin.cymall.entity.EnCollector" useGeneratedKeys="true" keyProperty="id">
 		insert into en_collector
 		(
+			`id`,
 			`collector_name`, 
 			`collector_model`, 
 			`concentrator_id`, 
@@ -102,6 +103,7 @@
 		)
 		values
 		(
+			#{id},
 			#{collectorName}, 
 			#{collectorModel}, 
 			#{concentratorId}, 

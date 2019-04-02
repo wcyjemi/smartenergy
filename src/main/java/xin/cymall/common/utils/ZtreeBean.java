@@ -11,6 +11,7 @@ public class ZtreeBean {
     private String open;
     private String chkDisabled;
     private String type;
+    private Boolean click;
 
     public String getChkDisabled() {
         return chkDisabled;
@@ -58,5 +59,13 @@ public class ZtreeBean {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Boolean getClick() {
+        return click;
+    }
+
+    public void setClick(Boolean click) {
+        this.click = click;
     }
 }

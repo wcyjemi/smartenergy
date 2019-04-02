@@ -16,7 +16,7 @@ public class EnCompanyVisit extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/**企业ID**/
-	private Integer companyId;
+	private String companyId;
 	/**回访时间**/
 	private Date visitTime;
 	/**回访人**/
@@ -33,13 +33,13 @@ public class EnCompanyVisit extends BaseEntity implements Serializable {
 	/**
 	 * 设置：企业ID
 	 */
-	public void setCompanyId(Integer companyId) {
+	public void setCompanyId(String companyId) {
 		this.companyId = companyId;
 	}
 	/**
 	 * 获取：企业ID
 	 */
-	public Integer getCompanyId() {
+	public String getCompanyId() {
 		return companyId;
 	}
 	/**

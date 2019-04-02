@@ -13,7 +13,7 @@ public class EnMonitorUnit extends BaseEntity implements Serializable {
     /**
      * 企业ID
      */
-    private Integer companyId;
+    private String companyId;
     /**
      * 监测单位名称
      */
@@ -25,7 +25,7 @@ public class EnMonitorUnit extends BaseEntity implements Serializable {
     /**
      * 监测单位父级ID
      */
-    private Integer parentId;
+    private String parentId;
     /**
      * 监测单位父级IDs
      */
@@ -39,11 +39,11 @@ public class EnMonitorUnit extends BaseEntity implements Serializable {
      */
     private Integer sort;
 
-    public Integer getCompanyId() {
+    public String getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(Integer companyId) {
+    public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
 
@@ -63,11 +63,11 @@ public class EnMonitorUnit extends BaseEntity implements Serializable {
         this.monitorType = monitorType;
     }
 
-    public Integer getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

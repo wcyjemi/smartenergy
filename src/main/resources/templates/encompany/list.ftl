@@ -37,7 +37,7 @@
                             </button>
                         </@shiro.hasPermission>
                         <@shiro.hasPermission name="energy:company:update">
-                            <button class="layui-btn" onclick="editPage('companyTable','/encompany/edit')">
+                            <button class="layui-btn" onclick="editPageArea('companyTable','/encompany/edit','1100px','600px')">
                                 <i class="fa fa-pencil-square-o">&nbsp;</i>修改
                             </button>
                             <script>

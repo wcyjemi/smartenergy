@@ -109,6 +109,7 @@
     <insert id="save" parameterType="xin.cymall.entity.EnMonitorUnit" useGeneratedKeys="true" keyProperty="id">
 		insert into monitor_unit
 		(
+			id,
 			company_id,
 			monitor_unit_name,
 			monitor_type,
@@ -124,6 +125,7 @@
 		)
 		values
 		(
+			#{id},
 			#{companyId},
 			#{monitorUnitName},
 			#{monitorType},

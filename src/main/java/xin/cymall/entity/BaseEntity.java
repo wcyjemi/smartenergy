@@ -5,6 +5,7 @@ import xin.cymall.common.shiro.ShiroUtils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * 基础 entity
@@ -15,7 +16,7 @@ public abstract class BaseEntity {
     /**
      * 主键
      */
-    private Integer id;
+    private String id;
     /**
      * 创建时间
      */
@@ -37,11 +38,12 @@ public abstract class BaseEntity {
      */
     private Integer delFlag;
 
-    public Integer getId() {
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -88,6 +90,7 @@ public abstract class BaseEntity {
     public void preSave(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
+            this.id = UUID.randomUUID().toString();
             this.createTime = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
             this.createUser = Integer.parseInt(String.valueOf(ShiroUtils.getUserId()));
             this.updateTime = simpleDateFormat.parse(simpleDateFormat.format(new Date()));

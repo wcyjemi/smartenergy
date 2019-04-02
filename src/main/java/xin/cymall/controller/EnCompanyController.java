@@ -95,7 +95,7 @@ public class EnCompanyController extends AbstractController{
      * 跳转到修改页面
      */
     @RequestMapping("/edit/{id}")
-    public String edit(Model model,@PathVariable("id") Integer id){
+    public String edit(Model model,@PathVariable("id") String id){
         EnCompany enCompany = enCompanyService.queryObject(id);
         model.addAttribute("model",enCompany);
         return "encompany/edit";
@@ -135,7 +135,7 @@ public class EnCompanyController extends AbstractController{
     @SysLog("删除企业信息")
     @RequestMapping("/delete")
     @RequiresPermissions("energy:company:delete")
-    public R delete(@RequestBody Integer[] ids){
+    public R delete(@RequestBody String[] ids){
         try{
             enCompanyService.deleteBatch(ids);
         }catch (Exception e){
@@ -150,7 +150,7 @@ public class EnCompanyController extends AbstractController{
      * @return
      */
     @RequestMapping("/toApplySeri/{id}")
-    public String toApplySeri(Model model,@PathVariable("id") Integer id){
+    public String toApplySeri(Model model,@PathVariable("id") String id){
         EnCompany enCompany = enCompanyService.queryObject(id);
         model.addAttribute("model",enCompany);
         return "encompany/apply";

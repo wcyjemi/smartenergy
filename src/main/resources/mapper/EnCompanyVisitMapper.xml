@@ -66,6 +66,7 @@
 	<insert id="save" parameterType="xin.cymall.entity.EnCompanyVisit" useGeneratedKeys="true" keyProperty="id">
 		insert into en_company_visit
 		(
+			`id`,
 			`company_id`, 
 			`visit_time`, 
 			`visit_person`, 
@@ -81,6 +82,7 @@
 		)
 		values
 		(
+			#{id},
 			#{companyId}, 
 			#{visitTime}, 
 			#{visitPerson}, 

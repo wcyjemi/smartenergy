@@ -9,26 +9,26 @@ import java.io.Serializable;
  */
 public class TreeTableBean implements Serializable {
     private static final long serialVersionUID = 1501703932589702493L;
-    private Integer id;
-    private Integer pid;
+    private String id;
+    private String pid;
     private String title;
     private Integer monitorType;
     private String parentName;
     private String companyName;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getPid() {
+    public String getPid() {
         return pid;
     }
 
-    public void setPid(Integer pid) {
+    public void setPid(String pid) {
         this.pid = pid;
     }
 

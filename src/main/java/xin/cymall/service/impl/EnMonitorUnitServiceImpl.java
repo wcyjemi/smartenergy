@@ -28,7 +28,7 @@ public class EnMonitorUnitServiceImpl implements EnMonitorUnitService {
 	private EnMonitorUnitDao enMonitorUnitDao;
 
 	@Override
-	public EnMonitorUnit queryObject(Integer id) {
+	public EnMonitorUnit queryObject(String id) {
 		return enMonitorUnitDao.queryObject(id);
 	}
 
@@ -43,7 +43,7 @@ public class EnMonitorUnitServiceImpl implements EnMonitorUnitService {
 	}
 
 	@Override
-	public List<EnMonitorUnit> queryListByCompId(Integer companyId) {
+	public List<EnMonitorUnit> queryListByCompId(String companyId) {
 		return enMonitorUnitDao.queryAllUnits(companyId);
 	}
 
@@ -73,7 +73,7 @@ public class EnMonitorUnitServiceImpl implements EnMonitorUnitService {
 
 	@Override
 	@Transactional(readOnly = false,rollbackFor = Exception.class)
-	public void deleteBatch(Integer[] ids) {
+	public void deleteBatch(String[] ids) {
 		enMonitorUnitDao.deleteBatch(ids);
 	}
 

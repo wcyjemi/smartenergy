@@ -23,7 +23,7 @@ public interface EnCompanyService {
 	 * @param id
 	 * @return
 	 */
-	EnCompany queryObject(Integer id);
+	EnCompany queryObject(String id);
 
 	/**
 	 * 根据企业名称查询
@@ -72,7 +72,7 @@ public interface EnCompanyService {
 	 * @param ids
 	 * @return
 	 */
-	void deleteBatch(Integer[] ids);
+	void deleteBatch(String[] ids);
 	
 	/**
 	 * 修改企业序列号

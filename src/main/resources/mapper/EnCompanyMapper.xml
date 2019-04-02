@@ -35,10 +35,12 @@
 		UNION
 		SELECT
 			mun.id AS id,
-			mun.company_id AS pid,
+			CASE WHEN mun.parent_id = '0' THEN mun.company_id
+  			ELSE mun.parent_id END AS pid,
 			mun.monitor_unit_name AS `name`,
 			'2' AS type,
-			${checkDisable} AS 'chkDisabled'
+			${checkDisable} AS 'chkDisabled',
+			'true' AS 'click'
 		FROM
 			monitor_unit mun
 		WHERE mun.del_flag = 0
@@ -48,10 +50,12 @@
 		UNION
 		SELECT
 			mun.id AS id,
-			mun.company_id AS pid,
+			CASE WHEN mun.parent_id = '0' THEN mun.company_id
+  			ELSE mun.parent_id END AS pid,
 			mun.monitor_unit_name AS `name`,
 			'2' AS type,
-			${checkDisable} AS 'chkDisabled'
+			${checkDisable} AS 'chkDisabled',
+			'false' AS 'click'
 		FROM
 			monitor_unit mun
 			WHERE mun.del_flag = 0
@@ -61,7 +65,8 @@
 			ec.monitor_unit_id AS pid,
 			ec.concentrator_name AS `name`,
 			'3' AS type,
-			${checkDisable} AS 'chkDisabled'
+			${checkDisable} AS 'chkDisabled',
+			'true' AS 'click'
 		FROM
 			en_concentrator ec
 			WHERE ec.del_flag = 0
@@ -71,10 +76,12 @@
 		UNION
 		SELECT
 			mun.id AS id,
-			mun.company_id AS pid,
+			CASE WHEN mun.parent_id = '0' THEN mun.company_id
+  			ELSE mun.parent_id END AS pid,
 			mun.monitor_unit_name AS `name`,
 			'2' AS type,
-			${checkDisable} AS 'chkDisabled'
+			${checkDisable} AS 'chkDisabled',
+			'false' AS 'click'
 		FROM
 			monitor_unit mun
 		WHERE mun.del_flag = 0
@@ -84,7 +91,8 @@
 			ec.monitor_unit_id AS pid,
 			ec.concentrator_name AS `name`,
 			'3' AS type,
-			${checkDisable} AS 'chkDisabled'
+			${checkDisable} AS 'chkDisabled',
+			'false' AS 'click'
 		FROM
 			en_concentrator ec
 		WHERE ec.del_flag = 0
@@ -94,7 +102,8 @@
 			ecp.concentrator_id AS pid,
 			ecp.collection_point_name AS `name`,
 			'4' AS type,
-			${checkDisable} AS 'chkDisabled'
+			${checkDisable} AS 'chkDisabled',
+			'true' AS 'click'
 		FROM
 			en_collection_point ecp
 		WHERE ecp.del_flag = 0
@@ -159,7 +168,8 @@
 			'0' AS pId,
 			cm.company_name AS `name`,
 			'1' AS type,
-			${checkDisable} AS 'chkDisabled'
+			${checkDisable} AS 'chkDisabled',
+			false as 'click'
 		FROM
 			en_company cm
 		WHERE cm.del_flag = 0
@@ -177,6 +187,7 @@
     <insert id="save" parameterType="xin.cymall.entity.EnCompany" useGeneratedKeys="true" keyProperty="id">
 		insert into en_company
 		(
+			id,
 			company_name,
 			company_shortname,
 			company_ename,
@@ -194,9 +205,6 @@
 			company_lo,
 			company_la,
 			pay_type,
-			key_type,
-			key_sttime,
-			key_edtime,
 			create_time,
 			create_user,
 			update_time,
@@ -205,6 +213,7 @@
 		)
 		values
 		(
+			#{id},
 			#{companyName},
 			#{companyShortname},
 			#{companyEname},
@@ -212,6 +221,7 @@
 			#{companyAreapath},
 			#{companyAddress},
 			#{companyFr},
+			#{companyFrPhone},
 			#{companyContact},
 			#{contactPhone},
 			#{companyKey},
@@ -220,10 +230,7 @@
 			#{companyCapacity},
 			#{companyLo},
 			#{companyLa},
-			#{payType}
-			#{keyType},
-			#{keySttime},
-			#{keyEdtime},
+			#{payType},
 			#{createTime},
 			#{createUser},
 			#{updateTime},

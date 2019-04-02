@@ -62,7 +62,7 @@ public class EnCompanyVisitController {
      * 跳转到新增页面
      **/
     @RequestMapping("/add")
-    public String add(Model model, @Param("companyId") Integer companyId){
+    public String add(Model model, @Param("companyId") String companyId){
         EnCompanyVisit enCompanyVisit = new EnCompanyVisit();
         enCompanyVisit.setCompanyId(companyId);
         model.addAttribute("model", enCompanyVisit);

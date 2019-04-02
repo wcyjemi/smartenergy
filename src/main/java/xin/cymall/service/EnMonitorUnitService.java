@@ -21,7 +21,7 @@ public interface EnMonitorUnitService {
 	 * @param id
 	 * @return
 	 */
-	EnMonitorUnit queryObject(Integer id);
+	EnMonitorUnit queryObject(String id);
 
 	/**
 	 * 根据监测单位名称查询
@@ -42,7 +42,7 @@ public interface EnMonitorUnitService {
 	 * @param companyId
 	 * @return
 	 */
-	List<EnMonitorUnit> queryListByCompId(Integer companyId);
+	List<EnMonitorUnit> queryListByCompId(String companyId);
 
 	/**
 	 * 查询树形table数据
@@ -77,6 +77,6 @@ public interface EnMonitorUnitService {
 	 * @param ids
 	 * @return
 	 */
-	void deleteBatch(Integer[] ids);
+	void deleteBatch(String[] ids);
 
 }

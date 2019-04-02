@@ -38,6 +38,7 @@ public class EnCollectionPointServiceImpl implements EnCollectionPointService {
 	}
 
 	@Override
+	@Transactional(readOnly = false,rollbackFor = Exception.class)
 	public void save(EnCollectionPoint enCollectionPoint){
 		enCollectionPoint.preSave();
 		enCollectionPoint.preUpdate();
@@ -45,22 +46,26 @@ public class EnCollectionPointServiceImpl implements EnCollectionPointService {
 	}
 
 	@Override
+	@Transactional(readOnly = false,rollbackFor = Exception.class)
 	public void update(EnCollectionPoint enCollectionPoint){
 		enCollectionPoint.preUpdate();
 		enCollectionPointDao.update(enCollectionPoint);
 	}
 
 	@Override
+	@Transactional(readOnly = false,rollbackFor = Exception.class)
 	public void delete(String id){
 		enCollectionPointDao.delete(id);
 	}
 
 	@Override
+	@Transactional(readOnly = false,rollbackFor = Exception.class)
 	public void deleteBatch(String[] ids){
 		enCollectionPointDao.deleteBatch(ids);
 	}
 
     @Override
+	@Transactional(readOnly = false,rollbackFor = Exception.class)
     public void updateState(String[] ids,String stateValue) {
         for (String id:ids){
 			EnCollectionPoint enCollectionPoint=queryObject(id);

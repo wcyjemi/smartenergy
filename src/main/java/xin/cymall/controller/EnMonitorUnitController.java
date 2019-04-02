@@ -85,7 +85,7 @@ public class EnMonitorUnitController extends AbstractController{
      */
     @ResponseBody
     @RequestMapping("/select")
-    public R selectMonitorUnit(@RequestParam Integer companyId){
+    public R selectMonitorUnit(@RequestParam String companyId){
 
         if (companyId == null){
             return R.error("请选择企业！");
@@ -96,9 +96,9 @@ public class EnMonitorUnitController extends AbstractController{
 
         //添加顶级菜单
         EnMonitorUnit root = new EnMonitorUnit();
-        root.setId(Integer.parseInt(TopMenuEnum.TopMonitorUnit.getCode()));
+        root.setId(TopMenuEnum.TopMonitorUnit.getCode());
         root.setMonitorUnitName(TopMenuEnum.TopMonitorUnit.getDesc());
-        root.setParentId(Integer.parseInt("-1"));
+        root.setParentId("-1");
         enMonitorUnits.add(root);
         List<ZtreeBean> ztreeBeans = new ArrayList<>();
         for (EnMonitorUnit enMonitorUnit : enMonitorUnits) {
@@ -118,7 +118,7 @@ public class EnMonitorUnitController extends AbstractController{
      * 跳转到添加页面
      */
     @RequestMapping("/add")
-    public String add(@RequestParam Integer companyId,Model model){
+    public String add(@RequestParam String companyId,Model model){
         EnMonitorUnit enMonitorUnit = new EnMonitorUnit();
         enMonitorUnit.setCompanyId(companyId);
         model.addAttribute("model",enMonitorUnit);
@@ -137,7 +137,7 @@ public class EnMonitorUnitController extends AbstractController{
     public R save(@RequestBody EnMonitorUnit enMonitorUnit){
         //保存监测单位信息
         try{
-            if (enMonitorUnit.getParentId()==0){
+            if ("0".equals(enMonitorUnit.getParentId())){
                 enMonitorUnit.setParentIds("0");
                 enMonitorUnit.setLevel(1);
             }else {
@@ -158,7 +158,7 @@ public class EnMonitorUnitController extends AbstractController{
      * 跳转到修改页面
      */
     @RequestMapping("/edit/{id}")
-    public String edit(Model model,@PathVariable("id") Integer id){
+    public String edit(Model model,@PathVariable("id") String id){
         EnMonitorUnit enMonitorUnit = enMonitorUnitService.queryObject(id);
         model.addAttribute("model",enMonitorUnit);
         return "monitorunit/edit";
@@ -176,7 +176,7 @@ public class EnMonitorUnitController extends AbstractController{
     public R update(@RequestBody EnMonitorUnit enMonitorUnit){
         //保存企业信息
         try{
-            if (enMonitorUnit.getParentId()==0){
+            if ("0".equals(enMonitorUnit.getParentId())){
                 enMonitorUnit.setParentIds("0");
                 enMonitorUnit.setLevel(1);
             }else {
@@ -202,7 +202,7 @@ public class EnMonitorUnitController extends AbstractController{
     @SysLog("删除监测单位信息")
     @RequestMapping("/delete")
     @RequiresPermissions("energy:monitorunit:delete")
-    public R delete(@RequestBody Integer[] ids){
+    public R delete(@RequestBody String[] ids){
         try{
             enMonitorUnitService.deleteBatch(ids);
         }catch (Exception e){

@@ -30,7 +30,7 @@ public interface EnMonitorUnitDao extends BaseDao<EnMonitorUnit>{
      * 查询所有监测单位
      * @return
      */
-    List<EnMonitorUnit> queryAllUnits(@Param("companyId") Integer companyId);
+    List<EnMonitorUnit> queryAllUnits(@Param("companyId") String companyId);
 
     /**
      * 查询树形表格数据

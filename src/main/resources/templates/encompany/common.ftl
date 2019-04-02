@@ -39,7 +39,7 @@
 <div class="layui-form-item">
     <label class="layui-form-label">企业类型<span class="span_must">*</span></label>
     <div class="layui-input-normal">
-        <div cyType="selectTool" cyProps="codeName:'companyType',search:'true'" name="companyType" value="${(model.companyType)!""}" lay-verify="required"
+        <div cyType="selectTool" cyProps="codeName:'company_type',search:'true'" name="companyType" value="${(model.companyType)!""}" lay-verify="required"
              class="layui-input-normal"></div>
     </div>
     <label class="layui-form-label">用电容量<span class="span_must">*</span></label>
@@ -79,7 +79,7 @@
 <div class="layui-form-item">
     <label class="layui-form-label">缴费类型<span class="span_must">*</span></label>
     <div class="layui-input-normal">
-        <div cyType="selectTool" cyProps="codeName:'companyPayType',search:'true'" name="payType" value="${(model.payType)!""}" lay-verify="required"
+        <div cyType="selectTool" cyProps="codeName:'company_paytype',search:'true'" name="payType" value="${(model.payType)!""}" lay-verify="required"
              class="layui-input-normal"></div>
     </div>
     <label class="layui-form-label">经纬度<span class="span_must">*</span></label>

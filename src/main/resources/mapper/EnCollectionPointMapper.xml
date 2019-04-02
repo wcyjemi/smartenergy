@@ -115,11 +115,11 @@
 	</update>
 	
 	<delete id="delete">
-		delete from en_collection_point where id = #{value}
+		UPDATE en_collection_point SET del_flag = 1 where id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		delete from en_collection_point where id in 
+		UPDATE en_collection_point SET del_flag = 1 where id in
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>

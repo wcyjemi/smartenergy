@@ -35,7 +35,7 @@
                     </form>
                     <div class="layui-btn-group">
                         <@shiro.hasPermission name="encollectionpoint:save">
-                            <button class="layui-btn" onclick="addPage('/encollectionpoint/add')">
+                            <button class="layui-btn" onclick="addPageAare('/encollectionpoint/add','新增采集点',1200,800)">
                                 <i class="fa fa-plus">&nbsp;</i>增加
                             </button>
                         </@shiro.hasPermission>
@@ -56,7 +56,7 @@
                                 <i class="fa fa-expeditedssl">&nbsp;</i>禁用
                             </button>
                         </@shiro.hasPermission>
-                        <@shiro.hasPermission name="encollectionpoint:delete">
+                        <@shiro.hasPermission name="encollectionpoint:delete">6
                             <button class="layui-btn layui-btn-delete"
                                     onclick="deleteBatch('批量删除','enCollectionPointTable','/encollectionpoint/delete');">
                                 <i class="fa fa-trash-o">&nbsp;</i>删除

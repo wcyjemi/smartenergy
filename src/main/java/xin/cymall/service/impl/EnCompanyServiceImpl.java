@@ -35,7 +35,7 @@ public class EnCompanyServiceImpl implements EnCompanyService {
 	private EnCompanyDao enCompanyDao;
 
 	@Override
-	public EnCompany queryObject(Integer id) {
+	public EnCompany queryObject(String id) {
 		return enCompanyDao.queryObject(id);
 	}
 
@@ -79,7 +79,7 @@ public class EnCompanyServiceImpl implements EnCompanyService {
 
 	@Override
 	@Transactional(readOnly = false,rollbackFor = Exception.class)
-	public void deleteBatch(Integer[] ids) {
+	public void deleteBatch(String[] ids) {
 		enCompanyDao.deleteBatch(ids);
 	}
 

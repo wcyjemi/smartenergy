@@ -93,6 +93,7 @@
 	<insert id="save" parameterType="xin.cymall.entity.EnConcentrator" useGeneratedKeys="true" keyProperty="id">
 		insert into en_concentrator
 		(
+			`id`,
 			`concentrator_name`, 
 			`concentrator_model`, 
 			`monitor_unit_id`, 
@@ -107,6 +108,7 @@
 		)
 		values
 		(
+			#{id},
 			#{concentratorName}, 
 			#{concentratorModel}, 
 			#{monitorUnitId}, 

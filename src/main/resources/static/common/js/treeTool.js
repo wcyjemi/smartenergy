@@ -80,6 +80,9 @@ var setting = {
         key: {
             url: "nourl"
         }
+    },
+    callback: {
+        beforeClick: beforeClick
     }
 };
 var ztree;
@@ -109,6 +112,7 @@ function openZtree(obj) {
         async: false,
         dataType: "json",
         success: function (R) {
+            console.info(R.data);
             if (R.code == 0) {
                 if(R.check){
                     setting.check.enable = R.check;
@@ -148,6 +152,10 @@ function openZtree(obj) {
             layer.close(index);
         }
     });
+}
+
+function beforeClick(treeId, treeNode, clickFlag) {
+    return treeNode.click;
 }
 /**清空下拉树数据**/
 function clearTreeData(obj){
