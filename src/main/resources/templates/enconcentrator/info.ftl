@@ -24,7 +24,7 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-label-left"><span class="label_span">所属单位:</span></label>
-            <label class="layui-label-right">${(model.monitorUnitId)!"-"}</label>
+            <label class="layui-label-right">${(model.monitorUnitName)!"-"}</label>
         </div>
         <div class="layui-form-item">
             <label class="layui-label-left"><span class="label_span">地址:</span></label>

@@ -29,6 +29,16 @@ public class EnConcentrator extends BaseEntity implements Serializable {
 	private String timeCheck;
 
 
+	private String monitorUnitName;
+
+	public String getMonitorUnitName() {
+		return monitorUnitName;
+	}
+
+	public void setMonitorUnitName(String monitorUnitName) {
+		this.monitorUnitName = monitorUnitName;
+	}
+
 	/**
 	 * 设置：
 	 */

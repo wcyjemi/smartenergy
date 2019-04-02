@@ -20,11 +20,16 @@
     </resultMap>
 
 	<select id="queryObject" resultType="xin.cymall.entity.EnConcentrator">
-		select * from en_concentrator where id = #{value}
+		select t.*,mu.monitor_unit_name as monitorUnitName from en_concentrator t
+		 left join monitor_unit mu
+		on t.monitor_unit_id = mu.id
+		 where t.id = #{value}
 	</select>
 
 	<select id="queryList" resultType="xin.cymall.entity.EnConcentrator">
-		select * from en_concentrator t
+		select t.*,mu.monitor_unit_name as monitorUnitName from en_concentrator t
+		left join monitor_unit mu
+		on t.monitor_unit_id = mu.id
 
 		<where>
 			t.del_flag = 0

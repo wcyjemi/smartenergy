@@ -22,6 +22,37 @@ public class EnCollector extends BaseEntity implements Serializable {
 	/**所属集中器ID**/
 	private String concentratorId;
 
+
+	private String createUsers;
+
+	private String updateUsers;
+
+	private String concentratorName;
+
+	public String getConcentratorName() {
+		return concentratorName;
+	}
+
+	public void setConcentratorName(String concentratorName) {
+		this.concentratorName = concentratorName;
+	}
+
+	public String getCreateUsers() {
+		return createUsers;
+	}
+
+	public void setCreateUsers(String createUsers) {
+		this.createUsers = createUsers;
+	}
+
+	public String getUpdateUsers() {
+		return updateUsers;
+	}
+
+	public void setUpdateUsers(String updateUsers) {
+		this.updateUsers = updateUsers;
+	}
+
 	/**
 	 * 设置：采集器名称
 	 */

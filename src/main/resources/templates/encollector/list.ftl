@@ -74,15 +74,15 @@
 
                                 <th width="10%" param="{name:'collectorModel'}">采集器型号</th>
 
+                                <th width="10%" param="{name:'concentratorName'}">所属集中器</th>
 
-
-                                <th width="10%" param="{name:'createUser'}">创建人</th>
+                                <th width="5%" param="{name:'createUsers'}">创建人</th>
 
                                 <th width="10%" param="{name:'createTime',render:Render.dateFormat}">创建时间</th>
 
-                                <th width="10%" param="{name:'updateUser'}">修改人</th>
+                                <th width="5%" param="{name:'updateUsers'}">修改人</th>
 
-                                <th width="10%" param="{name:'updateTime'}">修改时间</th>
+                                <th width="10%" param="{name:'updateTime',render:Render.dateFormat}">修改时间</th>
 
 
                                 <!--isPrimary：渲染列-->

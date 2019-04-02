@@ -75,7 +75,7 @@
 
                                 <th width="10%" param="{name:'concentratorModel'}">集中器型号</th>
 
-                                <th width="10%" param="{name:'monitorUnitId'}">所属单位</th>
+                                <th width="10%" param="{name:'monitorUnitName'}">所属单位</th>
 
                                 <th width="10%" param="{name:'address'}">地址</th>
 

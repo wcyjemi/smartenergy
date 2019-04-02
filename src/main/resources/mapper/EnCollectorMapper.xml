@@ -16,12 +16,26 @@
         <result property="delFlag" column="del_flag"/>
     </resultMap>
 
+
+
 	<select id="queryObject" resultType="xin.cymall.entity.EnCollector">
-		select * from en_collector where id = #{value}
+		select t.* ,ec.concentrator_name as concentratorName from en_collector  t
+		left join en_concentrator ec on ec.id = t.concentrator_id
+		 where t.id = #{value}
 	</select>
 
 	<select id="queryList" resultType="xin.cymall.entity.EnCollector">
-		select * from en_collector t
+		select 	t.id,
+		t.collector_model,
+		t.collector_name,
+		t.concentrator_id,
+		t.create_time,
+		su.username createUsers,
+		t.del_flag,
+		t.update_time,
+		su2.username as updateUsers,ec.concentrator_name as concentratorName from en_collector t left join sys_user su on t.create_user = su.user_id
+		left join  sys_user su2 on t.update_user = su2.user_id
+		left join en_concentrator ec on ec.id = t.concentrator_id
 		<where>
 			t.del_flag = 0
 			<if test="createUser != null">
