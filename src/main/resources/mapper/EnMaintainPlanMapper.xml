@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xin.cymall.dao.EnMaintainPlanDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="xin.cymall.entity.EnMaintainPlan" id="enMaintainPlanMap">
+        <result property="id" column="id"/>
+        <result property="deviceId" column="device_id"/>
+        <result property="deviceName" column="device_name"/>
+        <result property="planName" column="plan_name"/>
+        <result property="planSt" column="plan_st"/>
+        <result property="panEd" column="pan_ed"/>
+        <result property="contact" column="contact"/>
+        <result property="contactPhone" column="contact_phone"/>
+        <result property="maintRs" column="maint_rs"/>
+        <result property="maintFile" column="maint_file"/>
+        <result property="planStatus" column="plan_status"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="xin.cymall.entity.EnMaintainPlan">
+		select * from en_maintain_plan where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="xin.cymall.entity.EnMaintainPlan">
+		select * from en_maintain_plan t
+		<include refid="where_clause" />
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from en_maintain_plan t  <include refid="where_clause" />
+	</select>
+
+    <!-- 搜索数据区域 -->
+    <sql id="where_clause">
+        <where>
+            1=1
+
+            <if test="deviceName != null and deviceName != ''"> and t.device_name = #{deviceName} </if>
+    		<if test="deviceNameVague != null and deviceNameVague != ''"> and t.device_name like concat('%',#{deviceNameVague},'%') </if>
+            <if test="planName != null and planName != ''"> and t.plan_name = like concat('%',#{planName},'%') </if>
+    		<if test="planNameVague != null and planNameVague != ''"> and t.plan_name like concat('%',#{planNameVague},'%') </if>
+            <if test="planSt != null and planSt != ''"> and t.plan_st = #{planSt} </if>
+    		<if test="planStVague != null and planStVague != ''"> and t.plan_st like concat('%',#{planStVague},'%') </if>
+            <if test="panEd != null and panEd != ''"> and t.pan_ed = #{panEd} </if>
+    		<if test="panEdVague != null and panEdVague != ''"> and t.pan_ed like concat('%',#{panEdVague},'%') </if>
+            <if test="contact != null and contact != ''"> and t.contact = #{contact} </if>
+    		<if test="contactVague != null and contactVague != ''"> and t.contact like concat('%',#{contactVague},'%') </if>
+            <if test="contactPhone != null and contactPhone != ''"> and t.contact_phone = #{contactPhone} </if>
+    		<if test="contactPhoneVague != null and contactPhoneVague != ''"> and t.contact_phone like concat('%',#{contactPhoneVague},'%') </if>
+            <if test="maintRs != null and maintRs != ''"> and t.maint_rs = #{maintRs} </if>
+    		<if test="maintRsVague != null and maintRsVague != ''"> and t.maint_rs like concat('%',#{maintRsVague},'%') </if>
+            <if test="maintFile != null and maintFile != ''"> and t.maint_file = #{maintFile} </if>
+    		<if test="maintFileVague != null and maintFileVague != ''"> and t.maint_file like concat('%',#{maintFileVague},'%') </if>
+            <if test="planStatus != null and planStatus != ''"> and t.plan_status = #{planStatus} </if>
+    		<if test="planStatusVague != null and planStatusVague != ''"> and t.plan_status like concat('%',#{planStatusVague},'%') </if>
+            <if test="createUser != null and createUser != ''"> and t.create_user = #{createUser} </if>
+    		<if test="createUserVague != null and createUserVague != ''"> and t.create_user like concat('%',#{createUserVague},'%') </if>
+            <if test="createTime != null and createTime != ''"> and t.create_time = #{createTime} </if>
+    		<if test="createTimeVague != null and createTimeVague != ''"> and t.create_time like concat('%',#{createTimeVague},'%') </if>
+            <if test="updateUser != null and updateUser != ''"> and t.update_user = #{updateUser} </if>
+    		<if test="updateUserVague != null and updateUserVague != ''"> and t.update_user like concat('%',#{updateUserVague},'%') </if>
+            <if test="updateTime != null and updateTime != ''"> and t.update_time = #{updateTime} </if>
+    		<if test="updateTimeVague != null and updateTimeVague != ''"> and t.update_time like concat('%',#{updateTimeVague},'%') </if>
+            <if test="delFlag != null and delFlag != ''"> and t.del_flag = #{delFlag} </if>
+    		<if test="delFlagVague != null and delFlagVague != ''"> and t.del_flag like concat('%',#{delFlagVague},'%') </if>
+        </where>
+    </sql>
+	 
+	<insert id="save" parameterType="xin.cymall.entity.EnMaintainPlan" useGeneratedKeys="true" keyProperty="id">
+		insert into en_maintain_plan
+		(
+			id,
+			`device_id`, 
+			`device_name`, 
+			`plan_name`, 
+			`plan_st`, 
+			`pan_ed`, 
+			`contact`, 
+			`contact_phone`, 
+			`maint_rs`, 
+			`maint_file`, 
+			`plan_status`, 
+			`create_user`, 
+			`create_time`, 
+			`update_user`, 
+			`update_time`, 
+			`del_flag`
+		)
+		values
+		(
+			#{id},
+			#{deviceId}, 
+			#{deviceName}, 
+			#{planName}, 
+			#{planSt}, 
+			#{panEd}, 
+			#{contact}, 
+			#{contactPhone}, 
+			#{maintRs}, 
+			#{maintFile}, 
+			#{planStatus}, 
+			#{createUser}, 
+			#{createTime}, 
+			#{updateUser}, 
+			#{updateTime}, 
+			#{delFlag}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="xin.cymall.entity.EnMaintainPlan">
+		update en_maintain_plan 
+		<set>
+			<if test="deviceId != null">`device_id` = #{deviceId}, </if>
+			<if test="deviceName != null">`device_name` = #{deviceName}, </if>
+			<if test="planName != null">`plan_name` = #{planName}, </if>
+			<if test="planSt != null">`plan_st` = #{planSt}, </if>
+			<if test="panEd != null">`pan_ed` = #{panEd}, </if>
+			<if test="contact != null">`contact` = #{contact}, </if>
+			<if test="contactPhone != null">`contact_phone` = #{contactPhone}, </if>
+			<if test="maintRs != null">`maint_rs` = #{maintRs}, </if>
+			<if test="maintFile != null">`maint_file` = #{maintFile}, </if>
+			<if test="planStatus != null">`plan_status` = #{planStatus}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateUser != null">`update_user` = #{updateUser}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from en_maintain_plan where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from en_maintain_plan where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

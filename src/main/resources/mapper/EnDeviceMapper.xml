@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xin.cymall.dao.EnDeviceDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="xin.cymall.entity.EnDevice" id="enDeviceMap">
+        <result property="id" column="id"/>
+        <result property="deviceName" column="device_name"/>
+        <result property="deviceNo" column="device_no"/>
+        <result property="deviceBrand" column="device_brand"/>
+        <result property="deviceModel" column="device_model"/>
+        <result property="companyId" column="company_id"/>
+        <result property="productDate" column="product_date"/>
+        <result property="installDate" column="install_date"/>
+        <result property="nominalPower" column="nominal_power"/>
+        <result property="deviceStatus" column="device_status"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="xin.cymall.entity.EnDevice">
+		select
+			*
+		from en_device d where d.id = #{value}
+	</select>
+
+	<select id="queryList" resultType="xin.cymall.entity.EnDevice">
+		select * from en_device t
+		<include refid="where_clause" />
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from en_device t  <include refid="where_clause" />
+	</select>
+
+    <!-- 搜索数据区域 -->
+    <sql id="where_clause">
+        <where>
+            1=1
+            <if test="id != null and id != ''"> and t.id = #{id} </if>
+    		<if test="idVague != null and idVague != ''"> and t.id like concat('%',#{idVague},'%') </if>
+            <if test="deviceName != null and deviceName != ''"> and t.device_name = #{deviceName} </if>
+    		<if test="deviceNameVague != null and deviceNameVague != ''"> and t.device_name like concat('%',#{deviceNameVague},'%') </if>
+            <if test="deviceNo != null and deviceNo != ''"> and t.device_no = #{deviceNo} </if>
+    		<if test="deviceNoVague != null and deviceNoVague != ''"> and t.device_no like concat('%',#{deviceNoVague},'%') </if>
+            <if test="deviceBrand != null and deviceBrand != ''"> and t.device_brand = #{deviceBrand} </if>
+    		<if test="deviceBrandVague != null and deviceBrandVague != ''"> and t.device_brand like concat('%',#{deviceBrandVague},'%') </if>
+            <if test="deviceModel != null and deviceModel != ''"> and t.device_model = #{deviceModel} </if>
+    		<if test="deviceModelVague != null and deviceModelVague != ''"> and t.device_model like concat('%',#{deviceModelVague},'%') </if>
+            <if test="companyId != null and companyId != ''"> and t.company_id = #{companyId} </if>
+    		<if test="companyIdVague != null and companyIdVague != ''"> and t.company_id like concat('%',#{companyIdVague},'%') </if>
+            <if test="productDate != null and productDate != ''"> and t.product_date = #{productDate} </if>
+    		<if test="productDateVague != null and productDateVague != ''"> and t.product_date like concat('%',#{productDateVague},'%') </if>
+            <if test="installDate != null and installDate != ''"> and t.install_date = #{installDate} </if>
+    		<if test="installDateVague != null and installDateVague != ''"> and t.install_date like concat('%',#{installDateVague},'%') </if>
+            <if test="nominalPower != null and nominalPower != ''"> and t.nominal_power = #{nominalPower} </if>
+    		<if test="nominalPowerVague != null and nominalPowerVague != ''"> and t.nominal_power like concat('%',#{nominalPowerVague},'%') </if>
+            <if test="deviceStatus != null and deviceStatus != ''"> and t.device_status = #{deviceStatus} </if>
+        </where>
+    </sql>
+	 
+	<insert id="save" parameterType="xin.cymall.entity.EnDevice" useGeneratedKeys="true" keyProperty="id">
+		insert into en_device
+		(
+			id,
+			`device_name`, 
+			`device_no`, 
+			`device_brand`, 
+			`device_model`, 
+			`company_id`, 
+			`product_date`, 
+			`install_date`, 
+			`nominal_power`, 
+			`device_status`, 
+			`create_user`, 
+			`create_time`, 
+			`update_user`, 
+			`update_time`, 
+			`del_flag`
+		)
+		values
+		(
+			#{id},
+			#{deviceName}, 
+			#{deviceNo}, 
+			#{deviceBrand}, 
+			#{deviceModel}, 
+			#{companyId}, 
+			#{productDate}, 
+			#{installDate}, 
+			#{nominalPower}, 
+			#{deviceStatus}, 
+			#{createUser}, 
+			#{createTime}, 
+			#{updateUser}, 
+			#{updateTime}, 
+			#{delFlag}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="xin.cymall.entity.EnDevice">
+		update en_device 
+		<set>
+			<if test="deviceName != null">`device_name` = #{deviceName}, </if>
+			<if test="deviceNo != null">`device_no` = #{deviceNo}, </if>
+			<if test="deviceBrand != null">`device_brand` = #{deviceBrand}, </if>
+			<if test="deviceModel != null">`device_model` = #{deviceModel}, </if>
+			<if test="companyId != null">`company_id` = #{companyId}, </if>
+			<if test="productDate != null">`product_date` = #{productDate}, </if>
+			<if test="installDate != null">`install_date` = #{installDate}, </if>
+			<if test="nominalPower != null">`nominal_power` = #{nominalPower}, </if>
+			<if test="deviceStatus != null">`device_status` = #{deviceStatus}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateUser != null">`update_user` = #{updateUser}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from en_device where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from en_device where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xin.cymall.dao.EnInstructionsDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="xin.cymall.entity.EnInstructions" id="enInstructionsMap">
+        <result property="id" column="id"/>
+        <result property="instructions" column="instructions"/>
+        <result property="instructionsName" column="instructions_name"/>
+        <result property="instructionsType" column="instructions_type"/>
+        <result property="instructionsUnit" column="instructions_unit"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="xin.cymall.entity.EnInstructions">
+		select * from en_instructions where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="xin.cymall.entity.EnInstructions">
+		select * from en_instructions t
+		<include refid="where_clause" />
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from en_instructions t  <include refid="where_clause" />
+	</select>
+
+    <!-- 搜索数据区域 -->
+    <sql id="where_clause">
+        <where>
+            1=1
+            <if test="id != null and id != ''"> and t.id = #{id} </if>
+    		<if test="idVague != null and idVague != ''"> and t.id like concat('%',#{idVague},'%') </if>
+            <if test="instructions != null and instructions != ''"> and t.instructions = #{instructions} </if>
+    		<if test="instructionsVague != null and instructionsVague != ''"> and t.instructions like concat('%',#{instructionsVague},'%') </if>
+            <if test="instructionsName != null and instructionsName != ''"> and t.instructions_name like concat('%',#{instructionsName},'%')  </if>
+    		<if test="instructionsNameVague != null and instructionsNameVague != ''"> and t.instructions_name like concat('%',#{instructionsNameVague},'%') </if>
+            <if test="instructionsType != null and instructionsType != ''"> and t.instructions_type = #{instructionsType} </if>
+    		<if test="instructionsTypeVague != null and instructionsTypeVague != ''"> and t.instructions_type like concat('%',#{instructionsTypeVague},'%') </if>
+            <if test="instructionsUnit != null and instructionsUnit != ''"> and t.instructions_unit = #{instructionsUnit} </if>
+    		<if test="instructionsUnitVague != null and instructionsUnitVague != ''"> and t.instructions_unit like concat('%',#{instructionsUnitVague},'%') </if>
+            <if test="createUser != null and createUser != ''"> and t.create_user = #{createUser} </if>
+    		<if test="createUserVague != null and createUserVague != ''"> and t.create_user like concat('%',#{createUserVague},'%') </if>
+            <if test="createTime != null and createTime != ''"> and t.create_time = #{createTime} </if>
+    		<if test="createTimeVague != null and createTimeVague != ''"> and t.create_time like concat('%',#{createTimeVague},'%') </if>
+            <if test="updateUser != null and updateUser != ''"> and t.update_user = #{updateUser} </if>
+    		<if test="updateUserVague != null and updateUserVague != ''"> and t.update_user like concat('%',#{updateUserVague},'%') </if>
+            <if test="updateTime != null and updateTime != ''"> and t.update_time = #{updateTime} </if>
+    		<if test="updateTimeVague != null and updateTimeVague != ''"> and t.update_time like concat('%',#{updateTimeVague},'%') </if>
+            <if test="delFlag != null and delFlag != ''"> and t.del_flag = #{delFlag} </if>
+    		<if test="delFlagVague != null and delFlagVague != ''"> and t.del_flag like concat('%',#{delFlagVague},'%') </if>
+        </where>
+    </sql>
+	 
+	<insert id="save" parameterType="xin.cymall.entity.EnInstructions">
+		insert into en_instructions
+		(
+			`id`, 
+			`instructions`, 
+			`instructions_name`, 
+			`instructions_type`, 
+			`instructions_unit`, 
+			`create_user`, 
+			`create_time`, 
+			`update_user`, 
+			`update_time`, 
+			`del_flag`
+		)
+		values
+		(
+			#{id}, 
+			#{instructions}, 
+			#{instructionsName}, 
+			#{instructionsType}, 
+			#{instructionsUnit}, 
+			#{createUser}, 
+			#{createTime}, 
+			#{updateUser}, 
+			#{updateTime}, 
+			#{delFlag}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="xin.cymall.entity.EnInstructions">
+		update en_instructions 
+		<set>
+			<if test="instructions != null">`instructions` = #{instructions}, </if>
+			<if test="instructionsName != null">`instructions_name` = #{instructionsName}, </if>
+			<if test="instructionsType != null">`instructions_type` = #{instructionsType}, </if>
+			<if test="instructionsUnit != null">`instructions_unit` = #{instructionsUnit}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateUser != null">`update_user` = #{updateUser}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from en_instructions where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from en_instructions where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

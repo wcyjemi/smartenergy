@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xin.cymall.dao.EnWarningInfoDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="xin.cymall.entity.EnWarningInfo" id="enWarningInfoMap">
+        <result property="id" column="id"/>
+        <result property="collectionPointId" column="collection_point_id"/>
+        <result property="instructionsId" column="instructions_id"/>
+        <result property="instructionsName" column="instructions_name"/>
+        <result property="currentValue" column="current_value"/>
+        <result property="standardValue" column="standard_value"/>
+        <result property="directionType" column="direction_type"/>
+        <result property="differenceValue" column="difference_value"/>
+        <result property="percentageValue" column="percentage_value"/>
+        <result property="warningLevel" column="warning_level"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="xin.cymall.entity.EnWarningInfo">
+		select * from en_warning_info where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="xin.cymall.entity.EnWarningInfo">
+		select * from en_warning_info t
+		<include refid="where_clause" />
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from en_warning_info t  <include refid="where_clause" />
+	</select>
+
+    <!-- 搜索数据区域 -->
+    <sql id="where_clause">
+        <where>
+            1=1
+            <if test="instructionsName != null and instructionsName != ''"> and t.instructions_name = #{instructionsName} </if>
+    		<if test="instructionsNameVague != null and instructionsNameVague != ''"> and t.instructions_name like concat('%',#{instructionsNameVague},'%') </if>
+            <if test="currentValue != null and currentValue != ''"> and t.current_value = #{currentValue} </if>
+    		<if test="currentValueVague != null and currentValueVague != ''"> and t.current_value like concat('%',#{currentValueVague},'%') </if>
+            <if test="standardValue != null and standardValue != ''"> and t.standard_value = #{standardValue} </if>
+    		<if test="standardValueVague != null and standardValueVague != ''"> and t.standard_value like concat('%',#{standardValueVague},'%') </if>
+            <if test="directionType != null and directionType != ''"> and t.direction_type = #{directionType} </if>
+    		<if test="directionTypeVague != null and directionTypeVague != ''"> and t.direction_type like concat('%',#{directionTypeVague},'%') </if>
+            <if test="differenceValue != null and differenceValue != ''"> and t.difference_value = #{differenceValue} </if>
+    		<if test="differenceValueVague != null and differenceValueVague != ''"> and t.difference_value like concat('%',#{differenceValueVague},'%') </if>
+            <if test="percentageValue != null and percentageValue != ''"> and t.percentage_value = #{percentageValue} </if>
+    		<if test="percentageValueVague != null and percentageValueVague != ''"> and t.percentage_value like concat('%',#{percentageValueVague},'%') </if>
+            <if test="warningLevel != null and warningLevel != ''"> and t.warning_level = #{warningLevel} </if>
+            <if test="createUser != null and createUser != ''"> and t.create_user = #{createUser} </if>
+        </where>
+    </sql>
+	 
+	<insert id="save" parameterType="xin.cymall.entity.EnWarningInfo" useGeneratedKeys="true" keyProperty="id">
+		insert into en_warning_info
+		(
+			`collection_point_id`, 
+			`instructions_id`, 
+			`instructions_name`, 
+			`current_value`, 
+			`standard_value`, 
+			`direction_type`, 
+			`difference_value`, 
+			`percentage_value`, 
+			`warning_level`, 
+			`create_user`, 
+			`create_time`, 
+			`update_user`, 
+			`update_time`, 
+			`del_flag`
+		)
+		values
+		(
+			#{collectionPointId}, 
+			#{instructionsId}, 
+			#{instructionsName}, 
+			#{currentValue}, 
+			#{standardValue}, 
+			#{directionType}, 
+			#{differenceValue}, 
+			#{percentageValue}, 
+			#{warningLevel}, 
+			#{createUser}, 
+			#{createTime}, 
+			#{updateUser}, 
+			#{updateTime}, 
+			#{delFlag}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="xin.cymall.entity.EnWarningInfo">
+		update en_warning_info 
+		<set>
+			<if test="collectionPointId != null">`collection_point_id` = #{collectionPointId}, </if>
+			<if test="instructionsId != null">`instructions_id` = #{instructionsId}, </if>
+			<if test="instructionsName != null">`instructions_name` = #{instructionsName}, </if>
+			<if test="currentValue != null">`current_value` = #{currentValue}, </if>
+			<if test="standardValue != null">`standard_value` = #{standardValue}, </if>
+			<if test="directionType != null">`direction_type` = #{directionType}, </if>
+			<if test="differenceValue != null">`difference_value` = #{differenceValue}, </if>
+			<if test="percentageValue != null">`percentage_value` = #{percentageValue}, </if>
+			<if test="warningLevel != null">`warning_level` = #{warningLevel}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateUser != null">`update_user` = #{updateUser}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from en_warning_info where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from en_warning_info where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
