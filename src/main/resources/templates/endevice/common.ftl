@@ -33,12 +33,12 @@
             </div>
         </div>
 
-              <div class="layui-form-item">${(model.bucket)!""}
+        <div class="layui-form-item">${(model.bucket)!""}
+
             <label class="layui-form-label">所属企业<span class="span_must">*</span></label>
-            <div class="layui-input-normal">
-                <input type="text"  name="companyId" maxlength="11" lay-verify="required"
-                 value="${(model.companyId)!""}"  placeholder="请输入所属企业"  class="layui-input">
-            </div>
+            <div id="companyId" cyType="selectTool" maxlength="50"  cyProps="url:'/encompany/queryAll',search:'true'" name="companyId" value="${(model.companyId)!""}" lay-verify="" placeholder="请选择所属企业"
+                 class="layui-input-inline"></div>
+
         </div>
 
         <div class="layui-form-item">${(model.bucket)!""}
@@ -67,8 +67,8 @@
 
               <div class="layui-form-item">${(model.bucket)!""}
             <label class="layui-form-label">设备状态<span class="span_must">*</span></label>
-                  <div cyType="selectTool" cyProps="codeName:'direction_type',search:'true'" name="directionType"  value="${(model.deviceStatus)!""}" lay-verify=""
-                       class="layui-input-inline"></div>
+                  <div cyType="selectTool" cyProps="codeName:'device_status',search:'true'" name="deviceStatus"  value="${(model.deviceStatus)!""}" lay-verify=""
+                       class="layui-input-inline" maxlength="50" ></div>
                   <div class="layui-input-normal">
         </div>
 

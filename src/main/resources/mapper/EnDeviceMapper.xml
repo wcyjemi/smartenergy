@@ -11,6 +11,7 @@
         <result property="deviceBrand" column="device_brand"/>
         <result property="deviceModel" column="device_model"/>
         <result property="companyId" column="company_id"/>
+		<result property="companyName" column="company_name"/>
         <result property="productDate" column="product_date"/>
         <result property="installDate" column="install_date"/>
         <result property="nominalPower" column="nominal_power"/>
@@ -23,53 +24,59 @@
     </resultMap>
 
 	<select id="queryObject" resultType="xin.cymall.entity.EnDevice">
-		select
-			*
-		from en_device d where d.id = #{value}
+		SELECT
+			t.id,
+			t.device_name,
+			t.device_no,
+			t.device_brand,
+			t.device_model,
+			t.company_id,
+			c.company_name,
+			DATE_FORMAT( t.product_date, '%Y-%m-%d' ) product_date,
+			DATE_FORMAT( t.install_date, '%Y-%m-%d' ) install_date,
+			t.nominal_power,
+			t.device_status,
+			t.create_time
+		FROM
+			en_device t
+		LEFT JOIN en_company c on t.company_id = c.id where t.id = #{value}
 	</select>
 
 	<select id="queryList" resultType="xin.cymall.entity.EnDevice">
-		select * from en_device t
+		SELECT
+			t.id,
+			t.device_name,
+			t.device_no,
+			t.device_brand,
+			t.device_model,
+			t.company_id,
+			c.company_name,
+			DATE_FORMAT( t.product_date, '%Y-%m-%d' ) product_date,
+			DATE_FORMAT( t.install_date, '%Y-%m-%d' ) install_date,
+			t.nominal_power,
+			t.device_status,
+			t.create_time
+		FROM
+			en_device t
+		LEFT JOIN en_company c on t.company_id = c.id
 		<include refid="where_clause" />
-        <choose>
-            <when test="sidx != null and sidx.trim() != ''">
-                order by ${sidx} ${order}
-            </when>
-			<otherwise>
-                order by id desc
-			</otherwise>
-        </choose>
+		order by t.create_time desc, t.device_status
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from en_device t  <include refid="where_clause" />
+		select count(1) from 	en_device t
+		LEFT JOIN en_company c on t.company_id = c.id  <include refid="where_clause" />
 	</select>
 
     <!-- 搜索数据区域 -->
     <sql id="where_clause">
         <where>
             1=1
-            <if test="id != null and id != ''"> and t.id = #{id} </if>
-    		<if test="idVague != null and idVague != ''"> and t.id like concat('%',#{idVague},'%') </if>
-            <if test="deviceName != null and deviceName != ''"> and t.device_name = #{deviceName} </if>
-    		<if test="deviceNameVague != null and deviceNameVague != ''"> and t.device_name like concat('%',#{deviceNameVague},'%') </if>
-            <if test="deviceNo != null and deviceNo != ''"> and t.device_no = #{deviceNo} </if>
-    		<if test="deviceNoVague != null and deviceNoVague != ''"> and t.device_no like concat('%',#{deviceNoVague},'%') </if>
-            <if test="deviceBrand != null and deviceBrand != ''"> and t.device_brand = #{deviceBrand} </if>
-    		<if test="deviceBrandVague != null and deviceBrandVague != ''"> and t.device_brand like concat('%',#{deviceBrandVague},'%') </if>
-            <if test="deviceModel != null and deviceModel != ''"> and t.device_model = #{deviceModel} </if>
-    		<if test="deviceModelVague != null and deviceModelVague != ''"> and t.device_model like concat('%',#{deviceModelVague},'%') </if>
-            <if test="companyId != null and companyId != ''"> and t.company_id = #{companyId} </if>
-    		<if test="companyIdVague != null and companyIdVague != ''"> and t.company_id like concat('%',#{companyIdVague},'%') </if>
-            <if test="productDate != null and productDate != ''"> and t.product_date = #{productDate} </if>
-    		<if test="productDateVague != null and productDateVague != ''"> and t.product_date like concat('%',#{productDateVague},'%') </if>
-            <if test="installDate != null and installDate != ''"> and t.install_date = #{installDate} </if>
-    		<if test="installDateVague != null and installDateVague != ''"> and t.install_date like concat('%',#{installDateVague},'%') </if>
-            <if test="nominalPower != null and nominalPower != ''"> and t.nominal_power = #{nominalPower} </if>
-    		<if test="nominalPowerVague != null and nominalPowerVague != ''"> and t.nominal_power like concat('%',#{nominalPowerVague},'%') </if>
+    		<if test="deviceName != null and deviceName != ''"> and t.device_name like concat('%',#{deviceNameVague},'%') </if>
+			<if test="companyName != null and companyName != ''"> and c.company_name like concat('%',#{companyName},'%') </if>
             <if test="deviceStatus != null and deviceStatus != ''"> and t.device_status = #{deviceStatus} </if>
         </where>
     </sql>

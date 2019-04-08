@@ -13,7 +13,7 @@ import java.util.Map;
  * @date 2019-04-03 15:11:53
  */
 public interface EnDeviceService {
-	
+
 	EnDevice queryObject(String id);
 	
 	List<EnDevice> queryList(Map<String, Object> map);
