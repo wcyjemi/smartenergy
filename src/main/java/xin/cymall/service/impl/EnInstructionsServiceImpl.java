@@ -66,7 +66,12 @@ public class EnInstructionsServiceImpl implements EnInstructionsService {
         }
     }
 
-    @Override
+	/**
+	 *
+	 * @param map (instructionsType 数据项类型)
+	 * @return
+	 */
+	@Override
     public List<EnInstructions> queryListAll(Map<String, Object> map) {
         return enInstructionsDao.queryListAll(map);
     }
