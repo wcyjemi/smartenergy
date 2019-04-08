@@ -65,5 +65,10 @@ public class EnInstructionsServiceImpl implements EnInstructionsService {
             update(enInstructions);
         }
     }
-	
+
+    @Override
+    public List<EnInstructions> queryListAll(Map<String, Object> map) {
+        return enInstructionsDao.queryListAll(map);
+    }
+
 }

@@ -29,4 +29,6 @@ public interface EnInstructionsService {
 	void deleteBatch(String[] ids);
 
     void updateState(String[] ids, String stateValue);
+
+	List<EnInstructions> queryListAll(Map<String,Object> map);
 }

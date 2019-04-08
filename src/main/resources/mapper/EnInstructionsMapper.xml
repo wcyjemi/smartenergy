@@ -41,6 +41,12 @@
 		select count(*) from en_instructions t  <include refid="where_clause" />
 	</select>
 
+	<select id="queryListAll" resultType="xin.cymall.entity.EnInstructions">
+		select * from en_instructions t
+		where t.instructions_type = #{instructionsType}
+		order by t.create_time
+	</select>
+
     <!-- 搜索数据区域 -->
     <sql id="where_clause">
         <where>
@@ -52,22 +58,9 @@
             <if test="instructionsName != null and instructionsName != ''"> and t.instructions_name like concat('%',#{instructionsName},'%')  </if>
     		<if test="instructionsNameVague != null and instructionsNameVague != ''"> and t.instructions_name like concat('%',#{instructionsNameVague},'%') </if>
             <if test="instructionsType != null and instructionsType != ''"> and t.instructions_type = #{instructionsType} </if>
-    		<if test="instructionsTypeVague != null and instructionsTypeVague != ''"> and t.instructions_type like concat('%',#{instructionsTypeVague},'%') </if>
-            <if test="instructionsUnit != null and instructionsUnit != ''"> and t.instructions_unit = #{instructionsUnit} </if>
-    		<if test="instructionsUnitVague != null and instructionsUnitVague != ''"> and t.instructions_unit like concat('%',#{instructionsUnitVague},'%') </if>
-            <if test="createUser != null and createUser != ''"> and t.create_user = #{createUser} </if>
-    		<if test="createUserVague != null and createUserVague != ''"> and t.create_user like concat('%',#{createUserVague},'%') </if>
-            <if test="createTime != null and createTime != ''"> and t.create_time = #{createTime} </if>
-    		<if test="createTimeVague != null and createTimeVague != ''"> and t.create_time like concat('%',#{createTimeVague},'%') </if>
-            <if test="updateUser != null and updateUser != ''"> and t.update_user = #{updateUser} </if>
-    		<if test="updateUserVague != null and updateUserVague != ''"> and t.update_user like concat('%',#{updateUserVague},'%') </if>
-            <if test="updateTime != null and updateTime != ''"> and t.update_time = #{updateTime} </if>
-    		<if test="updateTimeVague != null and updateTimeVague != ''"> and t.update_time like concat('%',#{updateTimeVague},'%') </if>
-            <if test="delFlag != null and delFlag != ''"> and t.del_flag = #{delFlag} </if>
-    		<if test="delFlagVague != null and delFlagVague != ''"> and t.del_flag like concat('%',#{delFlagVague},'%') </if>
         </where>
     </sql>
-	 
+
 	<insert id="save" parameterType="xin.cymall.entity.EnInstructions">
 		insert into en_instructions
 		(
