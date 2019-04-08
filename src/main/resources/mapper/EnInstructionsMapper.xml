@@ -24,14 +24,7 @@
 	<select id="queryList" resultType="xin.cymall.entity.EnInstructions">
 		select * from en_instructions t
 		<include refid="where_clause" />
-        <choose>
-            <when test="sidx != null and sidx.trim() != ''">
-                order by ${sidx} ${order}
-            </when>
-			<otherwise>
-                order by id desc
-			</otherwise>
-        </choose>
+        order by
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
@@ -51,12 +44,8 @@
     <sql id="where_clause">
         <where>
             1=1
-            <if test="id != null and id != ''"> and t.id = #{id} </if>
-    		<if test="idVague != null and idVague != ''"> and t.id like concat('%',#{idVague},'%') </if>
-            <if test="instructions != null and instructions != ''"> and t.instructions = #{instructions} </if>
-    		<if test="instructionsVague != null and instructionsVague != ''"> and t.instructions like concat('%',#{instructionsVague},'%') </if>
+
             <if test="instructionsName != null and instructionsName != ''"> and t.instructions_name like concat('%',#{instructionsName},'%')  </if>
-    		<if test="instructionsNameVague != null and instructionsNameVague != ''"> and t.instructions_name like concat('%',#{instructionsNameVague},'%') </if>
             <if test="instructionsType != null and instructionsType != ''"> and t.instructions_type = #{instructionsType} </if>
         </where>
     </sql>
