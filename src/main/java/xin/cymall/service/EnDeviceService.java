@@ -1,5 +1,6 @@
 package xin.cymall.service;
 
+import xin.cymall.common.utils.EnumBean;
 import xin.cymall.entity.EnDevice;
 
 import java.util.List;
@@ -29,4 +30,6 @@ public interface EnDeviceService {
 	void deleteBatch(String[] ids);
 
     void updateState(String[] ids, String stateValue);
+
+	List<EnumBean> queryAllList();
 }

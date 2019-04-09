@@ -14,14 +14,12 @@ var Render = {
      * @param index
      * @param value      当前对象值
      */
-    customState: function (rowdata,renderData, index, value) {
-        if(value == "启用"){
-            return '<span style="color:green">'+value+'</span>';
+    planStatus: function (rowdata,renderData, index, value) {
+        if(value == "1"){
+            return '启用';
+        }else{
+            return '禁用';
         }
-        if(value == "禁用"){
-            return '<span style="color:red">'+value+'</span>';
-        }
-        return value;
     },
     /**
      * @param rowdata    行数据

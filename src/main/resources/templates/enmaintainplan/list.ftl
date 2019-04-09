@@ -16,8 +16,18 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">计划名称:</label>
                             <div class="layui-input-inline">
+                                <input type="text" name="planName"  placeholder="请输入计划名称:" class="layui-input">
+                            </div>
+
+                            <label class="layui-form-label">设备名称:</label>
+                            <div class="layui-input-inline">
                                 <input type="text" name="deviceName"  placeholder="请输入计划名称:" class="layui-input">
                             </div>
+
+                            <label class="layui-form-label">计划状态</label>
+                            <div cyType="selectTool" cyProps="codeName:'plan_status',search:'true'" name="planStatus"  lay-verify=""
+                                 class="layui-input-inline" ></div>
+                            <div class="layui-input-normal">
 
                             <div class="layui-input-normal">
                                 <!--
@@ -65,21 +75,16 @@
                                 </th>
                                                                                         <!--isPrimary：是否是主键-->
                                 <th width="10%" param="{name:'id',isPrimary:'true',hide:'true'}"></th>
-                                
-                                                                    
-                                                  <th width="10%" param="{name:'deviceId'}">维保设备ID</th>
-                                                                            
-                                                  <th width="10%" param="{name:'deviceName'}">维保设备名称</th>
-                                                                            
-                                                  <th width="10%" param="{name:'planName'}">计划名称</th>
 
-                                                  <th width="10%" param="{name:'contact'}">责任人</th>
+                                <th width="10%" param="{name:'deviceName'}">维保设备名称</th>
                                                                             
-                                                  <th width="10%" param="{name:'contactPhone'}">责任人联系方式</th>
+                                <th width="10%" param="{name:'planName'}">计划名称</th>
 
+                                <th width="10%" param="{name:'contact'}">责任人</th>
                                                                             
-                                                  <th width="10%" param="{name:'planStatus'}">计划状态</th>
+                                <th width="10%" param="{name:'contactPhone'}">责任人联系方式</th>
 
+                                <th width="10%" param="{name:'planStatus',enumName:'PlanStateEnum',render:'Render.planStatus'}">计划状态</th>
                                 <th width="10%" param="{operate:'true',buttons:'Render.state,Render.edit,Render.delete'}">操作</th>
                             </tr>
                             </thead>

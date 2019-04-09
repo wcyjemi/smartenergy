@@ -19,6 +19,12 @@
                                 <input type="text" name="instructionsName"  placeholder="请输入名称" class="layui-input">
                             </div>
 
+                            <label class="layui-form-label">指令类型</label>
+                            <div class="layui-input-normal">
+                                <div cyType="selectTool" cyProps="codeName:'monitorType',search:'true'" name="instructionsType"  lay-verify="required"
+                                     class="layui-input-normal"></div>
+                            </div>
+
                             <div class="layui-input-normal">
                                 <!--
                                 <button class="layui-btn layui-btn-green" lay-submit="" lay-filter="moreSearch">

@@ -24,11 +24,38 @@
     </resultMap>
 
 	<select id="queryObject" resultType="xin.cymall.entity.EnMaintainPlan">
-		select * from en_maintain_plan where id = #{value}
+		SELECT
+			t.id,
+			t.device_id,
+			t.device_name,
+			t.plan_name,
+			DATE_FORMAT( t.plan_st, '%Y-%m-%d' ) plan_st,
+			DATE_FORMAT( t.pan_ed, '%Y-%m-%d' ) pan_ed,
+			t.contact,
+			t.contact_phone,
+			t.maint_rs,
+			t.maint_file,
+			t.plan_status
+		FROM
+			en_maintain_plan t
+	 where id = #{value}
 	</select>
 
 	<select id="queryList" resultType="xin.cymall.entity.EnMaintainPlan">
-		select * from en_maintain_plan t
+		SELECT
+		t.id,
+		t.device_id,
+		t.device_name,
+		t.plan_name,
+		DATE_FORMAT( t.plan_st, '%Y-%m-%d' ) plan_st,
+		DATE_FORMAT( t.pan_ed, '%Y-%m-%d' ) pan_ed,
+		t.contact,
+		t.contact_phone,
+		t.maint_rs,
+		t.maint_file,
+		t.plan_status
+		FROM
+		en_maintain_plan t
 		<include refid="where_clause" />
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -44,42 +71,17 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from en_maintain_plan t  <include refid="where_clause" />
+		select count(1) from en_maintain_plan t  <include refid="where_clause" />
 	</select>
 
     <!-- 搜索数据区域 -->
     <sql id="where_clause">
         <where>
             1=1
-
-            <if test="deviceName != null and deviceName != ''"> and t.device_name = #{deviceName} </if>
-    		<if test="deviceNameVague != null and deviceNameVague != ''"> and t.device_name like concat('%',#{deviceNameVague},'%') </if>
-            <if test="planName != null and planName != ''"> and t.plan_name = like concat('%',#{planName},'%') </if>
-    		<if test="planNameVague != null and planNameVague != ''"> and t.plan_name like concat('%',#{planNameVague},'%') </if>
-            <if test="planSt != null and planSt != ''"> and t.plan_st = #{planSt} </if>
-    		<if test="planStVague != null and planStVague != ''"> and t.plan_st like concat('%',#{planStVague},'%') </if>
-            <if test="panEd != null and panEd != ''"> and t.pan_ed = #{panEd} </if>
-    		<if test="panEdVague != null and panEdVague != ''"> and t.pan_ed like concat('%',#{panEdVague},'%') </if>
-            <if test="contact != null and contact != ''"> and t.contact = #{contact} </if>
-    		<if test="contactVague != null and contactVague != ''"> and t.contact like concat('%',#{contactVague},'%') </if>
-            <if test="contactPhone != null and contactPhone != ''"> and t.contact_phone = #{contactPhone} </if>
-    		<if test="contactPhoneVague != null and contactPhoneVague != ''"> and t.contact_phone like concat('%',#{contactPhoneVague},'%') </if>
-            <if test="maintRs != null and maintRs != ''"> and t.maint_rs = #{maintRs} </if>
-    		<if test="maintRsVague != null and maintRsVague != ''"> and t.maint_rs like concat('%',#{maintRsVague},'%') </if>
-            <if test="maintFile != null and maintFile != ''"> and t.maint_file = #{maintFile} </if>
-    		<if test="maintFileVague != null and maintFileVague != ''"> and t.maint_file like concat('%',#{maintFileVague},'%') </if>
+    		<if test="deviceName != null and deviceName != ''"> and t.device_name like concat('%',#{deviceNameVague},'%') </if>
+            <if test="planName != null and planName != ''"> and t.plan_name  like concat('%',#{planName},'%') </if>
             <if test="planStatus != null and planStatus != ''"> and t.plan_status = #{planStatus} </if>
-    		<if test="planStatusVague != null and planStatusVague != ''"> and t.plan_status like concat('%',#{planStatusVague},'%') </if>
-            <if test="createUser != null and createUser != ''"> and t.create_user = #{createUser} </if>
-    		<if test="createUserVague != null and createUserVague != ''"> and t.create_user like concat('%',#{createUserVague},'%') </if>
-            <if test="createTime != null and createTime != ''"> and t.create_time = #{createTime} </if>
-    		<if test="createTimeVague != null and createTimeVague != ''"> and t.create_time like concat('%',#{createTimeVague},'%') </if>
-            <if test="updateUser != null and updateUser != ''"> and t.update_user = #{updateUser} </if>
-    		<if test="updateUserVague != null and updateUserVague != ''"> and t.update_user like concat('%',#{updateUserVague},'%') </if>
-            <if test="updateTime != null and updateTime != ''"> and t.update_time = #{updateTime} </if>
-    		<if test="updateTimeVague != null and updateTimeVague != ''"> and t.update_time like concat('%',#{updateTimeVague},'%') </if>
-            <if test="delFlag != null and delFlag != ''"> and t.del_flag = #{delFlag} </if>
-    		<if test="delFlagVague != null and delFlagVague != ''"> and t.del_flag like concat('%',#{delFlagVague},'%') </if>
+
         </where>
     </sql>
 	 
@@ -107,7 +109,7 @@
 		(
 			#{id},
 			#{deviceId}, 
-			#{deviceName}, 
+			(select d.device_name from en_device d where d.id =  #{deviceId}),
 			#{planName}, 
 			#{planSt}, 
 			#{panEd}, 
@@ -128,7 +130,7 @@
 		update en_maintain_plan 
 		<set>
 			<if test="deviceId != null">`device_id` = #{deviceId}, </if>
-			<if test="deviceName != null">`device_name` = #{deviceName}, </if>
+			<if test="deviceId != null">`device_name` = (select d.device_name from en_device d where d.id =  #{deviceId}), </if>
 			<if test="planName != null">`plan_name` = #{planName}, </if>
 			<if test="planSt != null">`plan_st` = #{planSt}, </if>
 			<if test="panEd != null">`pan_ed` = #{panEd}, </if>

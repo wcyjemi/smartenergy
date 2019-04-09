@@ -30,6 +30,3 @@ layui.use('laydate', function(){
     };
 
 });
-
-$("")
-

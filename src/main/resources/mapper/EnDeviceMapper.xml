@@ -71,6 +71,15 @@
 		LEFT JOIN en_company c on t.company_id = c.id  <include refid="where_clause" />
 	</select>
 
+    <select id="queryAllList" resultType="xin.cymall.common.utils.EnumBean">
+        SELECT
+        t.id code,
+        t.device_name value
+        FROM
+        en_device t
+        LEFT JOIN en_company c on t.company_id = c.id
+    </select>
+
     <!-- 搜索数据区域 -->
     <sql id="where_clause">
         <where>

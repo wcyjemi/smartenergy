@@ -2,6 +2,7 @@ package xin.cymall.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import xin.cymall.common.utils.EnumBean;
 import xin.cymall.dao.EnDeviceDao;
 import xin.cymall.entity.EnDevice;
 import xin.cymall.service.EnDeviceService;
@@ -68,5 +69,10 @@ public class EnDeviceServiceImpl implements EnDeviceService {
             update(enDevice);
         }
     }
-	
+
+    @Override
+    public List<EnumBean> queryAllList() {
+        return enDeviceDao.queryAllList();
+    }
+
 }

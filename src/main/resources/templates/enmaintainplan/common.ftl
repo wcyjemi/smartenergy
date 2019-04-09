@@ -1,20 +1,12 @@
 <#--  设备维保计划公用页面-->
 <#--  wcy 2019-04-07 18:35:07-->
-
+<script type="text/javascript" src="/enmaintainplan/js/edit.js"></script>
               <div class="layui-form-item">${(model.bucket)!""}
-            <label class="layui-form-label">维保设备ID<span class="span_must">*</span></label>
-            <div class="layui-input-normal">
-                <input type="text"  name="deviceId" maxlength="11" lay-verify="required"
-                 value="${(model.deviceId)!""}"  placeholder="请输入维保设备ID"  class="layui-input">
-            </div>
-        </div>
 
-              <div class="layui-form-item">${(model.bucket)!""}
-            <label class="layui-form-label">维保设备名称<span class="span_must">*</span></label>
-            <div class="layui-input-normal">
-                <input type="text"  name="deviceName" maxlength="50" lay-verify="required"
-                 value="${(model.deviceName)!""}"  placeholder="请输入维保设备名称"  class="layui-input">
-            </div>
+                  <label class="layui-form-label">维保设备<span class="span_must">*</span></label>
+                  <div id="deviceId" cyType="selectTool" maxlength="255"  cyProps="url:'/endevice/listAllData',search:'true'" name="deviceId" value="${(model.deviceId)!""}" lay-verify="" placeholder="请选择所属企业"
+                       class="layui-input-inline"></div>
+
         </div>
 
               <div class="layui-form-item">${(model.bucket)!""}
@@ -28,7 +20,7 @@
               <div class="layui-form-item">${(model.bucket)!""}
             <label class="layui-form-label">计划开始时间<span class="span_must">*</span></label>
             <div class="layui-input-normal">
-                <input type="text"  name="planSt" maxlength="20" lay-verify="required"
+                <input type="text"  name="planSt" maxlength="20" lay-verify="required" id = "applySt"
                  value="${(model.planSt)!""}"  placeholder="请输入计划开始时间"  class="layui-input">
             </div>
         </div>
@@ -36,7 +28,7 @@
               <div class="layui-form-item">${(model.bucket)!""}
             <label class="layui-form-label">计划结束时间<span class="span_must">*</span></label>
             <div class="layui-input-normal">
-                <input type="text"  name="panEd" maxlength="20" lay-verify="required"
+                <input type="text"  name="panEd" maxlength="20" lay-verify="required"  id = "applyEd"
                  value="${(model.panEd)!""}"  placeholder="请输入计划结束时间"  class="layui-input">
             </div>
         </div>
@@ -74,10 +66,9 @@
         </div>
 
               <div class="layui-form-item">${(model.bucket)!""}
-            <label class="layui-form-label">计划状态<span class="span_must">*</span></label>
-            <div class="layui-input-normal">
-                <input type="text"  name="planStatus" maxlength="11" lay-verify="required"
-                 value="${(model.planStatus)!""}"  placeholder="请输入计划状态"  class="layui-input">
-            </div>
+                  <label class="layui-form-label">计划状态<span class="span_must">*</span></label>
+                  <div cyType="selectTool" cyProps="codeName:'plan_status',search:'true'" name="planStatus"  value="${(model.planStatus)!""}" lay-verify=""
+                       class="layui-input-inline" maxlength="255" ></div>
+                  <div class="layui-input-normal">
         </div>
 

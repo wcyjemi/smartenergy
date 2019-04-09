@@ -34,7 +34,6 @@
         </div>
 
         <div class="layui-form-item">${(model.bucket)!""}
-
             <label class="layui-form-label">所属企业<span class="span_must">*</span></label>
             <div id="companyId" cyType="selectTool" maxlength="50"  cyProps="url:'/encompany/queryAll',search:'true'" name="companyId" value="${(model.companyId)!""}" lay-verify="" placeholder="请选择所属企业"
                  class="layui-input-inline"></div>

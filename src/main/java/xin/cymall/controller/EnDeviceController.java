@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import xin.cymall.common.enumresource.StateEnum;
 import xin.cymall.common.log.SysLog;
+import xin.cymall.common.utils.EnumBean;
 import xin.cymall.common.utils.PageUtils;
 import xin.cymall.common.utils.Query;
 import xin.cymall.common.utils.R;
@@ -54,6 +55,17 @@ public class EnDeviceController {
 		PageUtils pageUtil = new PageUtils(enDeviceList, total, query.getLimit(), query.getPage());
 		return R.ok().put("page", pageUtil);
 	}
+
+    /**
+     * 所有数据
+     */
+    @ResponseBody
+    @RequestMapping("/listAllData")
+    public R listAllData(){
+        //查询列表数据
+        List<EnumBean> enDeviceList = enDeviceService.queryAllList();
+        return R.ok().put("data", enDeviceList);
+    }
 
     /**
      * 跳转到新增页面
@@ -156,8 +168,7 @@ public class EnDeviceController {
 	@RequiresPermissions("endevice:delete")
 	public R delete(@RequestBody String[] ids){
 		enDeviceService.deleteBatch(ids);
-		
 		return R.ok();
 	}
-	
+
 }
