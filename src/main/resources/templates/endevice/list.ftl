@@ -13,7 +13,9 @@
             <div class="layui-card">
                 <div class="layui-card-body">
                     <form class="layui-form " action="">
+
                         <div class="layui-form-item">
+
                             <label class="layui-form-label">设备名称:</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="deviceName"  placeholder="请输入设备名称" class="layui-input">
@@ -26,32 +28,38 @@
 
                             <label class="layui-form-label">设备状态</label>
                             <div cyType="selectTool" cyProps="codeName:'device_status',search:'true'" name="deviceStatus"  lay-verify=""
-                                 class="layui-input-inline" ></div>
-                            <div class="layui-input-normal">
+                                 class="layui-input-inline" >
+                            </div>
 
                             <div class="layui-input-normal">
-
                                 <button class="layui-btn search-btn" table-id="enDeviceTable" lay-submit="" lay-filter="search">
                                     <i class="fa fa-search">&nbsp;</i>查询
                                 </button>
                                 <button type="reset" class="layui-btn layui-btn-primary"><i class="fa fa-refresh">&nbsp;</i>重置</button>
+
                             </div>
                         </div>
+                            <!--
+
                         <div class="layui-form-item more-search">
                            <#-- 更多条件-->
                         </div>
+                                    -->
                     </form>
+
                     <div class="layui-btn-group">
                             <@shiro.hasPermission name="endevice:save">
                             <button class="layui-btn" onclick="addPage('/endevice/add')">
                                 <i class="fa fa-plus">&nbsp;</i>增加
                             </button>
                             </@shiro.hasPermission>
+
                             <@shiro.hasPermission name="endevice:update">
                             <button class="layui-btn" onclick="editPage('enDeviceTable','/endevice/edit')">
                                 <i class="fa fa-pencil-square-o">&nbsp;</i>修改
                             </button>
                             </@shiro.hasPermission>
+
                             <@shiro.hasPermission name="endevice:delete">
                              <button class="layui-btn layui-btn-delete" onclick="deleteBatch('批量删除','enDeviceTable','/endevice/delete');">
                                 <i class="fa fa-trash-o">&nbsp;</i>删除
@@ -59,6 +67,7 @@
                             </@shiro.hasPermission>
 
                     </div>
+
                     <div class="layui-form ">
                         <table class="layui-table" id="enDeviceTable" cyType="pageGrid"
                                cyProps="url:'/endevice/listData',checkbox:'true',pageColor:'#2991d9'">
