@@ -26,10 +26,9 @@
 
                             <label class="layui-form-label">计划状态</label>
                             <div cyType="selectTool" cyProps="codeName:'plan_status',search:'true'" name="planStatus"  lay-verify=""
-                                 class="layui-input-inline" ></div>
-                            <div class="layui-input-normal">
+                                 class="layui-input-inline" >
+                            </div>
 
-                            <div class="layui-input-normal">
                                 <!--
                                 <button class="layui-btn layui-btn-green" lay-submit="" lay-filter="moreSearch">
                                     <i class="fa fa-chevron-down">&nbsp;</i>更多
