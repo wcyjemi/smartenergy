@@ -1,6 +1,9 @@
 package xin.cymall.entity;
 
+import xin.cymall.common.utils.CommparaUtil;
+
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -29,10 +32,14 @@ public class EnCollectionPoint extends BaseEntity implements Serializable {
      * 所属集中器ID
      **/
     private String concentratorId;
+
+    private String concentratorName;
     /**
      * 采集点类型：1、电 2、水 3、气 4、其他
      **/
     private String pointType;
+
+    private String pointLabel;
     /**
      * 采集点设备品牌
      **/
@@ -41,6 +48,8 @@ public class EnCollectionPoint extends BaseEntity implements Serializable {
      * 采集点设备型号
      **/
     private String pointModel;
+
+    private List<EnPoinstandardset> enPoinstandardsets;
 
     /**
      * 设置：采集点名称
@@ -138,5 +147,33 @@ public class EnCollectionPoint extends BaseEntity implements Serializable {
      */
     public String getPointModel() {
         return pointModel;
+    }
+
+    public List<EnPoinstandardset> getEnPoinstandardsets() {
+        return enPoinstandardsets;
+    }
+
+    public void setEnPoinstandardsets(List<EnPoinstandardset> enPoinstandardsets) {
+        this.enPoinstandardsets = enPoinstandardsets;
+    }
+
+    public String getConcentratorName() {
+        return concentratorName;
+    }
+
+    public void setConcentratorName(String concentratorName) {
+        this.concentratorName = concentratorName;
+    }
+
+    public String getPointLabel() {
+        return pointLabel;
+    }
+
+    public void setPointLabel(String pointLabel) {
+        this.pointLabel = pointLabel;
+    }
+
+    public void toTypeLabel(){
+        this.pointLabel = CommparaUtil.getCommparaLabel("monitorType",this.pointType,"");
     }
 }

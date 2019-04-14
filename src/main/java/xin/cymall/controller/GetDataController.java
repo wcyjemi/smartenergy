@@ -1,5 +1,7 @@
 package xin.cymall.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.ObjectMetadata;
 import org.apache.log4j.Logger;
@@ -226,5 +228,55 @@ public class GetDataController {
         return R.ok();
     }
 
+    @ResponseBody
+    @RequestMapping("/getCompanyData")
+    public R getCompanyData(){
+        ArrayList<String> legendData = new ArrayList<>();
+        legendData.add("邮件营销");
+        legendData.add("联盟广告");
+        ArrayList<String> xAxisData = new ArrayList<>();
+        xAxisData.add("周一");
+        xAxisData.add("周二");
+        xAxisData.add("周三");
+        xAxisData.add("周四");
+        xAxisData.add("周五");
+        xAxisData.add("周六");
+        xAxisData.add("周日");
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name","邮件营销");
+        jsonObject.put("type","bar");
+        jsonObject.put("barWidth",15);
+        jsonObject.put("stack","总量");
+        jsonObject.put("smooth",true);
+
+        ArrayList<Integer> data = new ArrayList<>();
+        data.add(120);
+        data.add(120);
+        data.add(120);
+        data.add(120);
+        data.add(120);
+        data.add(120);
+        data.add(120);
+        jsonArray.add(jsonObject);
+        jsonObject.put("data",data);
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("name","联盟广告");
+        jsonObject1.put("type","line");
+        jsonObject1.put("stack","总量");
+        jsonObject1.put("smooth",true);
+        ArrayList<Integer> data1 = new ArrayList<>();
+        data1.add(120);
+        data1.add(130);
+        data1.add(120);
+        data1.add(130);
+        data1.add(120);
+        data1.add(130);
+        data1.add(120);
+        jsonObject1.put("data",data1);
+        jsonArray.add(jsonObject1);
+
+        return R.ok().put("legendData",legendData).put("xAxisData",xAxisData).put("seriesArray",jsonArray);
+    }
 
 }

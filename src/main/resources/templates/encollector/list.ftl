@@ -40,7 +40,7 @@
                             </button>
                         </@shiro.hasPermission>
                         <@shiro.hasPermission name="encollector:update">
-                            <button class="layui-btn" onclick="editPage('enCollectorTable','/encollector/edit')">
+                            <button class="layui-btn" onclick="editPageArea('enCollectorTable','/encollector/edit','800px','300px')">
                                 <i class="fa fa-pencil-square-o">&nbsp;</i>修改
                             </button>
                         <#-- <button class="layui-btn layui-btn-green" onclick="updateState('批量启用','enCollectorTable','/encollector/enable')">

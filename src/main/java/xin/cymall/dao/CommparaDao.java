@@ -31,4 +31,11 @@ public interface CommparaDao extends BaseDao<Commpara> {
      * @return
      */
     List<Commpara> findByVerify(Commpara commpara);
+
+    /**
+     * 获取字典名称
+     * @param params
+     * @return
+     */
+    String queryObjByKeyValue(Map<String,Object> params);
 }

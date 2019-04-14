@@ -40,6 +40,7 @@ public interface SysUserDao extends BaseDao<SysUser> {
 	int updatePassword(Map<String, Object> map);
 
     void deleteUserRole(Long[] userId);
+    void deleteUserCompany(Long[] userId);
+
     
-    void deleteUserApp(Long[] userId);
 }

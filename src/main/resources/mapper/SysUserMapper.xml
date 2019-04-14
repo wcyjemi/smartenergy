@@ -127,6 +127,12 @@
 			#{userId}
 		</foreach>
 	</delete>
+	<delete id="deleteUserCompany">
+		delete from en_user_company where user_id in
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
 
 
 </mapper>

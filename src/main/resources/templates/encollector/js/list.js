@@ -29,7 +29,7 @@ var Render = {
      * @description      详情按钮渲染
      */
     info:function(rowdata,renderData){
-        var btn=' <button  onclick="detailOne(\''+"/encollector/details/"+'\',\''+rowdata.id+'\')" class="layui-btn layui-btn-mini">详情</button>';
+        var btn=' <button  onclick="detailOneArea(\''+"/encollector/details/"+'\',\''+rowdata.id+'\',\'800px\',\'300px\')" class="layui-btn layui-btn-mini">详情</button>';
         return btn;
     },
     /**

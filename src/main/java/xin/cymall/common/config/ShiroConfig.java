@@ -46,7 +46,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/**/login.html", "anon");
         filterChainDefinitionMap.put("/**/fonts/**", "anon");
         filterChainDefinitionMap.put("/**/plugins/**", "anon");
-        filterChainDefinitionMap.put("/appmanage/**", "anon");
+        filterChainDefinitionMap.put("/smartengy/**", "anon");
         filterChainDefinitionMap.put("/swagger/**", "anon");
         filterChainDefinitionMap.put("/favicon.ico", "anon");
         filterChainDefinitionMap.put("/captcha.jpg", "anon");

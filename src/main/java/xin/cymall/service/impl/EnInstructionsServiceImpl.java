@@ -2,7 +2,6 @@ package xin.cymall.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.plugin.util.UIUtil;
 import xin.cymall.dao.EnInstructionsDao;
 import xin.cymall.entity.EnInstructions;
 import xin.cymall.service.EnInstructionsService;
@@ -38,7 +37,6 @@ public class EnInstructionsServiceImpl implements EnInstructionsService {
 	public void save(EnInstructions enInstructions){
 		enInstructions.preSave();
 		enInstructions.preUpdate();
-		enInstructions.setId( UUID.randomUUID().toString());
 		enInstructionsDao.save(enInstructions);
 	}
 

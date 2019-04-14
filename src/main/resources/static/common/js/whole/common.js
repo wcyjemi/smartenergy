@@ -391,7 +391,22 @@ function detailOne(url,id){
         area: ['1000px', '700px'],
         content: url+"/"+id
     });
-
+}
+/**
+ * 详情
+ * @param url
+ * @param id
+ */
+function detailOneArea(url,id,w,h){
+    parent.layer.open({
+        type: 2,
+        title: '详情',
+        shadeClose: false,
+        shade: [0.3, '#000'],
+        maxmin: true, //开启最大化最小化按钮
+        area: [w, h],
+        content: url+"/"+id
+    });
 }
 
 function openIframe(title,url){

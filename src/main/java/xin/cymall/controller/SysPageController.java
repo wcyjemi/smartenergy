@@ -46,8 +46,8 @@ public class SysPageController {
 //			}
 //		}
 //		model.addAttribute("appList",appVersionList);
-//		return "main/index";
-		return "menu/list";
+		return "main/index";
+//		return "menu/list";
 	}
 
 	@RequestMapping("index/map")

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/error")
-public class BaseErrorPage  implements ErrorController {
+public class BaseErrorPage implements ErrorController {
 
     Logger logger = LoggerFactory.getLogger(ErrorController.class);
 

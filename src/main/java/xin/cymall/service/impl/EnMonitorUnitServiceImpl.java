@@ -4,11 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xin.cymall.common.utils.TreeTableBean;
-import xin.cymall.dao.EnCompanyDao;
 import xin.cymall.dao.EnMonitorUnitDao;
-import xin.cymall.entity.EnCompany;
 import xin.cymall.entity.EnMonitorUnit;
-import xin.cymall.service.EnCompanyService;
 import xin.cymall.service.EnMonitorUnitService;
 
 import java.util.List;

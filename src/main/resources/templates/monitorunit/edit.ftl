@@ -8,7 +8,7 @@
 <div class="layui-field-box">
     <form class="layui-form" action="">
         <#include "common.ftl"/>
-        <input type="hidden" name="id" value="${model.id?c}">
+        <input type="hidden" name="id" value="${(model.id)!""}">
         <div class="page-footer">
             <div class="btn-list">
                 <div class="btnlist">

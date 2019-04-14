@@ -33,4 +33,6 @@ public interface CommparaService {
 	List<Commpara> getCodeValues(Map<String, Object> params);
 
     List<Commpara> findByVerify(Commpara commpara);
+
+    String queryObjByKeyValue(Map<String,Object> params);
 }

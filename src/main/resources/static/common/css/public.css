@@ -1,7 +1,7 @@
 
 /*下拉多选*/
 .layui-form-item select[multiple]+.layui-form-select dd{ padding:0;}
-.layui-form-item select[multiple]+.layui-form-select .layui-form-checkbox[lay-skin=primary]{ margin:0 !important; display:block; line-height:36px !important; position:relative; padding-left:26px;}
+.layui-form-item select[multiple]+.layui-form-select .layui-form-checkbox[lay-skin=primary]{ margin:0 !important; display:block; line-height:36px !important; position:relative; padding-left:32px;}
 .layui-form-item select[multiple]+.layui-form-select .layui-form-checkbox[lay-skin=primary] span{line-height:36px !important; float:none;}
 .layui-form-item select[multiple]+.layui-form-select .layui-form-checkbox[lay-skin=primary] i{ position:absolute; left:10px; top:0; margin-top:9px;}
 .multiSelect{ line-height:normal; height:36px; padding:4px 10px; overflow:auto;min-height:38px; margin-top:-38px; left:0; z-index:99;position:relative;background:none;}

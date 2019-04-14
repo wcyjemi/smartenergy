@@ -93,11 +93,8 @@
 
                                 <th width="10%" param="{name:'pointModel'}">采集点设备型号</th>
 
-                                <th width="10%" param="{name:'createUser'}">创建人</th>
-
-                                <th width="10%" param="{name:'createTime'}">创建时间</th>
                                 <th width="10%"
-                                    param="{operate:'true',buttons:'Render.state,Render.edit,Render.delete'}">操作
+                                    param="{operate:'true',buttons:'Render.state,Render.edit,Render.delete,Render.setstandard'}">操作
                                 </th>
                             </tr>
                             </thead>

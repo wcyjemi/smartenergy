@@ -10,7 +10,7 @@
 <body>
 <div class="layui-field-box">
     <form class="layui-form" action="">
-        <input type="hidden" name="id" value="${model.id?c}">
+        <input type="hidden" name="id" value="${(model.id)!""}">
         <div class="layui-form-item">
             <label class="layui-form-label">序列类型<span class="span_must">*</span></label>
             <div class="layui-input-normal">

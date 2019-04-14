@@ -36,7 +36,7 @@ public class EnCompanyVisitController {
      * 跳转到列表页
      */
     @RequestMapping("/list/{companyId}")
-    public String list(Model model,@PathVariable("companyId") Integer companyId) {
+    public String list(Model model,@PathVariable("companyId") String companyId) {
         model.addAttribute("companyId",companyId);
         return "encompanyvisit/list";
     }

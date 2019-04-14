@@ -19,6 +19,10 @@
 		select * from sys_commpara where para_id = #{value}
 	</select>
 
+	<select id="queryObjByKeyValue" resultType="java.lang.String">
+		SELECT para_name FROM sys_commpara WHERE para_key = #{key} AND para_code = #{code}
+	</select>
+
 	<select id="queryList" resultType="xin.cymall.entity.Commpara">
 		select * from sys_commpara t <include refid="where_clause" />
         <choose>

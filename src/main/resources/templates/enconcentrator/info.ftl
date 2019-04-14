@@ -17,24 +17,18 @@
         <div class="layui-form-item">
             <label class="layui-label-left"><span class="label_span">集中器名称:</span></label>
             <label class="layui-label-right">${(model.concentratorName)!"-"}</label>
-        </div>
-        <div class="layui-form-item">
             <label class="layui-label-left"><span class="label_span">集中器型号:</span></label>
             <label class="layui-label-right">${(model.concentratorModel)!"-"}</label>
         </div>
         <div class="layui-form-item">
             <label class="layui-label-left"><span class="label_span">所属单位:</span></label>
             <label class="layui-label-right">${(model.monitorUnitName)!"-"}</label>
-        </div>
-        <div class="layui-form-item">
             <label class="layui-label-left"><span class="label_span">地址:</span></label>
             <label class="layui-label-right">${(model.address)!"-"}</label>
         </div>
         <div class="layui-form-item">
             <label class="layui-label-left"><span class="label_span">服务器地址:</span></label>
             <label class="layui-label-right">${(model.serviceHost)!"-"}</label>
-        </div>
-        <div class="layui-form-item">
             <label class="layui-label-left"><span class="label_span">时间校验地址:</span></label>
             <label class="layui-label-right">${(model.timeCheck)!"-"}</label>
         </div>

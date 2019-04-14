@@ -24,6 +24,12 @@
 		select * from en_collection_point where id = #{value}
 	</select>
 
+    <select id="queryOneById" resultType="xin.cymall.entity.EnCollectionPoint">
+        SELECT ep.*,ect.concentrator_name as concentratorName FROM en_collection_point ep
+        LEFT JOIN en_concentrator ect ON ep.concentrator_id = ect.id
+        WHERE ep.id = #{id}
+    </select>
+
 	<select id="queryList" resultType="xin.cymall.entity.EnCollectionPoint">
 		select * from en_collection_point t
 		<where>
@@ -65,6 +71,7 @@
 	<insert id="save" parameterType="xin.cymall.entity.EnCollectionPoint" useGeneratedKeys="true" keyProperty="id">
 		insert into en_collection_point
 		(
+			`id`,
 			`collection_point_name`, 
 			`phyaddr`, 
 			`virtaddr`, 
@@ -80,6 +87,7 @@
 		)
 		values
 		(
+			#{id},
 			#{collectionPointName}, 
 			#{phyaddr}, 
 			#{virtaddr}, 
@@ -91,7 +99,7 @@
 			#{createTime}, 
 			#{updateUser}, 
 			#{updateTime}, 
-			#{delFlag}
+			0
 		)
 	</insert>
 	 

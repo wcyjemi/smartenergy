@@ -71,4 +71,9 @@ public class CommparaServiceImpl implements CommparaService {
 		return commparaDao.findByVerify(commpara);
 	}
 
+	@Override
+	public String queryObjByKeyValue(Map<String,Object> params){
+		return  commparaDao.queryObjByKeyValue(params);
+	}
+
 }

@@ -16,6 +16,7 @@ import xin.cymall.common.shiro.ShiroUtils;
 import xin.cymall.common.utils.*;
 import xin.cymall.entity.SysUser;
 import xin.cymall.service.SysUserAppService;
+import xin.cymall.service.SysUserCompanyService;
 import xin.cymall.service.SysUserRoleService;
 import xin.cymall.service.SysUserService;
 
@@ -41,7 +42,7 @@ public class SysUserController extends AbstractController {
 	@Autowired
 	private SysUserRoleService sysUserRoleService;
 	@Autowired
-	private SysUserAppService sysUserAppService;
+	private SysUserCompanyService sysUserCompanyService;
 
 
 
@@ -98,13 +99,13 @@ public class SysUserController extends AbstractController {
 		model.addAttribute("model",user);
 		//获取所属角色
 		List<Long> roleIds=sysUserRoleService.queryRoleIdList(user.getUserId());
-		//获取所属应用
-		List<Long> appIds=sysUserAppService.queryAppIdList(user.getUserId());
+//		//获取所属企业
+		List<String> companyIds = sysUserCompanyService.queryCompanyIdList(user.getUserId());
 		//将list转为字符串
-		String roleIdList=StringUtils.join(roleIds.toArray(),",");
-		String appIdList=StringUtils.join(appIds.toArray(),",");
+		String roleIdList = StringUtils.join(roleIds.toArray(),",");
+		String companyIdList = StringUtils.join(companyIds.toArray(),",");
 		model.addAttribute("roleIdList",roleIdList);
-		model.addAttribute("appIdList",appIdList);
+		model.addAttribute("companyIdList",companyIdList);
 		return "/user/edit";
 	}
 	/**
@@ -185,16 +186,28 @@ public class SysUserController extends AbstractController {
 		}
 		user.setRoleIdList(roles);
 
-		List<Long> apps = new ArrayList<>();
-		if (user.getAppIdsStr() != null){
-			String[] apparr = user.getAppIdsStr().split(",");
-			for (int i = 0; i<apparr.length;i++){
-				if (StringUtils.isNotBlank(apparr[i])){
-					apps.add(Long.parseLong(apparr[i]));
+
+		List<String> companyIds = new ArrayList<>();
+		if (user.getCompanyIdsStr() != null){
+			String[] companIdArr = user.getCompanyIdsStr().split(",");
+			for (int i=0;i<companIdArr.length;i++){
+				if (!StringUtil.isBlank(companIdArr[i])){
+					companyIds.add(companIdArr[i]);
 				}
 			}
 		}
-		user.setAppIdList(apps);
+		user.setCompanyIds(companyIds);
+
+//		List<Long> apps = new ArrayList<>();
+//		if (user.getAppIdsStr() != null){
+//			String[] apparr = user.getAppIdsStr().split(",");
+//			for (int i = 0; i<apparr.length;i++){
+//				if (StringUtils.isNotBlank(apparr[i])){
+//					apps.add(Long.parseLong(apparr[i]));
+//				}
+//			}
+//		}
+//		user.setAppIdList(apps);
 
 		sysUserService.save(user);
 		
@@ -222,16 +235,27 @@ public class SysUserController extends AbstractController {
 		}
 		user.setRoleIdList(roles);
 
-		List<Long> apps = new ArrayList<>();
-		if (user.getAppIdsStr() != null){
-			String[] apparr = user.getAppIdsStr().split(",");
-			for (int i = 0; i<apparr.length;i++){
-				if (StringUtils.isNotBlank(apparr[i])){
-					apps.add(Long.parseLong(apparr[i]));
+//		List<Long> apps = new ArrayList<>();
+//		if (user.getAppIdsStr() != null){
+//			String[] apparr = user.getAppIdsStr().split(",");
+//			for (int i = 0; i<apparr.length;i++){
+//				if (StringUtils.isNotBlank(apparr[i])){
+//					apps.add(Long.parseLong(apparr[i]));
+//				}
+//			}
+//		}
+//		user.setAppIdList(apps);
+
+		List<String> companyIds = new ArrayList<>();
+		if (user.getCompanyIdsStr() != null){
+			String[] companIdArr = user.getCompanyIdsStr().split(",");
+			for (int i=0;i<companIdArr.length;i++){
+				if (!StringUtil.isBlank(companIdArr[i])){
+					companyIds.add(companIdArr[i]);
 				}
 			}
 		}
-		user.setAppIdList(apps);
+		user.setCompanyIds(companyIds);
 
 		sysUserService.update(user);
 		//todo kj

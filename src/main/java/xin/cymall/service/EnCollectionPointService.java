@@ -15,7 +15,8 @@ import java.util.Map;
 public interface EnCollectionPointService {
 	
 	EnCollectionPoint queryObject(String id);
-	
+	EnCollectionPoint queryOneById(String id);
+
 	List<EnCollectionPoint> queryList(Map<String, Object> map);
 	
 	int queryTotal(Map<String, Object> map);

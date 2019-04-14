@@ -14,5 +14,5 @@ import xin.cymall.entity.EnCollectionPoint;
 @Mapper
 @Repository
 public interface EnCollectionPointDao extends BaseDao<EnCollectionPoint> {
-	
+    EnCollectionPoint queryOneById(Object id);
 }

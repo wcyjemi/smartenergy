@@ -38,7 +38,7 @@ var Render = {
      * @description      修改按钮渲染
      */
     edit:function(rowdata,renderData){
-        var btn=' <button  onclick="editOne(co'+"llectionpoint"+',\''+rowdata.id+'\')" class="layui-btn layui-btn-mini">修改</button>';
+        var btn=' <button  onclick="editOne(\''+"/encollectionpoint/edit"+'\',\''+rowdata.id+'\')" class="layui-btn layui-btn-mini">修改</button>';
         return btn;
     },
     /**
@@ -65,5 +65,15 @@ var Render = {
                 'class="layui-btn layui-btn-mini layui-btn-danger">禁用</button>';
         }
         return "";
+    },
+    /**
+     *
+     * @param rowdata
+     * @param renderData
+     * @returns {string}
+     */
+    setstandard:function (rowdata,renderData) {
+        var btn=' <button  onclick="addPageAare(\''+"/encollectionpoint/toSetStandard/"+rowdata.id+'\',\''+"配置数据项标准"+'\',\''+"1200"+'\',\''+"800"+'\')" class="layui-btn layui-btn-mini layui-btn-danger">配置标准</button>';
+        return btn;
     }
 };

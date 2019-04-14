@@ -40,11 +40,11 @@
             1=1
 #foreach($column in $columns)
             <if test="${column.attrname} != null and ${column.attrname} != ''"> and t.${column.columnName} = #{${column.attrname}} </if>
-    		<if test="${column.attrname}Vague != null and ${column.attrname}Vague != ''"> and t.${column.columnName} like concat('%',#{${column.attrname}Vague},'%') </if>
 #end
-        </where>
-    </sql>
-	 
+		</where>
+	</sql>
+##	<if test="${column.attrname}Vague != null and ${column.attrname}Vague != ''"> and t.${column.columnName} like concat('%',#{${column.attrname}Vague},'%') </if>
+
 	<insert id="save" parameterType="${package}.entity.${className}"#if($pk.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$pk.attrname"#end>
 		insert into ${tableName}
 		(

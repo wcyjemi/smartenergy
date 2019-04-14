@@ -1,7 +1,11 @@
 package xin.cymall.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.alibaba.fastjson.JSONArray;
 import xin.cymall.common.enumresource.StateEnum;
 import xin.cymall.common.log.SysLog;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -11,11 +15,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import javax.servlet.http.HttpServletRequest;
 
+import xin.cymall.common.utils.StringUtil;
 import xin.cymall.entity.EnCollectionPoint;
+import xin.cymall.entity.EnInstructions;
+import xin.cymall.entity.EnPoinstandardset;
 import xin.cymall.service.EnCollectionPointService;
 import xin.cymall.common.utils.PageUtils;
 import xin.cymall.common.utils.Query;
 import xin.cymall.common.utils.R;
+import xin.cymall.service.EnInstructionsService;
+import xin.cymall.service.EnPoinstandardsetService;
 
 
 /**
@@ -30,6 +39,12 @@ import xin.cymall.common.utils.R;
 public class EnCollectionPointController {
 	@Autowired
 	private EnCollectionPointService enCollectionPointService;
+
+	@Autowired
+	private EnPoinstandardsetService enPoinstandardsetService;
+
+	@Autowired
+	private EnInstructionsService enInstructionsService;
 	
     /**
      * 跳转到列表页
@@ -149,8 +164,81 @@ public class EnCollectionPointController {
 	@RequiresPermissions("encollectionpoint:delete")
 	public R delete(@RequestBody String[] ids){
 		enCollectionPointService.deleteBatch(ids);
-		
 		return R.ok();
 	}
+
+	@RequestMapping("/toSetStandard/{pointId}")
+	public String toSetStandard(Model model,@PathVariable("pointId") String pointId){
+        EnCollectionPoint enCollectionPoint = enCollectionPointService.queryOneById(pointId);
+        enCollectionPoint.toTypeLabel();
+
+        List<EnPoinstandardset> enPoinstandardsetList = enPoinstandardsetService.queryByPointId(pointId);
+
+        if (enPoinstandardsetList == null || enPoinstandardsetList.size()<=0){
+            Map<String,Object> param = new HashMap<>();
+            param.put("instructionsType",enCollectionPoint.getPointType());
+            List<EnInstructions> enInstructionsList = enInstructionsService.queryListAll(param);
+            if (enInstructionsList == null || enInstructionsList.size()<=0){
+                enPoinstandardsetList = new ArrayList<>();
+            }else {
+                for (EnInstructions enInstructions : enInstructionsList){
+                    EnPoinstandardset enPoinstandardset = new EnPoinstandardset();
+                    enPoinstandardset.setCollectionPointId(pointId);
+                    enPoinstandardset.setInstructionsId(enInstructions.getId());
+                    enPoinstandardset.setInstructionName(enInstructions.getInstructionsName());
+                    enPoinstandardsetList.add(enPoinstandardset);
+                }
+            }
+        }
+        model.addAttribute("model",enCollectionPoint);
+        model.addAttribute("data",enPoinstandardsetList);
+        return "collectionpoint/setstandard";
+    }
+
+	@RequestMapping("/toSetStandardTb/{pointId}")
+	public String toSetStandardTb(Model model,@PathVariable("pointId") String pointId){
+        EnCollectionPoint enCollectionPoint = enCollectionPointService.queryObject(pointId);
+        model.addAttribute("model",enCollectionPoint);
+        return "collectionpoint/setstandard_tb";
+    }
+
+    @ResponseBody
+    @RequestMapping("/getPointStandard/{pointId}")
+    public R getPointStandard(@PathVariable("pointId") String pointId){
+        List<EnPoinstandardset> list = new ArrayList<>();
+        for (int i=0;i<5;i++){
+            EnPoinstandardset enPoinstandardset = new EnPoinstandardset();
+            enPoinstandardset.setCollectionPointId(pointId);
+            enPoinstandardset.setInstructionsId(i+"");
+            enPoinstandardset.setInstructionName("电压"+i);
+            list.add(enPoinstandardset);
+        }
+        return R.ok().put("data",list);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/standarSetSave",method = RequestMethod.POST)
+    public R standarSetSave(@RequestBody Map<String,Object> map){
+        try {
+            for (int i = 0; i<map.size()/6; i++){
+                EnPoinstandardset enPoinstandardset = new EnPoinstandardset();
+                enPoinstandardset.setId(map.get("enPoinstandardsets["+i+"].id").toString());
+                enPoinstandardset.setInstructionsId(map.get("enPoinstandardsets["+i+"].instructionsId").toString());
+                enPoinstandardset.setInstructionName(map.get("enPoinstandardsets["+i+"].instructionName").toString());
+                enPoinstandardset.setCollectionPointId(map.get("enPoinstandardsets["+i+"].collectionPointId").toString());
+                enPoinstandardset.setStandardValueMin(map.get("enPoinstandardsets["+i+"].standardValueMin").toString());
+                enPoinstandardset.setStandardValueMax(map.get("enPoinstandardsets["+i+"].standardValueMax").toString());
+                if (StringUtil.isBlank(enPoinstandardset.getId())){
+                    enPoinstandardsetService.save(enPoinstandardset);
+                }else {
+                    enPoinstandardsetService.update(enPoinstandardset);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return R.error("系统异常");
+        }
+        return R.ok();
+    }
 	
 }

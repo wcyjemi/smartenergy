@@ -24,7 +24,7 @@
 	<select id="queryList" resultType="xin.cymall.entity.EnInstructions">
 		select * from en_instructions t
 		<include refid="where_clause" />
-        order by
+
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>

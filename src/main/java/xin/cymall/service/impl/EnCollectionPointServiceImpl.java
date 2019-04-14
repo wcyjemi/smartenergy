@@ -26,6 +26,10 @@ public class EnCollectionPointServiceImpl implements EnCollectionPointService {
 	public EnCollectionPoint queryObject(String id){
 		return enCollectionPointDao.queryObject(id);
 	}
+	@Override
+	public EnCollectionPoint queryOneById(String id){
+		return enCollectionPointDao.queryOneById(id);
+	}
 
 	@Override
 	public List<EnCollectionPoint> queryList(Map<String, Object> map){

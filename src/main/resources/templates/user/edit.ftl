@@ -29,6 +29,12 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">所属企业</label>
+            <input type="hidden" value="${(companyIdList)!""}" name="companyIdsStr" id="companyIdsStr">
+            <div cyType="selectTool" cyProps="url:'/encompany/queryAll',multiple:'false'"
+                 value="${(companyIdList)!""}" name="companyIds[]" class="layui-input-normal"></div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">所属部门</label>
             <div class="layui-input-normal">
 
@@ -45,12 +51,12 @@
                  value="${(roleIdList)!""}" name="roleIdList[]" class="layui-input-normal"></div>
         </div>
 
-		<div class="layui-form-item">
-            <label class="layui-form-label">管理应用</label>
-            <input type="hidden" value="${(appIdList)!""}" name="appIdsStr" id="appIdsStr">
-            <div cyType="selectTool" cyProps="url:'/appinfo/findAll',multiple:'true'"
-                value="${(appIdList)!""}" name="appIdList[]" class="layui-input-normal"></div>
-        </div>
+		<#--<div class="layui-form-item">-->
+            <#--<label class="layui-form-label">管理应用</label>-->
+            <#--<input type="hidden" value="${(appIdList)!""}" name="appIdsStr" id="appIdsStr">-->
+            <#--<div cyType="selectTool" cyProps="url:'/appinfo/findAll',multiple:'true'"-->
+                <#--value="${(appIdList)!""}" name="appIdList[]" class="layui-input-normal"></div>-->
+        <#--</div>-->
         <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
             <div cyType="radioTool" cyProps="enumName:'StateEnum'" name="status"
@@ -75,9 +81,9 @@
         //下拉事件监控
         form.on('checkbox(searchChecked)',function (data) {
             var roleIdsStr = "";
-            var appIdsStr = "";
+            var companyIdsStr = "";
             var roleIdsArr = $("#roleIdsStr").val().split(',');
-            var appIdsArr = $("#appIdsStr").val().split(',');
+            var companyIdsArr = $("#companyIdsStr").val().split(',');
             var _dataname = data.elem.name;
             if (_dataname == 'roleIdList[]') {
                 if (data.elem.checked){
@@ -100,22 +106,22 @@
                 }
             }else{
                 if (data.elem.checked){
-                    appIdsArr.removeElem(data.elem.value);
-                    appIdsArr.push(data.elem.value);
-                    for (var i=0;i<appIdsArr.length;i++){
-                        if (appIdsArr[i] != '') {
-                            appIdsStr = appIdsStr + appIdsArr[i] +",";
+                    companyIdsArr.removeElem(data.elem.value);
+                    companyIdsArr.push(data.elem.value);
+                    for (var i=0;i<companyIdsArr.length;i++){
+                        if (companyIdsArr[i] != '') {
+                            companyIdsStr = companyIdsStr + companyIdsArr[i] +",";
                         }
                     }
-                    $("#appIdsStr").val(appIdsStr);
+                    $("#companyIdsStr").val(companyIdsStr);
                 }else{
-                    appIdsArr.removeElem(data.elem.value);
-                    for (var i=0;i<appIdsArr.length;i++){
-                        if (appIdsArr[i] != '') {
-                            appIdsStr = appIdsStr + appIdsArr[i] +",";
+                    companyIdsArr.removeElem(data.elem.value);
+                    for (var i=0;i<companyIdsArr.length;i++){
+                        if (companyIdsArr[i] != '') {
+                            companyIdsStr = companyIdsStr + companyIdsArr[i] +",";
                         }
                     }
-                    $("#appIdsStr").val(appIdsStr);
+                    $("#companyIdsStr").val(companyIdsStr);
                 }
             }
             return false;

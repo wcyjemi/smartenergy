@@ -1,10 +1,8 @@
 package xin.cymall.service;
 
-import io.swagger.models.auth.In;
 import xin.cymall.common.utils.EnumBean;
 import xin.cymall.common.utils.ZtreeBean;
 import xin.cymall.entity.EnCompany;
-import xin.cymall.entity.SysUser;
 
 import java.util.List;
 import java.util.Map;

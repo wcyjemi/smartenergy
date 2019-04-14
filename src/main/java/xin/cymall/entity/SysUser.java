@@ -64,6 +64,10 @@ public class SysUser implements Serializable {
 	private List<Long> appIdList;
 
 	private String appIdsStr;
+
+	private List<String> companyIds;
+
+	private String companyIdsStr;
 	/**
 	 * 创建者ID
 	 */
@@ -235,5 +239,21 @@ public class SysUser implements Serializable {
 
 	public void setAppIdsStr(String appIdsStr) {
 		this.appIdsStr = appIdsStr;
+	}
+
+	public List<String> getCompanyIds() {
+		return companyIds;
+	}
+
+	public void setCompanyIds(List<String> companyIds) {
+		this.companyIds = companyIds;
+	}
+
+	public String getCompanyIdsStr() {
+		return companyIdsStr;
+	}
+
+	public void setCompanyIdsStr(String companyIdsStr) {
+		this.companyIdsStr = companyIdsStr;
 	}
 }

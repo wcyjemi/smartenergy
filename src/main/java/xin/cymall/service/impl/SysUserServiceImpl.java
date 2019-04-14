@@ -10,10 +10,7 @@ import xin.cymall.common.exception.MyException;
 import xin.cymall.common.utils.Constant;
 import xin.cymall.dao.SysUserDao;
 import xin.cymall.entity.SysUser;
-import xin.cymall.service.SysRoleService;
-import xin.cymall.service.SysUserAppService;
-import xin.cymall.service.SysUserRoleService;
-import xin.cymall.service.SysUserService;
+import xin.cymall.service.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -36,7 +33,7 @@ public class SysUserServiceImpl implements SysUserService {
 	@Autowired
 	private SysRoleService sysRoleService;
 	@Autowired
-	private SysUserAppService sysUserAppService;
+	private SysUserCompanyService sysUserCompanyService;
 
 	@Override
 	public List<String> queryAllPerms(Long userId) {
@@ -81,8 +78,11 @@ public class SysUserServiceImpl implements SysUserService {
 		
 		//保存用户与角色关系
 		sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
-		//保存用户与APP关系
-		sysUserAppService.saveOrUpdate(user.getUserId(), user.getAppIdList());
+//		//保存用户与APP关系
+//		sysUserAppService.saveOrUpdate(user.getUserId(), user.getAppIdList());
+		//保存用户与企业关系
+		sysUserCompanyService.saveOrUpdate(user.getUserId(), user.getCompanyIds());
+
 	}
 
 	@Override
@@ -100,8 +100,10 @@ public class SysUserServiceImpl implements SysUserService {
 		
 		//保存用户与角色关系
 		sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
-		//保存用户与APP关系
-		sysUserAppService.saveOrUpdate(user.getUserId(), user.getAppIdList());
+//		//保存用户与APP关系
+//		sysUserAppService.saveOrUpdate(user.getUserId(), user.getAppIdList());
+		//保存用户与企业关系
+		sysUserCompanyService.saveOrUpdate(user.getUserId(), user.getCompanyIds());
 	}
 
 	@Override
@@ -109,7 +111,7 @@ public class SysUserServiceImpl implements SysUserService {
 	public void deleteBatch(Long[] userId) {
 		sysUserDao.deleteBatch(userId);
 		sysUserDao.deleteUserRole(userId);
-		sysUserDao.deleteUserApp(userId);
+		sysUserDao.deleteUserCompany(userId);
 	}
 
 	@Override
