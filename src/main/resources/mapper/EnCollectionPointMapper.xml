@@ -10,6 +10,8 @@
         <result property="phyaddr" column="phyaddr"/>
         <result property="virtaddr" column="virtaddr"/>
         <result property="concentratorId" column="concentrator_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="parentIds" column="parent_ids"/>
         <result property="pointType" column="point_type"/>
         <result property="pointBrand" column="point_brand"/>
         <result property="pointModel" column="point_model"/>
@@ -67,13 +69,38 @@
 		</where>
 	</select>
 
+	<select id="queryTreeData" resultType="xin.cymall.vo.EnCollectionPointVo">
+		select
+			t.id as id,
+			t.parent_id as pid,
+			t.collection_point_name as title,
+			t.phyaddr as phyaddr,
+			t.virtaddr as virtaddr,
+			t.point_brand as pointBrand,
+			t.point_model as pointModel,
+			t.point_type as pointType,
+			enc.concentrator_name as concentratorName
+		from en_collection_point t
+		left join en_concentrator enc on t.concentrator_id = enc.id
+		<where>
+			t.del_flag = 0
+			<if test="collectionPointName != null and collectionPointName.trim() != ''">
+				and t.collection_point_name like concat('%',#{collectionPointName},'%')
+			</if>
+			<if test="pointType != null and pointType.trim() != ''">
+				and t.point_type = #{pointType}
+			</if>
+		</where>
+	</select>
 
 	<insert id="save" parameterType="xin.cymall.entity.EnCollectionPoint" useGeneratedKeys="true" keyProperty="id">
 		insert into en_collection_point
 		(
 			`id`,
-			`collection_point_name`, 
-			`phyaddr`, 
+			`collection_point_name`,
+			`parent_id`,
+			`parent_ids`,
+			`phyaddr`,
 			`virtaddr`, 
 			`concentrator_id`, 
 			`point_type`, 
@@ -88,8 +115,10 @@
 		values
 		(
 			#{id},
-			#{collectionPointName}, 
-			#{phyaddr}, 
+			#{collectionPointName},
+			#{parentId},
+			#{parentIds},
+			#{phyaddr},
 			#{virtaddr}, 
 			#{concentratorId}, 
 			#{pointType}, 
@@ -106,7 +135,9 @@
 	<update id="update" parameterType="xin.cymall.entity.EnCollectionPoint">
 		update en_collection_point 
 		<set>
-			<if test="collectionPointName != null">`collection_point_name` = #{collectionPointName}, </if>
+			<if test="collectionPointName != null and collectionPointName.trim() != ''">`collection_point_name` = #{collectionPointName}, </if>
+			<if test="parentId != null and parentId.trim() != ''">`parent_id` = #{parentId}, </if>
+			<if test="parentIds != null and parentIds.trim() != ''">`parent_ids` = #{parentIds}, </if>
 			<if test="phyaddr != null">`phyaddr` = #{phyaddr}, </if>
 			<if test="virtaddr != null">`virtaddr` = #{virtaddr}, </if>
 			<if test="concentratorId != null">`concentrator_id` = #{concentratorId}, </if>

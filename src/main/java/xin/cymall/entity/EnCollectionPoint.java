@@ -28,6 +28,16 @@ public class EnCollectionPoint extends BaseEntity implements Serializable {
      * 虚拟地址
      **/
     private String virtaddr;
+
+    /**
+     * 父级ID
+     */
+    private String parentId;
+    /**
+     * 父级IDs
+     */
+    private String parentIds;
+
     /**
      * 所属集中器ID
      **/
@@ -48,6 +58,8 @@ public class EnCollectionPoint extends BaseEntity implements Serializable {
      * 采集点设备型号
      **/
     private String pointModel;
+
+    private Integer cyNodeType;
 
     private List<EnPoinstandardset> enPoinstandardsets;
 
@@ -171,6 +183,30 @@ public class EnCollectionPoint extends BaseEntity implements Serializable {
 
     public void setPointLabel(String pointLabel) {
         this.pointLabel = pointLabel;
+    }
+
+    public Integer getCyNodeType() {
+        return cyNodeType;
+    }
+
+    public void setCyNodeType(Integer cyNodeType) {
+        this.cyNodeType = cyNodeType;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getParentIds() {
+        return parentIds;
+    }
+
+    public void setParentIds(String parentIds) {
+        this.parentIds = parentIds;
     }
 
     public void toTypeLabel(){

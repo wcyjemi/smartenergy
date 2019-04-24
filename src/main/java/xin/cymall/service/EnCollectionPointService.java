@@ -1,6 +1,7 @@
 package xin.cymall.service;
 
 import xin.cymall.entity.EnCollectionPoint;
+import xin.cymall.vo.EnCollectionPointVo;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,8 @@ public interface EnCollectionPointService {
 	EnCollectionPoint queryOneById(String id);
 
 	List<EnCollectionPoint> queryList(Map<String, Object> map);
+
+	List<EnCollectionPointVo> queryTreeData(Map<String,Object> map);
 	
 	int queryTotal(Map<String, Object> map);
 	

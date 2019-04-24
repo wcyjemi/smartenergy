@@ -176,6 +176,36 @@ public class EnCompanyController extends AbstractController{
     @RequiresPermissions("energy:company:sysJgTree")
     public R sysJgTree(@RequestParam Map<String, Object> params){
         boolean check = Boolean.parseBoolean(params.get("check").toString());
+        Integer notClickLevel = Integer.parseInt(params.get("notClickLevel").toString());
+        Boolean clickCom = true;
+        Boolean clickUnit = true;
+        Boolean clickConc = true;
+        Boolean clickPoint = true;
+        if(notClickLevel == null){
+            notClickLevel = 0;
+        }
+        if (notClickLevel == 1){
+            clickCom = false;
+        }
+        if (notClickLevel == 2){
+            clickCom = false;
+            clickUnit = false;
+        }
+        if (notClickLevel == 3){
+            clickCom = false;
+            clickUnit = false;
+            clickConc = false;
+        }
+        if (notClickLevel == 4){
+            clickCom = false;
+            clickUnit = false;
+            clickConc = false;
+            clickPoint = false;
+        }
+        params.put("clickCom",clickCom);
+        params.put("clickUnit",clickUnit);
+        params.put("clickConc",clickConc);
+        params.put("clickPoint",clickPoint);
         List<ZtreeBean> ztreeBeanList = null;
         try {
             ztreeBeanList = enCompanyService.sysJgTreeData(params);

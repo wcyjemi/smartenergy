@@ -43,16 +43,6 @@ layui.use(['treeTable','layer','code','form'],function(){
                     width: '20%'
                 },
                 {
-                    key: 'id',
-                    title: '监测单位编号',
-                    width: '10%'
-                },
-                {
-                    key: 'pid',
-                    title: '父级单位编号',
-                    width: '10%'
-                },
-                {
                     key: 'parentName',
                     title: '上级监测单位名称',
                     width: '20%',
@@ -138,7 +128,6 @@ layui.use(['treeTable','layer','code','form'],function(){
         // // 渲染数据表
         // re.data.push(listData);
         // treeTable.render(re);
-        console.info("--1--");
         re(str);
     })
     // form.on('submit(search)', function (data) {

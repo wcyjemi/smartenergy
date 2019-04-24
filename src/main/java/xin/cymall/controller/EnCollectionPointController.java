@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import xin.cymall.common.enumresource.StateEnum;
 import xin.cymall.common.log.SysLog;
@@ -15,16 +16,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import javax.servlet.http.HttpServletRequest;
 
-import xin.cymall.common.utils.StringUtil;
+import xin.cymall.common.utils.*;
 import xin.cymall.entity.EnCollectionPoint;
+import xin.cymall.entity.EnConcentrator;
 import xin.cymall.entity.EnInstructions;
 import xin.cymall.entity.EnPoinstandardset;
 import xin.cymall.service.EnCollectionPointService;
-import xin.cymall.common.utils.PageUtils;
-import xin.cymall.common.utils.Query;
-import xin.cymall.common.utils.R;
+import xin.cymall.service.EnConcentratorService;
 import xin.cymall.service.EnInstructionsService;
 import xin.cymall.service.EnPoinstandardsetService;
+import xin.cymall.vo.EnCollectionPointVo;
 
 
 /**
@@ -45,6 +46,9 @@ public class EnCollectionPointController {
 
 	@Autowired
 	private EnInstructionsService enInstructionsService;
+
+	@Autowired
+	private EnConcentratorService enConcentratorService;
 	
     /**
      * 跳转到列表页
@@ -74,6 +78,18 @@ public class EnCollectionPointController {
 	}
 
     /**
+     * 获取树形table数据
+     * @param params
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/treeTableData")
+    public JSONArray treeTableData(@RequestParam Map<String,Object> params){
+        List<EnCollectionPointVo> treeTableBeans = enCollectionPointService.queryTreeData(params);
+        return JSONArray.parseArray(JSON.toJSONString(treeTableBeans));
+    }
+
+    /**
      * 跳转到新增页面
      **/
     @RequestMapping("/add")
@@ -89,6 +105,11 @@ public class EnCollectionPointController {
     @RequiresPermissions("encollectionpoint:update")
     public String edit(Model model, @PathVariable("id") String id){
 		EnCollectionPoint enCollectionPoint = enCollectionPointService.queryObject(id);
+		if (enCollectionPoint.getParentId().equals("0")){
+		    enCollectionPoint.setCyNodeType(3);
+        }else {
+		    enCollectionPoint.setCyNodeType(4);
+        }
         model.addAttribute("model",enCollectionPoint);
         return "collectionpoint/edit";
     }
@@ -112,8 +133,17 @@ public class EnCollectionPointController {
 	@RequestMapping("/save")
 	@RequiresPermissions("encollectionpoint:save")
 	public R save(@RequestBody EnCollectionPoint enCollectionPoint){
+        if (enCollectionPoint.getCyNodeType() == 3){
+            enCollectionPoint.setParentId("0");
+            enCollectionPoint.setParentIds("0");
+        }
+        if (enCollectionPoint.getCyNodeType() == 4){
+            EnCollectionPoint enCollectionPoint1 = enCollectionPointService.queryObject(enCollectionPoint.getConcentratorId());
+            enCollectionPoint.setConcentratorId(enCollectionPoint.getConcentratorId());
+            enCollectionPoint.setParentId(enCollectionPoint1.getId());
+            enCollectionPoint.setParentIds(enCollectionPoint1.getParentIds()+","+enCollectionPoint.getConcentratorId());
+        }
 		enCollectionPointService.save(enCollectionPoint);
-		
 		return R.ok();
 	}
 	

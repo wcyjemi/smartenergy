@@ -39,8 +39,9 @@
   			ELSE mun.parent_id END AS pid,
 			mun.monitor_unit_name AS `name`,
 			'2' AS type,
-			${checkDisable} AS 'chkDisabled',
-			'true' AS 'click'
+			${checkDisable} AS chkDisabled,
+			${clickUnit} AS click,
+			'/statics/img/sunny-night.png' AS icon
 		FROM
 			monitor_unit mun
 		WHERE mun.del_flag = 0
@@ -54,8 +55,9 @@
   			ELSE mun.parent_id END AS pid,
 			mun.monitor_unit_name AS `name`,
 			'2' AS type,
-			${checkDisable} AS 'chkDisabled',
-			'false' AS 'click'
+			${checkDisable} AS chkDisabled,
+			${clickUnit} AS click,
+			'/statics/img/sunny-night.png' AS icon
 		FROM
 			monitor_unit mun
 			WHERE mun.del_flag = 0
@@ -65,8 +67,9 @@
 			ec.monitor_unit_id AS pid,
 			ec.concentrator_name AS `name`,
 			'3' AS type,
-			${checkDisable} AS 'chkDisabled',
-			'true' AS 'click'
+			${checkDisable} AS chkDisabled,
+			${clickConc} AS click,
+			'/statics/img/cloudy-sunny-night.png' AS icon
 		FROM
 			en_concentrator ec
 			WHERE ec.del_flag = 0
@@ -80,8 +83,9 @@
   			ELSE mun.parent_id END AS pid,
 			mun.monitor_unit_name AS `name`,
 			'2' AS type,
-			${checkDisable} AS 'chkDisabled',
-			'false' AS 'click'
+			${checkDisable} AS chkDisabled,
+			${clickUnit} AS click,
+			'/statics/img/sunny-night.png' AS icon
 		FROM
 			monitor_unit mun
 		WHERE mun.del_flag = 0
@@ -91,8 +95,9 @@
 			ec.monitor_unit_id AS pid,
 			ec.concentrator_name AS `name`,
 			'3' AS type,
-			${checkDisable} AS 'chkDisabled',
-			'false' AS 'click'
+			${checkDisable} AS chkDisabled,
+			${clickConc} AS click,
+			'/statics/img/cloudy-sunny-night.png' AS icon
 		FROM
 			en_concentrator ec
 		WHERE ec.del_flag = 0
@@ -102,8 +107,9 @@
 			ecp.concentrator_id AS pid,
 			ecp.collection_point_name AS `name`,
 			'4' AS type,
-			${checkDisable} AS 'chkDisabled',
-			'true' AS 'click'
+			${checkDisable} AS chkDisabled,
+			${clickPoint} AS click,
+			'/statics/img/blizard.png' AS icon
 		FROM
 			en_collection_point ecp
 		WHERE ecp.del_flag = 0
@@ -168,8 +174,9 @@
 			'0' AS pId,
 			cm.company_name AS `name`,
 			'1' AS type,
-			${checkDisable} AS 'chkDisabled',
-			false as 'click'
+			${checkDisable} AS chkDisabled,
+			${clickCom} as click,
+			'/statics/img/sunny.png' AS icon
 		FROM
 			en_company cm
 		WHERE cm.del_flag = 0

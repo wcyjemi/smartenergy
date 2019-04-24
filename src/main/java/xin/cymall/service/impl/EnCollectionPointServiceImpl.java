@@ -9,6 +9,7 @@ import java.util.Map;
 import xin.cymall.dao.EnCollectionPointDao;
 import xin.cymall.entity.EnCollectionPoint;
 import xin.cymall.service.EnCollectionPointService;
+import xin.cymall.vo.EnCollectionPointVo;
 
 
 /**
@@ -34,6 +35,11 @@ public class EnCollectionPointServiceImpl implements EnCollectionPointService {
 	@Override
 	public List<EnCollectionPoint> queryList(Map<String, Object> map){
 		return enCollectionPointDao.queryList(map);
+	}
+
+	@Override
+	public List<EnCollectionPointVo> queryTreeData(Map<String, Object> map) {
+		return enCollectionPointDao.queryTreeData(map);
 	}
 
 	@Override

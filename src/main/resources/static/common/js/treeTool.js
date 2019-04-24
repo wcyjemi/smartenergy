@@ -25,7 +25,6 @@
         var _value = $(this).attr("value") || "";
         //下拉树显示的值
         var valueName="";
-
         //加载下拉树数据
         $.ajax({
             type: "post",
@@ -101,6 +100,8 @@ function openZtree(obj) {
     //将表格参数转为json
     cyProps = eval("({" + cyProps + "})");
 
+    var nodeType = cyProps.nodeTypeEm;
+
     $(obj).after('<input  id="' + _id + '_id"  style="display: none" name="' + cyProps.name + '" value="' + _value + '" class="layui-input">' +
         '<div id="treeLayer" style="display: none;padding:10px;"> ' +
         '<ul id="zTree" class="ztree"></ul> ' +
@@ -146,6 +147,9 @@ function openZtree(obj) {
             if (node.length > 0) {
                 $("#" + _id + "_id").val(node[0].id);
                 $("#" + _id).val(node[0].name);
+                if (nodeType != undefined){
+                    $("#" + nodeType).val(node[0].type);
+                }
                // $(obj).attr("valueId", node[0].id);
             }
             //选择上级菜单
