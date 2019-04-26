@@ -93,6 +93,22 @@
 		</where>
 	</select>
 
+	<select id="queryAllParent" resultMap="enCollectionPointMap">
+		SELECT * FROM en_collection_point en
+		LEFT JOIN en_concentrator enc ON en.concentrator_id = enc.id
+		LEFT JOIN monitor_unit mu ON enc.monitor_unit_id = mu.id
+		LEFT JOIN en_company encp ON mu.company_id = encp.id
+		WHERE en.del_flag = 0 AND en.parent_id = '0'
+		<if test="companyId != null">
+			AND encp.id = #{companyId}
+		</if>
+	</select>
+
+	<select id="queryChildrenByParent" resultMap="enCollectionPointMap">
+		SELECT * FROM en_collection_point en
+		WHERE en.del_flag = 0 AND en.parent_id = #{parentId}
+	</select>
+
 	<insert id="save" parameterType="xin.cymall.entity.EnCollectionPoint" useGeneratedKeys="true" keyProperty="id">
 		insert into en_collection_point
 		(
@@ -152,7 +168,8 @@
 		</set>
 		where id = #{id}
 	</update>
-	
+
+
 	<delete id="delete">
 		UPDATE en_collection_point SET del_flag = 1 where id = #{value}
 	</delete>

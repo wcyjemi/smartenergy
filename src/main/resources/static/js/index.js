@@ -31,7 +31,7 @@ function createMenu(url) {
                 }
             }
             if (r.menuList[i].type === 1) {
-                _li = '$(<li><a class="cy-page" href="javascript:;" data-url="' + r.menuList[i].url + '" title="'+r.menuList[i].name+'"><i class="' + r.menuList[i].icon + '"></i> ' + r.menuList[i].name + '</a></li>)';
+                _li = '$(<li><a class="cy-page" style="height: 43px;padding: 11px 5px 11px 38px!important;" href="javascript:;" data-url="' + r.menuList[i].url + '" title="'+r.menuList[i].name+'"><i class="' + r.menuList[i].icon + '"></i> ' + r.menuList[i].name + '</a></li>)';
             }
             $(".sidebar-menu").append(_li);
 
@@ -63,7 +63,7 @@ function addMenu(list) {
                 _li= $li.prop("outerHTML");
             }
             if (list[i].type === 1) {
-                _li = $('<li><a class="cy-page" href="javascript:;" data-url="' + list[i].url + '" title="'+list[i].name+'"><i class="' + list[i].icon + '"></i> ' + list[i].name + '</a></li>');
+                _li = $('<li><a class="cy-page" style="height: 43px;padding: 11px 5px 11px 38px!important;" href="javascript:;" data-url="' + list[i].url + '" title="'+list[i].name+'"><i class="' + list[i].icon + '"></i> ' + list[i].name + '</a></li>');
             }
             lis+=$(_li).prop("outerHTML");
         }

@@ -1,6 +1,7 @@
 package xin.cymall.service;
 
 import xin.cymall.entity.EnCollectionPoint;
+import xin.cymall.entity.EnCompany;
 import xin.cymall.vo.EnCollectionPointVo;
 
 import java.util.List;
@@ -21,7 +22,11 @@ public interface EnCollectionPointService {
 	List<EnCollectionPoint> queryList(Map<String, Object> map);
 
 	List<EnCollectionPointVo> queryTreeData(Map<String,Object> map);
-	
+
+	List<EnCollectionPoint> queryAllParent(Map<String,Object> map);
+
+	List<EnCollectionPoint> queryChildrenByParent(Map<String,Object> map);
+
 	int queryTotal(Map<String, Object> map);
 	
 	void save(EnCollectionPoint enCollectionPoint);
@@ -33,4 +38,6 @@ public interface EnCollectionPointService {
 	void deleteBatch(String[] ids);
 
     void updateState(String[] ids, String stateValue);
+
+    List<Map<String,Object>> getPointTreeView(List<EnCompany> companies);
 }

@@ -21,4 +21,8 @@ public interface EnCollectionPointDao extends BaseDao<EnCollectionPoint> {
     EnCollectionPoint queryOneById(Object id);
 
     List<EnCollectionPointVo> queryTreeData(Map<String,Object> map);
+
+    List<EnCollectionPoint> queryAllParent(Map<String,Object> map);
+
+    List<EnCollectionPoint> queryChildrenByParent(Map<String,Object> map);
 }

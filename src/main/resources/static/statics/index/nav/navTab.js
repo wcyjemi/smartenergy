@@ -7,6 +7,8 @@ $(function () {
         var $this = $(this);
         var name = $this.text() || $this.attr("title");
         var url = unescape($this.attr("data-url")) || "";
+        $(".sidebar .sidebar-menu").find("a").removeClass("a_active");
+        $this.addClass("a_active");
         //判断该页面是否已存在
         if ($("#navTab").find("li[data-url='" + url + "']").length === 0) {
             var index = Loading.open(1,false);

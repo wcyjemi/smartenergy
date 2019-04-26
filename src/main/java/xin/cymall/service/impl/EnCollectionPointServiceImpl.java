@@ -3,11 +3,15 @@ package xin.cymall.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import xin.cymall.dao.EnCollectionPointDao;
 import xin.cymall.entity.EnCollectionPoint;
+import xin.cymall.entity.EnCompany;
 import xin.cymall.service.EnCollectionPointService;
 import xin.cymall.vo.EnCollectionPointVo;
 
@@ -40,6 +44,16 @@ public class EnCollectionPointServiceImpl implements EnCollectionPointService {
 	@Override
 	public List<EnCollectionPointVo> queryTreeData(Map<String, Object> map) {
 		return enCollectionPointDao.queryTreeData(map);
+	}
+
+	@Override
+	public List<EnCollectionPoint> queryAllParent(Map<String, Object> map) {
+		return enCollectionPointDao.queryAllParent(map);
+	}
+
+	@Override
+	public List<EnCollectionPoint> queryChildrenByParent(Map<String, Object> map) {
+		return enCollectionPointDao.queryChildrenByParent(map);
 	}
 
 	@Override
@@ -82,5 +96,56 @@ public class EnCollectionPointServiceImpl implements EnCollectionPointService {
             update(enCollectionPoint);
         }
     }
-	
+
+	@Override
+	public List<Map<String, Object>> getPointTreeView(List<EnCompany> companies) {
+		List<Map<String, Object>> res = new ArrayList<>();
+		for (EnCompany enCompany : companies){
+			Map<String, Object> map = new HashMap<>();
+			map.put("text",enCompany.getCompanyName());
+			map.put("icon","companyIcon");
+			map.put("id",enCompany.getId());
+			map.put("selectable",false);
+
+			Map<String, Object> param = new HashMap<>();
+			param.put("companyId", enCompany.getId());
+			List<EnCollectionPoint> enCollectionPointList = queryAllParent(param);
+			if (enCollectionPointList != null && enCollectionPointList.size()>0){
+				List<Map<String,Object>> mmap = new ArrayList<>();
+				for (EnCollectionPoint enCollectionPoint : enCollectionPointList){
+					Map<String, Object> map1 = new HashMap<>();
+					map1.put("text",enCollectionPoint.getCollectionPointName());
+					map1.put("id",enCollectionPoint.getId());
+					map1.put("icon","pointIcon");
+					map1.put("selectable",true);
+					map1.put("nodes",getPointNodes(enCollectionPoint.getId()));
+					mmap.add(map1);
+				}
+				map.put("nodes",mmap);
+			}
+			res.add(map);
+
+		}
+		return res;
+	}
+
+	public List<Map<String, Object>> getPointNodes(String parentId){
+		List<Map<String,Object>> res = new ArrayList<>();
+		Map<String,Object> param = new HashMap<>();
+		param.put("parentId",parentId);
+		List<EnCollectionPoint> enCollectionPoints = enCollectionPointDao.queryChildrenByParent(param);
+		if (enCollectionPoints != null && enCollectionPoints.size()>0){
+			for (EnCollectionPoint enCollectionPoint : enCollectionPoints){
+				Map<String,Object> map = new HashMap<>();
+				map.put("text",enCollectionPoint.getCollectionPointName());
+				map.put("id",enCollectionPoint.getId());
+				map.put("icon","pointIcon");
+				map.put("selectable",true);
+				map.put("nodes",getPointNodes(enCollectionPoint.getId()));
+				res.add(map);
+			}
+		}
+		return res;
+	}
+
 }

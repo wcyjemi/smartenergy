@@ -129,6 +129,7 @@
 			<if test="companyName != null and companyName.trim() != ''">
 				and `company_name` like concat('%',#{companyName},'%')
 			</if>
+			<if test="companyId != null">id = #{companyId}</if>
 		</where>
 		<choose>
 			<when test="sidx != null and sidx.trim() != ''">
