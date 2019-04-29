@@ -8,7 +8,7 @@
     var cyProps = {};
     var echartOption = {
         title: {
-            text: '应用每日更新量'
+            text: ''
         },
         tooltip: {
             trigger: 'axis'
@@ -54,10 +54,16 @@
         //获取数据的地址，只能通过表码或url，如果两个都写，默认是url
         //从后台获取数据
         var url = cyProps.url;
+        //是否开启实时
+        var _iSreal = cyProps.realflag ? cyProps.realflag : false;
         var title = cyProps.title ? cyProps.title : "";
         var grid = cyProps.grid;
         var echartObj = echartsTool.echartsInit($id);
+
         echartsTool.drawEcharts(url,echartObj,title,grid);
+        if (_iSreal){
+            window.setInterval(function (){echartsTool.drawEcharts(url,echartObj,title,grid)},300000);
+        }
 
     };
     var echartsTool = {
@@ -67,6 +73,7 @@
         },
         //加载数据
         drawEcharts : function (url,echartObj,title,grid) {
+            console.info(1);
             echartObj.showLoading();
             $.ajax({
                 url: url,
@@ -80,8 +87,9 @@
                         echartOption.xAxis.data  = data.xAxisData;
                         echartOption.series      = data.seriesArray;
                         if (grid){
-                            echartOption.grid        = grid;
+                            echartOption.grid    = grid;
                         }
+                        // echartObj.clear();
                         echartObj.setOption(echartOption);
                         echartObj.hideLoading();
                     } else {

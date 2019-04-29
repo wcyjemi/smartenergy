@@ -283,13 +283,55 @@ public class DateUtil {
 		return dateArray;
 	}
 
+	/**
+	 * 获取当天凌晨 时间
+	 * @return
+	 * @throws ParseException
+	 */
+	public static String getDayTimeSt() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String dateDay = dateFormat.format(new Date());
+		return dateDay + " 00:00:00";
+	}
+
+	public static ArrayList<String> getAllTimePoint(String beginTime,String endTime){
+		ArrayList<String> timePoint = new ArrayList<>();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date stDate = null;
+		Date etDate = null;
+		try {
+			stDate = dateFormat1.parse(dateFormat.format(dateFormat.parse(beginTime)) + " 00:00:00");
+			etDate = dateFormat1.parse(dateFormat.format(dateFormat.parse(endTime)) + " 23:59:59");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		try {
+			timePoint.add(dateFormat.format(dateFormat.parse(beginTime)) + " 00:00:00");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Date currentTime = stDate;
+		while (compareDate(currentTime,etDate)<=0){
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(currentTime);
+			calendar.add(Calendar.MINUTE,5);
+			try {
+				currentTime = dateFormat1.parse(dateFormat1.format(calendar.getTime()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			timePoint.add(dateFormat1.format(calendar.getTime()));
+		}
+		return timePoint;
+	}
+
 	public static void main(String[] args) {
 		// System.out.println(getYmdhms());
 		// System.out.println(getDateByDay(5));
 		// System.out.println(compareDate("2017-03-15"));
 		// System.out.println(getYmd("2017-03-06 14:59:57"));
-		System.out.println( changeDate(new Date()));
-		ArrayList<String> da = getPreAnyDayDate(7);
+		ArrayList<String> da = getAllTimePoint("2019-04-29","2019-04-29");
 		for (int i=0;i<da.size();i++){
 			System.out.println("args = [" + da.get(i) + "]");
 		}

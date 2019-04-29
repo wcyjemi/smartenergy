@@ -1,5 +1,6 @@
 package xin.cymall.common.utils;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -14,10 +15,12 @@ public class RandomCharUtil {
 	
     
     public static void main(String[] args){
-    	System.out.println(generateUUID());
+//    	System.out.println(generateUUID());
     	/*for(int i=0;i<100;i++){
     		System.out.println(getSixNumRand());
     	}*/
+    	BigDecimal bigDecimal = rendEleDecimal();
+        System.out.println("args = [" + bigDecimal + "]");
     }
     
     /**
@@ -76,6 +79,76 @@ public class RandomCharUtil {
         retStr = regdate + rand;
         return retStr;
     }
+
+    /**
+     * 随机生成 BigDecimal
+     * @param max
+     * @param min
+     * @param scale
+     * @return
+     */
+    public static final BigDecimal randBigDecimal(float max, float min, Integer scale){
+        BigDecimal ret = new BigDecimal(Math.random() * (max - min) + min).setScale(scale,BigDecimal.ROUND_HALF_UP);
+        return ret;
+    }
+
+    /**
+     * 随机生成电量
+     * @return
+     */
+    public static final BigDecimal rendEleDecimal(){
+        return randBigDecimal(200,150,2);
+    }
+
+    /**
+     * 随机生成需量
+     * @return
+     */
+    public static final BigDecimal rendXlDecimal(){
+        return randBigDecimal(200,150,2);
+    }
+
+    /**
+     * 随机生成功率
+     * @return
+     */
+    public static final BigDecimal rendPowDecimal(){
+        return randBigDecimal(200,150,2);
+    }
+
+    /**
+     * 随机生成功率因数
+     * @return
+     */
+    public static final BigDecimal rendPowFDecimal(){
+        return randBigDecimal(100,50,5);
+    }
+
+    /**
+     * 随机生成电压
+     * @return
+     */
+    public static final BigDecimal rendVolDecimal(){
+        return randBigDecimal(2000,1800,2);
+    }
+
+    /**
+     * 随机生成电流
+     * @return
+     */
+    public static final BigDecimal rendCurDecimal(){
+        return randBigDecimal(20,5,3);
+    }
+
+    /**
+     * 随机生成相位角
+     * @return
+     */
+    public static final BigDecimal rendXwjDecimal(){
+        return randBigDecimal(180,100,3);
+    }
+
+
     
     
 }

@@ -23,11 +23,11 @@
 <#--<script src="/common/js/tplTool.js"></script>-->
 <#--<script src="/common/js/editGrid.js"></script>-->
 <!--全局-->
-<#--<script src="/common/js/whole/cyLayer.js"></script>-->
-<#--<script src="/common/js/whole/common.js"></script>-->
-<#--<script src="/common/js/whole/setting.js"></script>-->
-<#--<script src="/common/js/whole/utils.js"></script>-->
-<#--<script src="/common/js/whole/monitor.js"></script>-->
+<script src="/common/js/whole/cyLayer.js"></script>
+<script src="/common/js/whole/common.js"></script>
+<script src="/common/js/whole/setting.js"></script>
+<script src="/common/js/whole/utils.js"></script>
+<script src="/common/js/whole/monitor.js"></script>
 <!--样式-->
 <link rel="stylesheet" href="/common/css/cyStyle.css">
 <link rel="stylesheet" href="/common/css/cyType.css">

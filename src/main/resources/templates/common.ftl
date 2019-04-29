@@ -21,16 +21,19 @@
 
 <div class="layui-col-sm2">
     <div class="layui-card">
-        <div class="layui-card-body">
+        <div class="layui-card-header">
+            采集点结构树
+        </div>
+        <div id="treeCardBody" class="layui-card-body">
             <div id="treeview-checkable" class=""></div>
         </div>
     </div>
 </div>
 
 <script>
+    var pointIds = '';
     $(function () {
-        $.post("/encollectionpoint/getVisTreeViewData",function(da){
-            console.info(da);
+        $.post("/powerStitcs/getVisTreeViewData",function(da){
             $('#treeview-checkable').treeview({
                 data:da,
                 showIcon: true,
@@ -40,13 +43,31 @@
                 highlightSelected: true,
                 showTags:true,
                 onNodeChecked:function(event, node) {
+                    getAllCheckedNodes();
                     Msg.info(node.text);
                 },
                 onNodeUnchecked:function (event, node) {
+                    getAllCheckedNodes();
                     Msg.info(node.text);
                 }
             });
+            getAllCheckedNodes();
         });
-    })
+    });
 
+    function getAllCheckedNodes() {
+        var ls = $('#treeview-checkable').treeview('getChecked');
+        pointIds = '';
+        for (var i = 0;i<ls.length;i++){
+            if (ls[i].selectable) {
+                if (pointIds == ''){
+                    pointIds = pointIds + ls[i].id;
+                }else {
+                    pointIds = pointIds + "_" + ls[i].id;
+                }
+            }
+        }
+        var _baseurl = $(".layui-this").attr("data-url");;
+        document.getElementById('tab-content-iframe').src = _baseurl + "?pointIds=" + pointIds;
+    }
 </script>

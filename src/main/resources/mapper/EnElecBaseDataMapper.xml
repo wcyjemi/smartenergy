@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xin.cymall.dao.EnElecBaseDataDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="xin.cymall.entity.EnElecBaseData" id="enElecBaseDataMap">
+        <result property="id" column="id"/>
+        <result property="pointId" column="point_id"/>
+        <result property="dataTime" column="data_time"/>
+        <result property="eleFa" column="ele_fa"/>
+        <result property="eleFr" column="ele_fr"/>
+        <result property="eleRa" column="ele_ra"/>
+        <result property="eleRr" column="ele_rr"/>
+        <result property="powAt" column="pow_at"/>
+        <result property="powAa" column="pow_aa"/>
+        <result property="powAb" column="pow_ab"/>
+        <result property="powAc" column="pow_ac"/>
+        <result property="powRt" column="pow_rt"/>
+        <result property="powRa" column="pow_ra"/>
+        <result property="powRb" column="pow_rb"/>
+        <result property="powRc" column="pow_rc"/>
+        <result property="powfT" column="powf_t"/>
+        <result property="powfA" column="powf_a"/>
+        <result property="powfB" column="powf_b"/>
+        <result property="powfC" column="powf_c"/>
+        <result property="volA" column="vol_a"/>
+        <result property="volB" column="vol_b"/>
+        <result property="volC" column="vol_c"/>
+        <result property="curA" column="cur_a"/>
+        <result property="curB" column="cur_b"/>
+        <result property="curC" column="cur_c"/>
+        <result property="vpaA" column="vpa_a"/>
+        <result property="vpaB" column="vpa_b"/>
+        <result property="vpaC" column="vpa_c"/>
+        <result property="cpaA" column="cpa_a"/>
+        <result property="cpaB" column="cpa_b"/>
+        <result property="cpaC" column="cpa_c"/>
+        <result property="xlTo" column="xl_to"/>
+        <result property="xlTodt" column="xl_todt"/>
+        <result property="xlPi" column="xl_pi"/>
+        <result property="xlPidt" column="xl_pidt"/>
+        <result property="xlPe" column="xl_pe"/>
+        <result property="xlPedt" column="xl_pedt"/>
+        <result property="xlFl" column="xl_fl"/>
+        <result property="xlFldt" column="xl_fldt"/>
+        <result property="xlVa" column="xl_va"/>
+        <result property="xlVadt" column="xl_vadt"/>
+        <result property="xlfrTo" column="xlfr_to"/>
+        <result property="xlfrTodt" column="xlfr_todt"/>
+        <result property="xlfrPi" column="xlfr_pi"/>
+        <result property="xlfrPidt" column="xlfr_pidt"/>
+        <result property="xlfrPe" column="xlfr_pe"/>
+        <result property="xlfrPedt" column="xlfr_pedt"/>
+        <result property="xlfrFl" column="xlfr_fl"/>
+        <result property="xlfrFldt" column="xlfr_fldt"/>
+        <result property="xlfrVa" column="xlfr_va"/>
+        <result property="xlfrVadt" column="xlfr_vadt"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="xin.cymall.entity.EnElecBaseData">
+		select * from en_elec_base_data where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="xin.cymall.entity.EnElecBaseData">
+		select * from en_elec_base_data t
+		<include refid="where_clause" />
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from en_elec_base_data t  <include refid="where_clause" />
+	</select>
+
+    <!-- 搜索数据区域 -->
+    <sql id="where_clause">
+        <where>
+            1=1
+            <if test="id != null"> and t.id = #{id} </if>
+            <if test="pointId != null and pointId != ''"> and t.point_id = #{pointId} </if>
+            <if test="dataTime != null"> and t.data_time = #{dataTime} </if>
+            <if test="eleFa != null"> and t.ele_fa = #{eleFa} </if>
+            <if test="eleFr != null"> and t.ele_fr = #{eleFr} </if>
+            <if test="eleRa != null"> and t.ele_ra = #{eleRa} </if>
+            <if test="eleRr != null"> and t.ele_rr = #{eleRr} </if>
+            <if test="powAt != null"> and t.pow_at = #{powAt} </if>
+            <if test="powAa != null"> and t.pow_aa = #{powAa} </if>
+            <if test="powAb != null"> and t.pow_ab = #{powAb} </if>
+            <if test="powAc != null"> and t.pow_ac = #{powAc} </if>
+            <if test="powRt != null"> and t.pow_rt = #{powRt} </if>
+            <if test="powRa != null"> and t.pow_ra = #{powRa} </if>
+            <if test="powRb != null"> and t.pow_rb = #{powRb} </if>
+            <if test="powRc != null"> and t.pow_rc = #{powRc} </if>
+            <if test="powfT != null"> and t.powf_t = #{powfT} </if>
+            <if test="powfA != null"> and t.powf_a = #{powfA} </if>
+            <if test="powfB != null"> and t.powf_b = #{powfB} </if>
+            <if test="powfC != null"> and t.powf_c = #{powfC} </if>
+            <if test="volA != null"> and t.vol_a = #{volA} </if>
+            <if test="volB != null"> and t.vol_b = #{volB} </if>
+            <if test="volC != null"> and t.vol_c = #{volC} </if>
+            <if test="curA != null"> and t.cur_a = #{curA} </if>
+            <if test="curB != null"> and t.cur_b = #{curB} </if>
+            <if test="curC != null"> and t.cur_c = #{curC} </if>
+            <if test="vpaA != null"> and t.vpa_a = #{vpaA} </if>
+            <if test="vpaB != null"> and t.vpa_b = #{vpaB} </if>
+            <if test="vpaC != null"> and t.vpa_c = #{vpaC} </if>
+            <if test="cpaA != null"> and t.cpa_a = #{cpaA} </if>
+            <if test="cpaB != null"> and t.cpa_b = #{cpaB} </if>
+            <if test="cpaC != null"> and t.cpa_c = #{cpaC} </if>
+            <if test="xlTo != null"> and t.xl_to = #{xlTo} </if>
+            <if test="xlTodt != null"> and t.xl_todt = #{xlTodt} </if>
+            <if test="xlPi != null"> and t.xl_pi = #{xlPi} </if>
+            <if test="xlPidt != null"> and t.xl_pidt = #{xlPidt} </if>
+            <if test="xlPe != null"> and t.xl_pe = #{xlPe} </if>
+            <if test="xlPedt != null"> and t.xl_pedt = #{xlPedt} </if>
+            <if test="xlFl != null"> and t.xl_fl = #{xlFl} </if>
+            <if test="xlFldt != null"> and t.xl_fldt = #{xlFldt} </if>
+            <if test="xlVa != null"> and t.xl_va = #{xlVa} </if>
+            <if test="xlVadt != null"> and t.xl_vadt = #{xlVadt} </if>
+            <if test="xlfrTo != null"> and t.xlfr_to = #{xlfrTo} </if>
+            <if test="xlfrTodt != null"> and t.xlfr_todt = #{xlfrTodt} </if>
+            <if test="xlfrPi != null"> and t.xlfr_pi = #{xlfrPi} </if>
+            <if test="xlfrPidt != null"> and t.xlfr_pidt = #{xlfrPidt} </if>
+            <if test="xlfrPe != null"> and t.xlfr_pe = #{xlfrPe} </if>
+            <if test="xlfrPedt != null"> and t.xlfr_pedt = #{xlfrPedt} </if>
+            <if test="xlfrFl != null"> and t.xlfr_fl = #{xlfrFl} </if>
+            <if test="xlfrFldt != null"> and t.xlfr_fldt = #{xlfrFldt} </if>
+            <if test="xlfrVa != null"> and t.xlfr_va = #{xlfrVa} </if>
+            <if test="xlfrVadt != null"> and t.xlfr_vadt = #{xlfrVadt} </if>
+		</where>
+	</sql>
+
+	<!--查询 时间集合-->
+	<select id="getXtimeArr" resultType="java.lang.String">
+		SELECT t.data_time FROM en_elec_base_data t WHERE 1=1
+		<if test="pointId != null and pointId.trim() != ''">
+			AND t.point_id = #{pointId}
+		</if>
+		<if test="beginTime != null">
+			AND t.data_time &gt;= #{beginTime}
+		</if>
+		<if test="endTime != null">
+			AND t.data_time &lt;= #{endTime}
+		</if>
+		ORDER BY t.data_time ASC
+	</select>
+
+	<select id="getRealPowAtData" resultType="java.lang.String">
+		SELECT t.pow_at FROM en_elec_base_data t WHERE 1=1
+		<if test="pointId != null and pointId.trim() != ''">
+			AND t.point_id = #{pointId}
+		</if>
+		<if test="beginTime != null">
+			AND t.data_time &gt;= #{beginTime}
+		</if>
+		<if test="endTime != null">
+			AND t.data_time &lt;= #{endTime}
+		</if>
+		ORDER BY t.data_time ASC
+	</select>
+
+	<select id="getRealData" resultMap="enElecBaseDataMap">
+		SELECT t.* FROM en_elec_base_data t WHERE 1=1
+		<if test="pointId != null and pointId.trim() != ''">
+			AND t.point_id = #{pointId}
+		</if>
+		<if test="beginTime != null">
+			AND t.data_time &gt;= #{beginTime}
+		</if>
+		<if test="endTime != null">
+			AND t.data_time &lt;= #{endTime}
+		</if>
+		ORDER BY t.data_time ASC
+	</select>
+
+	<insert id="save" parameterType="xin.cymall.entity.EnElecBaseData">
+		insert into en_elec_base_data
+		(
+			`point_id`,
+			`data_time`, 
+			`ele_fa`, 
+			`ele_fr`, 
+			`ele_ra`, 
+			`ele_rr`, 
+			`pow_at`, 
+			`pow_aa`, 
+			`pow_ab`, 
+			`pow_ac`, 
+			`pow_rt`, 
+			`pow_ra`, 
+			`pow_rb`, 
+			`pow_rc`, 
+			`powf_t`, 
+			`powf_a`, 
+			`powf_b`, 
+			`powf_c`, 
+			`vol_a`, 
+			`vol_b`, 
+			`vol_c`, 
+			`cur_a`, 
+			`cur_b`, 
+			`cur_c`, 
+			`vpa_a`, 
+			`vpa_b`, 
+			`vpa_c`, 
+			`cpa_a`, 
+			`cpa_b`, 
+			`cpa_c`, 
+			`xl_to`, 
+			`xl_todt`, 
+			`xl_pi`, 
+			`xl_pidt`, 
+			`xl_pe`, 
+			`xl_pedt`, 
+			`xl_fl`, 
+			`xl_fldt`, 
+			`xl_va`, 
+			`xl_vadt`, 
+			`xlfr_to`, 
+			`xlfr_todt`, 
+			`xlfr_pi`, 
+			`xlfr_pidt`, 
+			`xlfr_pe`, 
+			`xlfr_pedt`, 
+			`xlfr_fl`, 
+			`xlfr_fldt`, 
+			`xlfr_va`, 
+			`xlfr_vadt`
+		)
+		values
+		(
+			#{pointId},
+			#{dataTime}, 
+			#{eleFa}, 
+			#{eleFr}, 
+			#{eleRa}, 
+			#{eleRr}, 
+			#{powAt}, 
+			#{powAa}, 
+			#{powAb}, 
+			#{powAc}, 
+			#{powRt}, 
+			#{powRa}, 
+			#{powRb}, 
+			#{powRc}, 
+			#{powfT}, 
+			#{powfA}, 
+			#{powfB}, 
+			#{powfC}, 
+			#{volA}, 
+			#{volB}, 
+			#{volC}, 
+			#{curA}, 
+			#{curB}, 
+			#{curC}, 
+			#{vpaA}, 
+			#{vpaB}, 
+			#{vpaC}, 
+			#{cpaA}, 
+			#{cpaB}, 
+			#{cpaC}, 
+			#{xlTo}, 
+			#{xlTodt}, 
+			#{xlPi}, 
+			#{xlPidt}, 
+			#{xlPe}, 
+			#{xlPedt}, 
+			#{xlFl}, 
+			#{xlFldt}, 
+			#{xlVa}, 
+			#{xlVadt}, 
+			#{xlfrTo}, 
+			#{xlfrTodt}, 
+			#{xlfrPi}, 
+			#{xlfrPidt}, 
+			#{xlfrPe}, 
+			#{xlfrPedt}, 
+			#{xlfrFl}, 
+			#{xlfrFldt}, 
+			#{xlfrVa}, 
+			#{xlfrVadt}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="xin.cymall.entity.EnElecBaseData">
+		update en_elec_base_data 
+		<set>
+			<if test="pointId != null">`point_id` = #{pointId}, </if>
+			<if test="dataTime != null">`data_time` = #{dataTime}, </if>
+			<if test="eleFa != null">`ele_fa` = #{eleFa}, </if>
+			<if test="eleFr != null">`ele_fr` = #{eleFr}, </if>
+			<if test="eleRa != null">`ele_ra` = #{eleRa}, </if>
+			<if test="eleRr != null">`ele_rr` = #{eleRr}, </if>
+			<if test="powAt != null">`pow_at` = #{powAt}, </if>
+			<if test="powAa != null">`pow_aa` = #{powAa}, </if>
+			<if test="powAb != null">`pow_ab` = #{powAb}, </if>
+			<if test="powAc != null">`pow_ac` = #{powAc}, </if>
+			<if test="powRt != null">`pow_rt` = #{powRt}, </if>
+			<if test="powRa != null">`pow_ra` = #{powRa}, </if>
+			<if test="powRb != null">`pow_rb` = #{powRb}, </if>
+			<if test="powRc != null">`pow_rc` = #{powRc}, </if>
+			<if test="powfT != null">`powf_t` = #{powfT}, </if>
+			<if test="powfA != null">`powf_a` = #{powfA}, </if>
+			<if test="powfB != null">`powf_b` = #{powfB}, </if>
+			<if test="powfC != null">`powf_c` = #{powfC}, </if>
+			<if test="volA != null">`vol_a` = #{volA}, </if>
+			<if test="volB != null">`vol_b` = #{volB}, </if>
+			<if test="volC != null">`vol_c` = #{volC}, </if>
+			<if test="curA != null">`cur_a` = #{curA}, </if>
+			<if test="curB != null">`cur_b` = #{curB}, </if>
+			<if test="curC != null">`cur_c` = #{curC}, </if>
+			<if test="vpaA != null">`vpa_a` = #{vpaA}, </if>
+			<if test="vpaB != null">`vpa_b` = #{vpaB}, </if>
+			<if test="vpaC != null">`vpa_c` = #{vpaC}, </if>
+			<if test="cpaA != null">`cpa_a` = #{cpaA}, </if>
+			<if test="cpaB != null">`cpa_b` = #{cpaB}, </if>
+			<if test="cpaC != null">`cpa_c` = #{cpaC}, </if>
+			<if test="xlTo != null">`xl_to` = #{xlTo}, </if>
+			<if test="xlTodt != null">`xl_todt` = #{xlTodt}, </if>
+			<if test="xlPi != null">`xl_pi` = #{xlPi}, </if>
+			<if test="xlPidt != null">`xl_pidt` = #{xlPidt}, </if>
+			<if test="xlPe != null">`xl_pe` = #{xlPe}, </if>
+			<if test="xlPedt != null">`xl_pedt` = #{xlPedt}, </if>
+			<if test="xlFl != null">`xl_fl` = #{xlFl}, </if>
+			<if test="xlFldt != null">`xl_fldt` = #{xlFldt}, </if>
+			<if test="xlVa != null">`xl_va` = #{xlVa}, </if>
+			<if test="xlVadt != null">`xl_vadt` = #{xlVadt}, </if>
+			<if test="xlfrTo != null">`xlfr_to` = #{xlfrTo}, </if>
+			<if test="xlfrTodt != null">`xlfr_todt` = #{xlfrTodt}, </if>
+			<if test="xlfrPi != null">`xlfr_pi` = #{xlfrPi}, </if>
+			<if test="xlfrPidt != null">`xlfr_pidt` = #{xlfrPidt}, </if>
+			<if test="xlfrPe != null">`xlfr_pe` = #{xlfrPe}, </if>
+			<if test="xlfrPedt != null">`xlfr_pedt` = #{xlfrPedt}, </if>
+			<if test="xlfrFl != null">`xlfr_fl` = #{xlfrFl}, </if>
+			<if test="xlfrFldt != null">`xlfr_fldt` = #{xlfrFldt}, </if>
+			<if test="xlfrVa != null">`xlfr_va` = #{xlfrVa}, </if>
+			<if test="xlfrVadt != null">`xlfr_vadt` = #{xlfrVadt}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from en_elec_base_data where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from en_elec_base_data where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -100,6 +100,8 @@ public class EnCollectionPointServiceImpl implements EnCollectionPointService {
 	@Override
 	public List<Map<String, Object>> getPointTreeView(List<EnCompany> companies) {
 		List<Map<String, Object>> res = new ArrayList<>();
+		Map<String,Object> stateMap = new HashMap<>();
+		boolean isHasFirstNode = false;
 		for (EnCompany enCompany : companies){
 			Map<String, Object> map = new HashMap<>();
 			map.put("text",enCompany.getCompanyName());
@@ -107,17 +109,29 @@ public class EnCollectionPointServiceImpl implements EnCollectionPointService {
 			map.put("id",enCompany.getId());
 			map.put("selectable",false);
 
+//			stateMap.put("checked",true);
+			stateMap.put("expanded",true);
+			stateMap.put("selected",false);
+			map.put("state",stateMap);
 			Map<String, Object> param = new HashMap<>();
 			param.put("companyId", enCompany.getId());
 			List<EnCollectionPoint> enCollectionPointList = queryAllParent(param);
 			if (enCollectionPointList != null && enCollectionPointList.size()>0){
 				List<Map<String,Object>> mmap = new ArrayList<>();
 				for (EnCollectionPoint enCollectionPoint : enCollectionPointList){
+
 					Map<String, Object> map1 = new HashMap<>();
 					map1.put("text",enCollectionPoint.getCollectionPointName());
 					map1.put("id",enCollectionPoint.getId());
 					map1.put("icon","pointIcon");
 					map1.put("selectable",true);
+					if (!isHasFirstNode){
+						stateMap.put("checked",true);
+						stateMap.put("expanded",true);
+						map1.put("state",stateMap);
+						isHasFirstNode = true;
+					}
+
 					map1.put("nodes",getPointNodes(enCollectionPoint.getId()));
 					mmap.add(map1);
 				}
