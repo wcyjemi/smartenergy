@@ -288,10 +288,24 @@ public class DateUtil {
 	 * @return
 	 * @throws ParseException
 	 */
-	public static String getDayTimeSt() {
+	public static String getDayTimeSt(String dateDay) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String dateDay = dateFormat.format(new Date());
+		if (StringUtil.isBlank(dateDay)){
+			dateDay = dateFormat.format(new Date());
+		}
 		return dateDay + " 00:00:00";
+	}
+	/**
+	 * 获取当天凌晨 时间
+	 * @return
+	 * @throws ParseException
+	 */
+	public static String getDayTimeEd(String dateDay) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		if (StringUtil.isBlank(dateDay)){
+			dateDay = dateFormat.format(new Date());
+		}
+		return dateDay + " 23:59:59";
 	}
 
 	public static ArrayList<String> getAllTimePoint(String beginTime,String endTime){

@@ -14,18 +14,14 @@
     <div class="layui-card-body">
         <input type="hidden" id="compareTime" value="${(compareTime)!""}"/>
         <input type="hidden" id="pointIds" value="${(pointIds)!""}"/>
-        <div id="main" style="height: 400px" cyType="cyEcharts" cyProps="url:'/powerStitcs/powAtRealTime?pointIds=${pointIds}&compareTime=${compareTime}',title:'日电量',realflag:'true'"></div>
+        <div id="main" style="height: 400px" cyType="cyEcharts" cyProps="url:'/powerStitcs/elecRealTime?pointIds=${pointIds}&compareTime=${compareTime}',title:'日电量',realflag:'true'"></div>
         <div class="layui-form">
             <table class="layui-table">
                 <thead>
                     <tr>
-                        <td>监测点名称</td>
-                        <td>最大负荷</td>
-                        <td>最大负荷发生时间</td>
-                        <td>最小负荷</td>
-                        <td>最小负荷发生时间</td>
-                        <td>平均负荷</td>
-                        <td>负荷率</td>
+                        <th>序号</th>
+                        <th>时间</th>
+                        <th>电量</th>
                     </tr>
                 </thead>
                 <tbody id="dataTb">
@@ -41,37 +37,24 @@
     var pointIds = $("#pointIds").val();
     function getTableData() {
         $.ajax({
-            url: '/powerStitcs/powAtTableData',
+            url: '/powerStitcs/elecTableData',
             data:{compareTime:compareTime,pointIds:pointIds},
             async: false,
             dataType: "json",
             success: function (R) {
                 var data = R;
-                console.info(data);
                 if (R.code == 0) {
                     var htmlTr;
-                    for (var i=0;i<data.enRealDataTableVos.length;i++){
+                    for (var i=0;i<data.elecBaseDataList.length;i++){
                         htmlTr = htmlTr + "<tr>";
                         htmlTr = htmlTr + "<td>";
-                        htmlTr = htmlTr + data.enRealDataTableVos[i].pointName;
+                        htmlTr = htmlTr + i;
                         htmlTr = htmlTr + "</td>";
                         htmlTr = htmlTr + "<td>";
-                        htmlTr = htmlTr + data.enRealDataTableVos[i].maxValue + "Kw";
+                        htmlTr = htmlTr + $t.dateFormat(data.elecBaseDataList[i].dataTime);
                         htmlTr = htmlTr + "</td>";
                         htmlTr = htmlTr + "<td>";
-                        htmlTr = htmlTr + data.enRealDataTableVos[i].maxDataTime;
-                        htmlTr = htmlTr + "</td>";
-                        htmlTr = htmlTr + "<td>";
-                        htmlTr = htmlTr + data.enRealDataTableVos[i].minValue + "Kw";
-                        htmlTr = htmlTr + "</td>";
-                        htmlTr = htmlTr + "<td>";
-                        htmlTr = htmlTr + data.enRealDataTableVos[i].minDataTime;
-                        htmlTr = htmlTr + "</td>";
-                        htmlTr = htmlTr + "<td>";
-                        htmlTr = htmlTr + data.enRealDataTableVos[i].avgVal + "Kw";
-                        htmlTr = htmlTr + "</td>";
-                        htmlTr = htmlTr + "<td>";
-                        htmlTr = htmlTr + (data.enRealDataTableVos[i].dataPer*100) + "%";
+                        htmlTr = htmlTr + data.elecBaseDataList[i].eleFa + "Kwh";
                         htmlTr = htmlTr + "</td>";
                         htmlTr = htmlTr + "</tr>";
                     }

@@ -2,6 +2,7 @@ package xin.cymall.service;
 
 import xin.cymall.entity.EnElecBaseData;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,11 @@ import java.util.Map;
 public interface EnElecBaseDataService {
 	
 	EnElecBaseData queryObject(String id);
-	
+
+	EnElecBaseData queryAnyCclumnSort(Map<String,Object> map);
+
+	Float queryAnyCclumnAvg(Map<String,Object> map);
+
 	List<EnElecBaseData> queryList(Map<String, Object> map);
 
 	ArrayList<String> getXtimeArr(Map<String, Object> map);

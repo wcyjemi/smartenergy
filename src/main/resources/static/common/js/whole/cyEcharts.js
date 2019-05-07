@@ -73,7 +73,6 @@
         },
         //加载数据
         drawEcharts : function (url,echartObj,title,grid) {
-            console.info(1);
             echartObj.showLoading();
             $.ajax({
                 url: url,

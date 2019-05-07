@@ -29,8 +29,8 @@
                                 <button id="serchForm" type="button" class="layui-btn search-btn" lay-filter="serchForm">
                                     <i class="fa fa-search">&nbsp;</i>查询
                                 </button>
-                                <button type="reset" class="layui-btn layui-btn-primary"><i
-                                            class="fa fa-refresh">&nbsp;</i>重置
+                                <button type="reset" class="layui-btn layui-btn-primary">
+                                    <i class="fa fa-refresh">&nbsp;</i>重置
                                 </button>
                             </div>
                         </div>

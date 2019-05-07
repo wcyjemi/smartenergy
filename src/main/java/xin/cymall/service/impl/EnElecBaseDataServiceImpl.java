@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,16 @@ public class EnElecBaseDataServiceImpl implements EnElecBaseDataService {
 	@Override
 	public EnElecBaseData queryObject(String id){
 		return enElecBaseDataDao.queryObject(id);
+	}
+
+    @Override
+    public EnElecBaseData queryAnyCclumnSort(Map<String, Object> map) {
+        return enElecBaseDataDao.queryAnyCclumnSort(map);
+    }
+
+	@Override
+	public Float queryAnyCclumnAvg(Map<String, Object> map) {
+		return enElecBaseDataDao.queryAnyCclumnAvg(map);
 	}
 
 	@Override

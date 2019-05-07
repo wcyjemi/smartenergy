@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import xin.cymall.entity.EnElecBaseData;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,5 +25,9 @@ public interface EnElecBaseDataDao extends BaseDao<EnElecBaseData> {
     ArrayList<String> getRealPowAtData(Map<String,Object> param);
 
     List<EnElecBaseData> getRealData(Map<String,Object> param);
+
+    EnElecBaseData queryAnyCclumnSort(Map<String,Object> param);
+
+    Float queryAnyCclumnAvg(Map<String,Object> param);
 
 }

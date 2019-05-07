@@ -67,7 +67,7 @@
                 }
             }
         }
-        var _baseurl = $(".layui-this").attr("data-url");;
+        var _baseurl = $(".layui-this").attr("data-url");
         document.getElementById('tab-content-iframe').src = _baseurl + "?pointIds=" + pointIds;
     }
 </script>

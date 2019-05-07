@@ -19,7 +19,9 @@ import xin.cymall.service.EnCollectionPointService;
 import xin.cymall.service.EnCompanyService;
 import xin.cymall.service.EnElecBaseDataService;
 import xin.cymall.service.SysUserCompanyService;
+import xin.cymall.vo.EnRealDataTableVo;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -72,29 +74,37 @@ public class PowerStitcsController extends AbstractController{
     }
 
     @RequestMapping("/realTimeVis")
-    public String realTimeVis(@RequestParam("pointIds") String pointIds, Model model){
+    public String realTimeVis(String pointIds,String compareTime, Model model){
+//        String pointIds = requestMap.get("pointIds") == null?"":requestMap.get("pointIds").toString();
+//        String compareTime = requestMap.get("compareTime") == null?"" : requestMap.get("compareTime").toString();
         model.addAttribute("pointIds",pointIds);
+        model.addAttribute("compareTime",compareTime==null?"":compareTime);
         return "powrvis/realtimevis";
     }
 
     /**
      * 负荷实时数据
      * @param pointIds
+     * @param compareTime
      * @return
      */
     @ResponseBody
     @RequestMapping("/powAtRealTime")
-    public R powAtRealTime(@RequestParam("pointIds") String pointIds,@RequestParam("beginTime") String beginTime,@RequestParam("endTime") String endTime){
+    public R powAtRealTime(String pointIds,String compareTime){
+        pointIds = pointIds == null ? "" : pointIds;
+        String beginTime;
+        String endTime = "";
+        compareTime = compareTime == null?"" : compareTime;
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        if (StringUtil.isBlank(beginTime)){
-            beginTime = DateUtil.getDayTimeSt();
-        }
-        if (StringUtil.isBlank(endTime)){
-            endTime = dateFormat.format(new Date());
+        beginTime = DateUtil.getDayTimeSt(compareTime);
+        endTime = DateUtil.getDayTimeEd(compareTime);
+        if (StringUtil.isBlank(compareTime)){
+            compareTime = dateFormat.format(new Date());
         }
         Map<String,Object> param = new HashMap<>();
         param.put("beginTime",beginTime);
         param.put("endTime",endTime);
+        param.put("compareTime",compareTime);
         String[] pointIdArr = pointIds.split("_");
         //legendData
         ArrayList<String> legendData = new ArrayList<>();
@@ -117,8 +127,163 @@ public class PowerStitcsController extends AbstractController{
                 seriesArray.add(seriesJsonObj);
             }
         }
-        return R.ok().put("legendData",legendData).put("xAxisData",xAxisData).put("seriesArray",seriesArray);
+        R r = R.ok();
+        r.put("legendData",legendData);
+        r.put("xAxisData",xAxisData);
+        r.put("seriesArray",seriesArray);
+        return r;
     }
+    /**
+     * 负荷实时数据
+     * @param pointIds
+     * @param compareTime
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/powAtTableData")
+    public R powAtTableData(String pointIds,String compareTime){
+        pointIds = pointIds == null ? "" : pointIds;
+        String beginTime;
+        String endTime = "";
+        compareTime = compareTime == null?"" : compareTime;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        beginTime = DateUtil.getDayTimeSt(compareTime);
+        endTime = DateUtil.getDayTimeEd(compareTime);
+        if (StringUtil.isBlank(compareTime)){
+            compareTime = dateFormat.format(new Date());
+        }
+        Map<String,Object> param = new HashMap<>();
+        param.put("beginTime",beginTime);
+        param.put("endTime",endTime);
+        param.put("compareTime",compareTime);
+        String[] pointIdArr = pointIds.split("_");
+        List<EnRealDataTableVo> enRealDataTableVos = new ArrayList<>();
+        for (int i=0; i < pointIdArr.length; i++){
+            if (!StringUtil.isBlank(pointIdArr[i])){
+                EnCollectionPoint enCollectionPoint = enCollectionPointService.queryObject(pointIdArr[i]);
+                param.put("pointId",enCollectionPoint.getId());
+                //获取平均负荷
+                param.put("sortColumn","pow_at");
+                Float powAtAvg = enElecBaseDataService.queryAnyCclumnAvg(param);
+                //获取最大负荷
+                param.put("sort","desc");
+                EnElecBaseData enElecBaseDataMax = enElecBaseDataService.queryAnyCclumnSort(param);
+                //获取最小负荷
+                param.put("sort","asc");
+                EnElecBaseData enElecBaseDataMin = enElecBaseDataService.queryAnyCclumnSort(param);
+                //负荷率
+                BigDecimal powAtPerc = new BigDecimal(powAtAvg).divide(enElecBaseDataMax.getPowAt(),2,BigDecimal.ROUND_HALF_UP);
+                EnRealDataTableVo realDataTableVo = new EnRealDataTableVo();
+                realDataTableVo.setPointName(enCollectionPoint.getCollectionPointName());
+                realDataTableVo.setMaxValue(enElecBaseDataMax.getPowAt());
+                realDataTableVo.setMaxDataTime(dateFormat.format(enElecBaseDataMax.getDataTime()));
+                realDataTableVo.setMinValue(enElecBaseDataMin.getPowAt());
+                realDataTableVo.setMinDataTime(dateFormat.format(enElecBaseDataMin.getDataTime()));
+                realDataTableVo.setAvgVal(new BigDecimal(powAtAvg).setScale(2,BigDecimal.ROUND_HALF_UP));
+                realDataTableVo.setDataPer(powAtPerc);
+                enRealDataTableVos.add(realDataTableVo);
+            }
+        }
+        return R.ok().put("enRealDataTableVos",enRealDataTableVos);
+    }
+
+    @RequestMapping("/realTimeElec")
+    public String realTimeElec(String pointIds,String compareTime, Model model){
+//        String pointIds = requestMap.get("pointIds") == null?"":requestMap.get("pointIds").toString();
+//        String compareTime = requestMap.get("compareTime") == null?"" : requestMap.get("compareTime").toString();
+        model.addAttribute("pointIds",pointIds);
+        model.addAttribute("compareTime",compareTime==null?"":compareTime);
+        return "powrvis/realtimeelec";
+    }
+
+    /**
+     * 电量实时图表数据
+     * @param pointIds
+     * @param compareTime
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/elecRealTime")
+    public R elecRealTime(String pointIds,String compareTime){
+        pointIds = pointIds == null ? "" : pointIds;
+        String beginTime;
+        String endTime = "";
+        compareTime = compareTime == null?"" : compareTime;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        beginTime = DateUtil.getDayTimeSt(compareTime);
+        endTime = DateUtil.getDayTimeEd(compareTime);
+        if (StringUtil.isBlank(compareTime)){
+            compareTime = dateFormat.format(new Date());
+        }
+        Map<String,Object> param = new HashMap<>();
+        param.put("beginTime",beginTime);
+        param.put("endTime",endTime);
+        param.put("compareTime",compareTime);
+        String[] pointIdArr = pointIds.split("_");
+        //legendData
+        ArrayList<String> legendData = new ArrayList<>();
+        //xAxisData
+        ArrayList<String> xAxisData = DateUtil.getAllTimePoint(beginTime,endTime);
+
+        //seriesArray
+        JSONArray seriesArray = new JSONArray();
+        for (int i=0; i < pointIdArr.length; i++){
+            if (!StringUtil.isBlank(pointIdArr[i])){
+                EnCollectionPoint enCollectionPoint = enCollectionPointService.queryObject(pointIdArr[i]);
+                legendData.add(enCollectionPoint.getCollectionPointName());
+                param.put("pointId",enCollectionPoint.getId());
+                JSONObject seriesJsonObj = new JSONObject();
+                seriesJsonObj.put("name",enCollectionPoint.getCollectionPointName());
+                seriesJsonObj.put("type","bar");
+                seriesJsonObj.put("stack","电量");
+                seriesJsonObj.put("smooth",true);
+                seriesJsonObj.put("data",getElecData(enElecBaseDataService.getRealData(param),xAxisData));
+                seriesArray.add(seriesJsonObj);
+            }
+        }
+        R r = R.ok();
+        r.put("legendData",legendData);
+        r.put("xAxisData",xAxisData);
+        r.put("seriesArray",seriesArray);
+        return r;
+    }
+
+    /**
+     * 负荷实时数据
+     * @param pointIds
+     * @param compareTime
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/elecTableData")
+    public R elecTableData(String pointIds,String compareTime){
+        pointIds = pointIds == null ? "" : pointIds;
+        String beginTime;
+        String endTime = "";
+        compareTime = compareTime == null?"" : compareTime;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        beginTime = DateUtil.getDayTimeSt(compareTime);
+        endTime = DateUtil.getDayTimeEd(compareTime);
+        if (StringUtil.isBlank(compareTime)){
+            compareTime = dateFormat.format(new Date());
+        }
+        Map<String,Object> param = new HashMap<>();
+        param.put("beginTime",beginTime);
+        param.put("endTime",endTime);
+        param.put("compareTime",compareTime);
+        String[] pointIdArr = pointIds.split("_");
+        List<EnElecBaseData> elecBaseDataList = new ArrayList<>();
+        for (int i=0; i < pointIdArr.length; i++){
+            if (!StringUtil.isBlank(pointIdArr[i])){
+                EnCollectionPoint enCollectionPoint = enCollectionPointService.queryObject(pointIdArr[i]);
+                param.put("pointId",enCollectionPoint.getId());
+                List<EnElecBaseData> enElecBaseDatas = enElecBaseDataService.getRealData(param);
+                elecBaseDataList.addAll(enElecBaseDatas);
+            }
+        }
+        return R.ok().put("elecBaseDataList",elecBaseDataList);
+    }
+
 
     public ArrayList<String> getPowAt(List<EnElecBaseData> enElecBaseData,ArrayList<String> xAxisData){
         ArrayList<String> dataArr = new ArrayList<>();
@@ -140,6 +305,36 @@ public class PowerStitcsController extends AbstractController{
                     if (DateUtil.compareDate(tempDate,dataTime)==0) {
                         flag = true;
                         dataArr.add(String.valueOf(enElecBaseData1.getPowAt()));
+                        break;
+                    }
+                }
+                if (!flag){
+                    dataArr.add("");
+                }
+            }
+        }
+        return dataArr;
+    }
+    public ArrayList<String> getElecData(List<EnElecBaseData> enElecBaseData,ArrayList<String> xAxisData){
+        ArrayList<String> dataArr = new ArrayList<>();
+        for (String str : xAxisData){
+            if (enElecBaseData == null || enElecBaseData.size()<=0){
+                dataArr.add("");
+            }else {
+                Boolean flag = false;
+                for (EnElecBaseData enElecBaseData1 : enElecBaseData){
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date tempDate = null;
+                    Date dataTime = null;
+                    try {
+                        tempDate = dateFormat.parse(str);
+                        dataTime = dateFormat.parse(dateFormat.format(enElecBaseData1.getDataTime()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if (DateUtil.compareDate(tempDate,dataTime)==0) {
+                        flag = true;
+                        dataArr.add(String.valueOf(enElecBaseData1.getEleFa()));
                         break;
                     }
                 }

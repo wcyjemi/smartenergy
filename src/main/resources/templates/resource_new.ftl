@@ -34,8 +34,8 @@
 <link rel="stylesheet" href="/common/css/yfdc.css">
 <link rel="stylesheet" href="/common/css/public.css">
 <!--日期-->
-<#--<script src="/statics/plugins/My97DatePicker/WdatePicker.js" type="text/javascript" charset="utf-8"></script>-->
-<#--<script src="/statics/plugins/My97DatePicker/duceap.date.js" type="text/javascript" charset="utf-8"></script>-->
+<script src="/statics/plugins/My97DatePicker/WdatePicker.js" type="text/javascript" charset="utf-8"></script>
+<script src="/statics/plugins/My97DatePicker/duceap.date.js" type="text/javascript" charset="utf-8"></script>
 <!--上传-->
 <#--<script src="/statics/plugins/Huploadify/jquery.Huploadify.js" type="text/javascript" charset="utf-8"></script>-->
 <#--<link rel="stylesheet" href="/statics/plugins/Huploadify/Huploadify.css">-->

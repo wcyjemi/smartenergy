@@ -81,6 +81,21 @@
  	<select id="queryTotal" resultType="int">
 		select count(*) from en_elec_base_data t  <include refid="where_clause" />
 	</select>
+	<!-- 查询记录最大DESC 或最小 ASC -->
+    <select id="queryAnyCclumnSort" resultMap="enElecBaseDataMap">
+        select * from en_elec_base_data where 1=1
+		<if test="pointId != null and pointId != ''"> and point_id = #{pointId} </if>
+        <if test="compareTime != null">and DATE_FORMAT(data_time,'%Y-%m-%d') = DATE_FORMAT(#{compareTime},'%Y-%m-%d')</if>
+        order by ${sortColumn} ${sort}
+      	limit 1
+    </select>
+
+	<!-- 查询记录平均值 -->
+	<select id="queryAnyCclumnAvg" resultType="java.lang.Float">
+		select avg(${sortColumn}) from en_elec_base_data where 1=1
+		<if test="pointId != null and pointId != ''"> and point_id = #{pointId} </if>
+		<if test="compareTime != null">and DATE_FORMAT(data_time,'%Y-%m-%d') = DATE_FORMAT(#{compareTime},'%Y-%m-%d')</if>
+	</select>
 
     <!-- 搜索数据区域 -->
     <sql id="where_clause">
